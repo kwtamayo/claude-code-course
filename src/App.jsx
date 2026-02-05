@@ -16,12 +16,18 @@ function App() {
         
         {/* Course overview */}
         <Route path="/course" element={<CoursePage />} />
-        
+  
+	{/* TEST ROUTE - ADD THIS */}
+	<Route path="/test/:id" element={<div style={{padding: '2rem'}}>
+  		<h1>Test Route Works!</h1>
+  		<p>ID from URL: {window.location.pathname}</p>
+	</div>} />
+	      
         {/* Individual modules */}
-        <Route path="/course/module-:moduleId" element={<ModulePage />} />
+        <Route path="/course/module/:moduleId" element={<ModulePage />} />	
         
         {/* Individual lessons */}
-        <Route path="/course/module-:moduleId/lesson-:lessonId" element={<LessonPage />} />
+        <Route path="/course/module/:moduleId/lesson/:lessonId" element={<LessonPage />} />
         
         {/* Claude Code simulator */}
         <Route path="/simulator" element={<SimulatorPage />} />
