@@ -44,7 +44,7 @@ function CoursePage() {
           {courseStructure.modules.map((module) => (
             <Link
               key={module.id}
-              to={`/course/module/${module.id}`}
+              to={`/course/module-${module.id}`}
               className="module-card"
             >
               <div className="module-header">
