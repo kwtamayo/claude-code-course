@@ -150,11 +150,8 @@ export const getProgress = () => {
   }
 }
 
-// Load lesson content (for now, returns placeholder)
+// Load lesson content (fetches actual markdown file)
 export const loadLessonContent = async (moduleId, lessonId) => {
-  // In a real app, this would fetch the markdown file
-  // For now, we'll return placeholder content
-  
   const module = getModule(moduleId)
   const lesson = getLesson(moduleId, lessonId)
   
@@ -162,19 +159,69 @@ export const loadLessonContent = async (moduleId, lessonId) => {
     return null
   }
   
-  // TODO: Actually fetch and parse the markdown file
-  // For MVP, return structured placeholder
-  return {
-    module,
-    lesson,
-    content: `# ${lesson.title}\n\nLesson content will be loaded from markdown files.\n\nFor now, this is a placeholder.`,
-    metadata: {
+  try {
+    // Fetch the markdown file from course-content
+    const response = await fetch(`/course-content/module-${moduleId}/lesson-${lessonId}/lesson.md`)
+    
+    if (!response.ok) {
+      console.warn(`Lesson file not found: module-${moduleId}/lesson-${lessonId}/lesson.md`)
+      // Return placeholder if file doesn't exist
+      return {
+        module,
+        lesson,
+        content: `# ${lesson.title}\n\n*Lesson content coming soon!*\n\nThis lesson is currently being developed.`,
+        metadata: {
+          timeEstimate: lesson.timeEstimate,
+          prerequisites: [],
+          learningObjectives: [],
+        },
+        validation: {
+          tasks: [],
+        },
+      }
+    }
+    
+    const markdown = await response.text()
+    
+    // Parse frontmatter (the JSON metadata at the top)
+    const frontmatterMatch = markdown.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/)
+    
+    let metadata = {
       timeEstimate: lesson.timeEstimate,
       prerequisites: [],
       learningObjectives: [],
-    },
-    validation: {
+    }
+    let validation = {
       tasks: [],
-    },
+    }
+    let content = markdown
+    
+    if (frontmatterMatch) {
+      try {
+        const frontmatter = JSON.parse(frontmatterMatch[1])
+        content = frontmatterMatch[2] // Content after frontmatter
+        
+        metadata = {
+          timeEstimate: frontmatter.timeEstimate || lesson.timeEstimate,
+          prerequisites: frontmatter.prerequisites || [],
+          learningObjectives: frontmatter.learningObjectives || [],
+        }
+        
+        validation = frontmatter.validation || { tasks: [] }
+      } catch (e) {
+        console.error('Failed to parse lesson frontmatter:', e)
+      }
+    }
+    
+    return {
+      module,
+      lesson,
+      content,
+      metadata,
+      validation,
+    }
+  } catch (error) {
+    console.error('Error loading lesson:', error)
+    return null
   }
 }

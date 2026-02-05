@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { getModule, getLesson, loadLessonContent } from '../utils/courseLoader'
 import '../styles/LessonPage.css'
 
@@ -66,12 +68,11 @@ function LessonPage() {
         <div className="container">
           <div className="content-wrapper">
             <div className="lesson-body">
-              {/* For now, display as pre-formatted text */}
-              {/* We'll add proper markdown parsing later */}
+              {/* Render markdown content properly */}
               <div className="markdown-content">
-                <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit' }}>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {lessonData?.content}
-                </pre>
+                </ReactMarkdown>
               </div>
 
               {/* Validation tasks placeholder */}
