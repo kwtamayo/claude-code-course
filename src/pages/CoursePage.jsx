@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { ROUTES } from '../routes'
 import { courseStructure, getTotalCourseTime, getProgress } from '../utils/courseLoader'
 import '../styles/CoursePage.css'
 
@@ -44,7 +45,7 @@ function CoursePage() {
           {courseStructure.modules.map((module) => (
             <Link
               key={module.id}
-              to={`/course/module-${module.id}`}
+              to={ROUTES.module(module.id)}
               className="module-card"
             >
               <div className="module-header">
@@ -108,7 +109,7 @@ function CoursePage() {
         <div className="start-prompt">
           <h2>Ready to Begin?</h2>
           <p>Start with Module 0 to set up your development environment</p>
-          <Link to="/course/module-0" className="btn btn-primary btn-large">
+          <Link to={ROUTES.module(0)} className="btn btn-primary btn-large">
             Start Module 0
           </Link>
         </div>

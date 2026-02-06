@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { ROUTES } from '../routes'
 import '../styles/HomePage.css'
 
 function HomePage() {
@@ -16,7 +17,7 @@ function HomePage() {
             using Claude Code and Cursor IDE
           </p>
           <div className="hero-cta">
-            <Link to="/course" className="btn btn-primary btn-large">
+            <Link to={ROUTES.course()} className="btn btn-primary btn-large">
               Start Learning
             </Link>
             <a href="https://github.com/kwtamayo/claude-code-course" 
@@ -92,7 +93,7 @@ function HomePage() {
         <div className="container">
           <h2>Ready to Start?</h2>
           <p>No coding experience required. Just bring curiosity and a weekend.</p>
-          <Link to="/course" className="btn btn-primary btn-large">
+          <Link to={ROUTES.course()} className="btn btn-primary btn-large">
             Begin Your Journey
           </Link>
         </div>

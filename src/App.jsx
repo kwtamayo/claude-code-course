@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { ROUTE_PATTERNS } from './routes'
 import HomePage from './pages/HomePage'
 import CoursePage from './pages/CoursePage'
 import ModulePage from './pages/ModulePage'
@@ -12,29 +13,23 @@ function App() {
     <Router>
       <Routes>
         {/* Home page */}
-        <Route path="/" element={<HomePage />} />
+        <Route path={ROUTE_PATTERNS.home} element={<HomePage />} />
         
         {/* Course overview */}
-        <Route path="/course" element={<CoursePage />} />
-  
-	{/* TEST ROUTE - ADD THIS */}
-	<Route path="/test/:id" element={<div style={{padding: '2rem'}}>
-  		<h1>Test Route Works!</h1>
-  		<p>ID from URL: {window.location.pathname}</p>
-	</div>} />
-	      
+        <Route path={ROUTE_PATTERNS.course} element={<CoursePage />} />
+        
         {/* Individual modules */}
-        <Route path="/course/module/:moduleId" element={<ModulePage />} />	
+        <Route path={ROUTE_PATTERNS.module} element={<ModulePage />} />
         
         {/* Individual lessons */}
-        <Route path="/course/module/:moduleId/lesson/:lessonId" element={<LessonPage />} />
+        <Route path={ROUTE_PATTERNS.lesson} element={<LessonPage />} />
         
         {/* Claude Code simulator */}
-        <Route path="/simulator" element={<SimulatorPage />} />
+        <Route path={ROUTE_PATTERNS.simulator} element={<SimulatorPage />} />
         
         {/* 404 page */}
-        <Route path="/404" element={<NotFoundPage />} />
-        <Route path="*" element={<Navigate to="/404" replace />} />
+        <Route path={ROUTE_PATTERNS.notFound} element={<NotFoundPage />} />
+        <Route path={ROUTE_PATTERNS.catchAll} element={<Navigate to="/404" replace />} />
       </Routes>
     </Router>
   )

@@ -3,24 +3,20 @@ export const courseStructure = {
   modules: [
     {
       id: 0,
-      title: 'Clean Slate Setup',
-      description: 'Prepare your development environment from scratch',
-      timeEstimate: '30 minutes',
+      title: 'Setup Your Environment',
+      description: 'Get your Mac ready for development in one streamlined lesson',
+      timeEstimate: '20 minutes',
       lessons: [
         {
           id: 1,
-          title: 'Environment Discovery',
-          timeEstimate: '10 minutes',
+          title: 'Setup Your Development Environment',
+          timeEstimate: '20 minutes',
         },
         {
           id: 2,
-          title: 'Clean Slate Script',
-          timeEstimate: '10 minutes',
-        },
-        {
-          id: 3,
-          title: 'Fresh Installation',
-          timeEstimate: '10 minutes',
+          title: 'Troubleshooting Guide',
+          timeEstimate: 'As needed',
+          optional: true,
         },
       ],
     },

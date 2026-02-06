@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { ROUTES } from '../routes'
 import { getModule, getLesson, loadLessonContent } from '../utils/courseLoader'
 import '../styles/LessonPage.css'
 
@@ -25,7 +26,7 @@ function LessonPage() {
 
   // If module or lesson doesn't exist, redirect to 404
   if (!module || !lesson) {
-    return <Navigate to="/404" replace />
+    return <Navigate to={ROUTES.notFound()} replace />
   }
 
   if (loading) {
@@ -48,7 +49,7 @@ function LessonPage() {
     <div className="lesson-page">
       <header className="lesson-header">
         <div className="container">
-          <Link to={`/course/module/${moduleId}`} className="back-link">
+          <Link to={ROUTES.module(moduleId)} className="back-link">
             ← Back to Module {moduleId}
           </Link>
           <div className="lesson-breadcrumb">
@@ -131,7 +132,7 @@ function LessonPage() {
             <div className="nav-buttons">
               {previousLesson ? (
                 <Link 
-                  to={`/course/module/${moduleId}/lesson/${previousLesson.id}`}
+                  to={ROUTES.lesson(moduleId, previousLesson.id)}
                   className="nav-button nav-prev"
                 >
                   <span className="nav-label">Previous</span>
@@ -145,7 +146,7 @@ function LessonPage() {
 
               {nextLesson ? (
                 <Link 
-                  to={`/course/module/${moduleId}/lesson/${nextLesson.id}`}
+                  to={ROUTES.lesson(moduleId, nextLesson.id)}
                   className="nav-button nav-next"
                 >
                   <span className="nav-label">Next</span>
@@ -153,7 +154,7 @@ function LessonPage() {
                 </Link>
               ) : (
                 <Link 
-                  to={`/course/module/${moduleId}`}
+                  to={ROUTES.module(moduleId)}
                   className="nav-button nav-next"
                 >
                   <span className="nav-label">Complete</span>

@@ -2,266 +2,443 @@
 {
   "moduleId": "module-0",
   "lessonId": "lesson-1",
-  "title": "Environment Discovery",
-  "timeEstimate": "10 minutes",
+  "title": "Setup Your Development Environment",
+  "timeEstimate": "20 minutes",
   "prerequisites": [],
   "learningObjectives": [
     "Open and use the Terminal application",
-    "Run basic command-line commands",
-    "Understand what's currently installed on your system",
-    "Identify potential conflicts for the course"
+    "Check what development tools are installed",
+    "Install missing tools (Homebrew, Git, Node.js)",
+    "Verify your setup is working correctly"
   ],
   "validation": {
     "tasks": [
       {
-        "id": "open-terminal",
-        "description": "Open the Terminal application",
-        "check": "terminal_opened",
-        "hint": "Find Terminal in Applications > Utilities, or use Spotlight (Cmd+Space) and type 'Terminal'"
+        "id": "verify-macos",
+        "description": "Verify your macOS version is 10.15 or higher",
+        "type": "paste-output",
+        "expectedPatterns": [
+          "ProductVersion.*1[1-9]\\.",
+          "ProductVersion.*[2-9][0-9]\\."
+        ],
+        "hints": [
+          "Run: sw_vers",
+          "Look for ProductVersion line",
+          "You need version 10.15 (Catalina) or higher"
+        ]
       },
       {
-        "id": "check-macos-version",
-        "description": "Check your macOS version",
-        "command": "sw_vers",
-        "check": "command_executed('sw_vers')",
-        "hint": "Type 'sw_vers' and press Enter to see your macOS version"
+        "id": "verify-homebrew",
+        "description": "Verify Homebrew is installed",
+        "type": "paste-output",
+        "expectedPatterns": [
+          "Homebrew \\d+",
+          "/opt/homebrew|/usr/local"
+        ],
+        "hints": [
+          "Run: brew --version",
+          "If not installed, follow installation instructions in lesson"
+        ]
       },
       {
-        "id": "check-homebrew",
-        "description": "Check if Homebrew is installed",
-        "command": "brew --version",
-        "check": "command_attempted('brew --version')",
-        "hint": "Type 'brew --version' and press Enter. It's okay if you get an error!"
+        "id": "verify-node",
+        "description": "Verify Node.js is installed",
+        "type": "paste-output",
+        "expectedPatterns": [
+          "v\\d+\\.\\d+\\.\\d+"
+        ],
+        "hints": [
+          "Run: node --version",
+          "You should see v18.0.0 or higher"
+        ]
       },
       {
-        "id": "check-git",
-        "description": "Check if Git is installed",
-        "command": "git --version",
-        "check": "command_attempted('git --version')",
-        "hint": "Type 'git --version' and press Enter"
-      },
-      {
-        "id": "check-node",
-        "description": "Check if Node.js is installed",
-        "command": "node --version",
-        "check": "command_attempted('node --version')",
-        "hint": "Type 'node --version' and press Enter. It's okay if it's not installed!"
+        "id": "verify-git",
+        "description": "Verify Git is installed",
+        "type": "paste-output",
+        "expectedPatterns": [
+          "git version \\d+"
+        ],
+        "hints": [
+          "Run: git --version",
+          "Any version 2.0 or higher is fine"
+        ]
       }
-    ]
-  },
-  "solution": {
-    "commands": [
-      "# Open Terminal (use Spotlight: Cmd+Space, type 'Terminal')",
-      "sw_vers",
-      "brew --version",
-      "git --version",
-      "node --version"
     ]
   }
 }
 ---
 
-# Lesson 1: Environment Discovery
+# Setup Your Development Environment
 
-Welcome to your first lesson! In this lesson, you'll learn to use the **Terminal** - a powerful tool that lets you control your computer using text commands instead of clicking with your mouse.
+Welcome! In this lesson, you'll set up everything you need to start coding. Don't worry if you're new to this - we'll go step by step.
 
-Don't worry if this feels unfamiliar - we'll take it step by step.
+## What You'll Install
 
-## What is the Terminal?
+By the end of this lesson, you'll have:
 
-The Terminal is an application that gives you direct access to your computer's command line. Think of it like having a conversation with your computer using text commands.
+- **Terminal** (already on your Mac)
+- **Homebrew** (package manager - like an app store for developers)
+- **Git** (version control - tracks code changes)
+- **Node.js** (runs JavaScript outside browsers)
 
-**Why use Terminal instead of clicking around?**
-- It's faster once you learn it
-- It's more powerful (you can do things impossible with clicks)
-- It's essential for software development
-- It's how you'll use Claude Code and most development tools
+**Total time:** About 20 minutes
+
+---
 
 ## Step 1: Open Terminal
 
-There are several ways to open Terminal on a Mac:
+**What is Terminal?** It's an app that lets you control your computer using text commands instead of clicking.
 
-### Method 1: Spotlight Search (Easiest)
-1. Press **Cmd + Space** (this opens Spotlight)
-2. Type **Terminal**
-3. Press **Enter** when you see the Terminal app
+### Find Terminal:
 
-### Method 2: Through Applications
-1. Open **Finder**
-2. Go to **Applications** folder
-3. Open the **Utilities** folder
-4. Double-click **Terminal**
+**Method 1 (Easiest):**
+1. Press `Cmd + Space` to open Spotlight
+2. Type "Terminal"
+3. Press Enter
 
-### Method 3: Launchpad
-1. Open **Launchpad** (F4 or pinch gesture on trackpad)
-2. Type **Terminal** in the search
-3. Click the Terminal icon
+**Method 2:**
+1. Open Finder
+2. Go to Applications → Utilities
+3. Double-click Terminal
 
-**You should now see a window that looks something like this:**
-
+You'll see a window with text like:
 ```
-Last login: Fri Jan 30 10:30:25 on ttys000
 yourusername@Macs-MacBook-Pro ~ %
 ```
 
-The `%` or `$` at the end is the **prompt** - it means Terminal is ready for you to type a command!
+**This is your "prompt"** - it means Terminal is ready for commands!
 
-## Step 2: Your First Command - Check macOS Version
+---
 
-Let's run your first command! We're going to check what version of macOS you're running.
+## Step 2: Check Your macOS Version
 
-**Type this exactly and press Enter:**
+Let's make sure your Mac is compatible with this course.
+
+**Type this and press Enter:**
 
 ```bash
 sw_vers
 ```
 
-**What you'll see:**
-
+**You'll see something like:**
 ```
 ProductName:        macOS
 ProductVersion:     14.2.1
 BuildVersion:       23C71
 ```
 
-**What this means:**
-- `ProductName`: The operating system name
-- `ProductVersion`: Your macOS version number (we need 10.15 or higher for this course)
-- `BuildVersion`: The specific build identifier
+**✅ You're good if:** ProductVersion is **10.15 or higher**  
+**❌ If lower:** You'll need to update macOS first
 
-✅ **Validation Check:** Your macOS version should be 10.15 or higher.
+---
 
-## Step 3: Check for Homebrew
+## Step 3: Check What's Already Installed
 
-**Homebrew** is a "package manager" - think of it like an App Store for developer tools. Let's see if you already have it installed.
+Let's see what you already have. Try each command:
 
-**Type this and press Enter:**
+### Check for Homebrew:
 
 ```bash
 brew --version
 ```
 
-**You'll see one of two results:**
+**If you see:** `Homebrew 4.x.x` → ✅ Already installed! Skip to Step 4  
+**If you see:** `command not found` → ⬇️ Continue to install it
 
-### If Homebrew IS installed:
-```
-Homebrew 4.2.0
-```
-
-### If Homebrew is NOT installed:
-```
-zsh: command not found: brew
-```
-
-**Both are fine!** We're just checking what you have. Make note of whether you saw a version number or "command not found".
-
-## Step 4: Check for Git
-
-**Git** is version control software - it tracks changes to your code. Let's check if it's installed.
-
-**Type this and press Enter:**
+### Check for Git:
 
 ```bash
 git --version
 ```
 
-**Possible results:**
+**If you see:** `git version 2.x` → ✅ You have it!  
+**If you see:** Popup asking to install → ❌ Click "Not Now" (we'll do it properly)
 
-### If Git IS installed:
-```
-git version 2.39.2
-```
-
-### If Git is NOT installed, macOS might prompt you:
-```
-The "git" command requires the command line developer tools.
-Would you like to install the tools now?
-```
-
-**Don't click Install yet!** Just click "Not Now" - we'll install everything properly in Lesson 3.
-
-## Step 5: Check for Node.js
-
-**Node.js** lets you run JavaScript outside of a web browser. Let's see if you have it.
-
-**Type this and press Enter:**
+### Check for Node.js:
 
 ```bash
 node --version
 ```
 
-**Possible results:**
-
-### If Node.js IS installed:
-```
-v18.19.0
-```
-
-### If Node.js is NOT installed:
-```
-zsh: command not found: node
-```
-
-Again, both are fine! We're gathering information.
-
-## Understanding Your Results
-
-Based on what you saw, you fall into one of these categories:
-
-### Scenario A: Nothing is installed
-- You saw "command not found" for brew, git, and node
-- **This is actually ideal!** Clean slate, easy setup ahead.
-
-### Scenario B: Some things are installed
-- You have some tools but not others
-- **This is common!** We'll remove conflicts and reinstall everything consistently.
-
-### Scenario C: Everything is installed
-- You saw version numbers for all tools
-- **We'll still need to check versions match what the course expects**
-
-## What You've Learned
-
-🎉 Congratulations! You've just:
-- ✅ Opened and used the Terminal
-- ✅ Run your first command-line commands
-- ✅ Discovered what's currently on your system
-- ✅ Learned what tools developers use
-
-## Next Steps
-
-Now that you know what's on your system, we'll:
-1. Create a discovery report (Lesson 2)
-2. Safely remove any conflicts
-3. Install everything fresh and properly
-
-## Troubleshooting
-
-### "I can't find Terminal"
-- Make sure you're on a Mac (this course requires macOS)
-- Try the Spotlight method (Cmd + Space, type "Terminal")
-- Terminal is built into macOS, so it's definitely there!
-
-### "The commands aren't working"
-- Make sure you're pressing Enter after typing each command
-- Check for typos - commands must be typed exactly
-- Make sure there are no extra spaces before the command
-
-### "I got a different message"
-- That's okay! Every system is a bit different
-- As long as you saw either a version number OR "command not found", you're good
-- Note down what you saw - it might be helpful later
-
-## Key Concepts
-
-**Terminal**: An application for running text commands  
-**Command**: An instruction you type and run by pressing Enter  
-**Package Manager**: Software that installs other software (like Homebrew)  
-**Version Control**: Software that tracks changes to files (like Git)
+**If you see:** `v18.x.x` or higher → ✅ You have it!  
+**If you see:** `command not found` → ⬇️ We'll install it
 
 ---
 
-**Ready for the next lesson?**
+## Step 4: Install What's Missing
 
-**Next:** [Lesson 2: Clean Slate Script →](../lesson-2/lesson.md)  
-**Back:** [Module 0 Overview](../README.md)
+### A. Install Homebrew (If You Don't Have It)
+
+Homebrew is **essential** - it makes installing everything else easy.
+
+**Run this command:**
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+**What happens:**
+1. **Explains what it will do** - read it!
+2. **Asks for your password** - type it (you won't see characters, that's normal)
+3. **Installs for 5-10 minutes** - be patient, don't close Terminal!
+4. **Shows "Next steps"** - read carefully!
+
+**IMPORTANT - Apple Silicon Macs (M1/M2/M3):**
+
+If you see a message about adding Homebrew to your PATH, run these commands:
+
+```bash
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
+
+**Intel Macs:** This happens automatically.
+
+**Not sure which Mac you have?** Click the Apple logo → "About This Mac" → Look for "Chip" (if it says M1/M2/M3, it's Apple Silicon)
+
+**Verify Homebrew works:**
+
+```bash
+brew --version
+```
+
+You should see: `Homebrew 4.x.x`
+
+**If "command not found":**
+- Close Terminal completely
+- Open a new Terminal window
+- Try again
+
+---
+
+### B. Install Git (If You Don't Have It)
+
+**Check again:**
+
+```bash
+git --version
+```
+
+**If you don't have it or have an old version:**
+
+```bash
+brew install git
+```
+
+Takes 2-3 minutes.
+
+**Verify:**
+
+```bash
+git --version
+```
+
+Should show: `git version 2.43.0` (or similar)
+
+---
+
+### C. Install Node.js (If You Don't Have It)
+
+**Check again:**
+
+```bash
+node --version
+```
+
+**If you don't have it:**
+
+```bash
+brew install node
+```
+
+Takes 3-5 minutes. This installs both Node.js AND npm (package manager).
+
+**Verify Node:**
+
+```bash
+node --version
+```
+
+Should show: `v20.11.0` (or similar)
+
+**Verify npm:**
+
+```bash
+npm --version
+```
+
+Should show: `10.2.4` (or similar)
+
+---
+
+## Step 5: Test Everything Works
+
+Let's make sure your setup is solid!
+
+### Quick Test: Install a Fun Package
+
+```bash
+npm install -g cowsay
+```
+
+**What this does:** Installs a silly program globally (available everywhere)
+
+**Now run it:**
+
+```bash
+cowsay "My dev environment works!"
+```
+
+**If you see an ASCII cow, you're ready to code!** 🐮
+
+```
+ ____________________________
+< My dev environment works! >
+ ----------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+```
+
+---
+
+## Step 6: Configure Git (Important!)
+
+Git needs to know who you are for tracking changes.
+
+**Set your name:**
+
+```bash
+git config --global user.name "Your Name"
+```
+
+**Set your email:**
+
+```bash
+git config --global user.email "your.email@example.com"
+```
+
+**Use the email associated with your GitHub account** if you have one!
+
+**Verify it worked:**
+
+```bash
+git config --global user.name
+git config --global user.email
+```
+
+---
+
+## What You've Accomplished
+
+🎉 **Congratulations!** You now have a complete development environment:
+
+- ✅ Terminal - Your command center
+- ✅ Homebrew - Package manager
+- ✅ Git - Version control
+- ✅ Node.js & npm - JavaScript runtime and packages
+
+You're ready to start coding!
+
+---
+
+## Quick Reference
+
+**Commands you'll use often:**
+
+```bash
+# Check versions
+brew --version
+git --version
+node --version
+npm --version
+
+# Install packages with Homebrew
+brew install <package-name>
+
+# Install JavaScript packages with npm
+npm install <package-name>
+
+# Update Homebrew
+brew update
+brew upgrade
+```
+
+---
+
+## Troubleshooting
+
+### "Permission denied" errors
+
+**Don't use `sudo` with Homebrew!** If you have permission issues:
+
+```bash
+sudo chown -R $(whoami) /opt/homebrew
+```
+
+Or for Intel Macs:
+
+```bash
+sudo chown -R $(whoami) /usr/local
+```
+
+### "Command not found: brew"
+
+**Solution:**
+1. Close Terminal completely (Cmd+Q)
+2. Open new Terminal
+3. Try again
+
+Still not working? You may need to add Homebrew to your PATH manually:
+
+```bash
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+source ~/.zprofile
+```
+
+### npm install fails with EACCES
+
+**Solution:** npm installed with wrong permissions. Fix it:
+
+```bash
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zprofile
+source ~/.zprofile
+```
+
+### Git shows "xcrun: error"
+
+**Solution:** Accept Xcode license:
+
+```bash
+sudo xcodebuild -license accept
+```
+
+### Installation taking forever?
+
+**This is normal!** First-time Homebrew installs can take 10-15 minutes. Be patient, don't close Terminal.
+
+### Still stuck?
+
+Check [Lesson 2: Troubleshooting Guide](/course/module/0/lesson/2) for more help!
+
+---
+
+## Key Concepts You Learned
+
+**Terminal**: Application for running text commands  
+**Command**: Instruction you type and execute  
+**Package Manager**: Tool that installs other tools (Homebrew, npm)  
+**Version Control**: System for tracking code changes (Git)  
+**Runtime**: Environment where code runs (Node.js for JavaScript)  
+**Global Install**: Available everywhere on your system
+
+---
+
+**Next:** [Module 1: Command Line Basics →](/course)  
+**Having issues?** [Lesson 2: Troubleshooting →](/course/module/0/lesson/2)  
+**Module Overview:** [Module 0: Setup](/course/module/0)

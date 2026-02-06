@@ -2,324 +2,321 @@
 {
   "moduleId": "module-0",
   "lessonId": "lesson-2",
-  "title": "Clean Slate Script",
-  "timeEstimate": "10 minutes",
+  "title": "Troubleshooting Guide",
+  "timeEstimate": "As needed",
   "prerequisites": ["module-0-lesson-1"],
   "learningObjectives": [
-    "Create and run a bash script",
-    "Understand script output and system scanning",
-    "Identify what needs to be cleaned up",
-    "Make informed decisions about removing software"
+    "Diagnose common installation problems",
+    "Fix permission issues",
+    "Resolve PATH problems",
+    "Know when to start fresh"
   ],
   "validation": {
-    "tasks": [
-      {
-        "id": "create-script",
-        "description": "Create the discovery script file",
-        "type": "paste-output",
-        "expectedPatterns": [
-          "discover.sh",
-          "-rw-r--r--"
-        ],
-        "hints": [
-          "Use the 'touch' command to create a file",
-          "Use 'ls -la' to verify the file was created"
-        ]
-      },
-      {
-        "id": "make-executable",
-        "description": "Make the script executable",
-        "type": "paste-output",
-        "expectedPatterns": [
-          "-rwxr-xr-x",
-          "discover.sh"
-        ],
-        "hints": [
-          "Use 'chmod +x discover.sh' to make it executable",
-          "The 'x' in permissions means executable"
-        ]
-      },
-      {
-        "id": "run-script",
-        "description": "Run the discovery script",
-        "type": "paste-output",
-        "expectedPatterns": [
-          "System Discovery Report",
-          "macOS Version"
-        ],
-        "hints": [
-          "Run the script with './discover.sh'",
-          "Make sure you're in the directory where the script is"
-        ]
-      }
-    ]
+    "tasks": []
   }
 }
 ---
 
-# Lesson 2: Clean Slate Script
+# Troubleshooting Guide
 
-Now that you know what's on your system, let's create a script that helps you make informed decisions about what to keep and what to remove.
+**Only here if something went wrong in Lesson 1!** This is a reference guide for common issues.
 
-## What is a Script?
+## Quick Diagnosis
 
-A **script** is a file containing commands that the computer can run automatically. Instead of typing commands one by one, you put them all in a file and run them together.
-
-**Think of it like a recipe:**
-- A recipe lists steps in order
-- You follow them one by one
-- Scripts do the same, but for the computer
-
-## Step 1: Create a New Directory
-
-Let's keep our work organized. Create a folder for this course:
+Run this to check your setup:
 
 ```bash
-mkdir -p ~/course-workspace
-cd ~/course-workspace
+echo "=== System Check ==="
+echo "macOS: $(sw_vers -productVersion)"
+echo "Homebrew: $(brew --version 2>&1 | head -1)"
+echo "Git: $(git --version 2>&1)"
+echo "Node: $(node --version 2>&1)"
+echo "npm: $(npm --version 2>&1)"
 ```
-
-**What this does:**
-- `mkdir -p` creates a directory (the `-p` flag means "create parent directories if needed")
-- `~/course-workspace` means a folder called "course-workspace" in your home directory
-- `cd` changes to that directory
-
-## Step 2: Create the Discovery Script
-
-Now let's create our first script file:
-
-```bash
-touch discover.sh
-```
-
-**Verify it was created:**
-```bash
-ls -la discover.sh
-```
-
-You should see:
-```
--rw-r--r--  1 yourusername  staff  0 Jan 30 12:00 discover.sh
-```
-
-## Step 3: Add Content to the Script
-
-We'll use `nano` to edit the file:
-
-```bash
-nano discover.sh
-```
-
-**Copy and paste this entire script:**
-
-```bash
-#!/bin/bash
-
-# System Discovery Script
-# This script scans your Mac for development tools
-
-echo "=================================="
-echo "System Discovery Report"
-echo "=================================="
-echo ""
-
-# Check macOS version
-echo "📍 macOS Version:"
-sw_vers
-echo ""
-
-# Check for Homebrew
-echo "📦 Homebrew:"
-if command -v brew &> /dev/null; then
-    echo "✓ Installed"
-    brew --version
-    echo "Location: $(which brew)"
-    
-    # Check for permission issues
-    BREW_PREFIX=$(brew --prefix)
-    if [ ! -w "$BREW_PREFIX" ]; then
-        echo "⚠️  WARNING: Permission issues detected"
-    fi
-else
-    echo "✗ Not installed"
-fi
-echo ""
-
-# Check for Git
-echo "🔀 Git:"
-if command -v git &> /dev/null; then
-    echo "✓ Installed"
-    git --version
-    echo "Location: $(which git)"
-else
-    echo "✗ Not installed"
-fi
-echo ""
-
-# Check for Node.js
-echo "🟢 Node.js:"
-if command -v node &> /dev/null; then
-    echo "✓ Installed"
-    node --version
-    echo "npm version: $(npm --version)"
-    echo "Location: $(which node)"
-else
-    echo "✗ Not installed"
-fi
-echo ""
-
-# Check for Python
-echo "🐍 Python:"
-if command -v python3 &> /dev/null; then
-    echo "✓ Installed"
-    python3 --version
-    echo "Location: $(which python3)"
-else
-    echo "✗ Not installed"
-fi
-echo ""
-
-# Check disk space
-echo "💾 Disk Space:"
-df -h / | tail -1 | awk '{print "Available: " $4 " of " $2}'
-echo ""
-
-echo "=================================="
-echo "Report Complete"
-echo "=================================="
-```
-
-**Save the file:**
-- Press `Ctrl+X`
-- Press `Y` to confirm
-- Press `Enter` to save
-
-## Step 4: Make the Script Executable
-
-Right now, the file exists but can't be run. We need to give it "execute" permission:
-
-```bash
-chmod +x discover.sh
-```
-
-**Verify permissions changed:**
-```bash
-ls -la discover.sh
-```
-
-Now you should see:
-```
--rwxr-xr-x  1 yourusername  staff  1234 Jan 30 12:00 discover.sh
-```
-
-**Notice the 'x'** - that means "executable"!
-
-## Step 5: Run Your Script
-
-```bash
-./discover.sh
-```
-
-**What `./` means:**
-- `.` = current directory
-- `/` = path separator
-- `discover.sh` = the script name
-- Together: "run discover.sh from the current directory"
-
-## Understanding the Output
-
-Your script will show you:
-
-### ✓ Green Checkmarks
-Things that ARE installed on your system
-
-### ✗ Red X's  
-Things that are NOT installed
-
-### ⚠️ Warnings
-Things that might cause problems (like permission issues)
-
-## What to Look For
-
-**Ideal "Clean Slate" Result:**
-```
-✗ Homebrew not installed
-✗ Node.js not installed
-✓ Git installed (but might be Apple's default version)
-```
-
-**Common "Messy" Result:**
-```
-✓ Homebrew installed
-⚠️ WARNING: Permission issues detected
-✓ Node.js installed (v14.2.0)
-✓ Python installed
-```
-
-## Making Decisions
-
-Based on your output, you'll decide:
-
-### Scenario A: Mostly Clean
-If you see mostly ✗ symbols, you're in great shape! You can skip cleanup and go straight to fresh installation.
-
-### Scenario B: Some Old Stuff
-If you have some ✓ symbols but no ⚠️ warnings, you might want to keep things as-is or do selective cleanup.
-
-### Scenario C: Messy with Warnings
-If you see ⚠️ symbols (especially permission issues), you'll benefit from a full cleanup and fresh start.
-
-## Save Your Report
-
-Let's save the output for reference:
-
-```bash
-./discover.sh > system-report.txt
-```
-
-**This creates a file with your report.** You can view it anytime:
-
-```bash
-cat system-report.txt
-```
-
-## What You've Learned
-
-🎉 Congratulations! You just:
-- ✅ Created your first bash script
-- ✅ Made a file executable
-- ✅ Ran a script from the command line
-- ✅ Understood file permissions
-- ✅ Learned to redirect output to a file
-
-## Key Concepts
-
-**Script**: A file containing commands to run automatically  
-**Executable**: A file that can be run as a program  
-**Permissions**: Rules about who can read, write, or execute a file  
-**`chmod`**: Command to change file permissions  
-**`./`**: Means "run from current directory"
-
-## Troubleshooting
-
-### "Permission denied"
-You forgot to run `chmod +x discover.sh`. Go back to Step 4.
-
-### "No such file or directory"
-You're not in the right directory. Run:
-```bash
-cd ~/course-workspace
-ls
-```
-You should see `discover.sh` listed.
-
-### "Command not found: brew" (or similar)
-That's expected! The script is CHECKING if things are installed. If they're not, it says so.
-
-### Script runs but shows nothing
-Make sure you copied the entire script. It's long! Scroll up in nano to verify.
 
 ---
 
-**Next:** [Lesson 3: Fresh Installation →](../lesson-3/lesson.md)  
-**Back:** [Lesson 1: Environment Discovery ←](../lesson-1/lesson.md)
+## Common Issues
+
+### 1. "command not found: brew"
+
+**Symptoms:** Homebrew commands don't work
+
+**Causes:**
+- Homebrew not installed
+- Not in your PATH
+- Need to restart Terminal
+
+**Solutions:**
+
+**Try 1:** Restart Terminal
+- Close Terminal completely (Cmd+Q)
+- Open new Terminal
+- Try `brew --version` again
+
+**Try 2:** Add to PATH manually
+
+For Apple Silicon (M1/M2/M3):
+```bash
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+source ~/.zprofile
+```
+
+For Intel Mac:
+```bash
+echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zprofile
+source ~/.zprofile
+```
+
+**Try 3:** Reinstall Homebrew
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+---
+
+### 2. Permission Errors
+
+**Symptoms:**
+- "Permission denied"
+- "EACCES" errors
+- Can't write to `/usr/local` or `/opt/homebrew`
+
+**Cause:** Files owned by root or another user
+
+**Solution - Fix Homebrew Permissions:**
+
+For Apple Silicon:
+```bash
+sudo chown -R $(whoami) /opt/homebrew
+```
+
+For Intel Mac:
+```bash
+sudo chown -R $(whoami) /usr/local
+```
+
+**Solution - Fix npm Permissions:**
+
+```bash
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zprofile
+source ~/.zprofile
+```
+
+**Never use `sudo npm install`!** This causes more permission problems.
+
+---
+
+### 3. Multiple Versions Conflicts
+
+**Symptoms:**
+- Commands behave unexpectedly
+- Old versions still showing up
+- "which node" shows wrong location
+
+**Diagnosis:**
+
+```bash
+which -a node
+which -a npm
+which -a git
+```
+
+If you see multiple paths, you have conflicts.
+
+**Solution - Clean PATH:**
+
+1. **Check your shell config:**
+
+```bash
+cat ~/.zshrc
+cat ~/.zprofile
+cat ~/.bash_profile
+```
+
+Look for duplicate PATH additions or old version managers (nvm, rvm, etc.)
+
+2. **Clean up duplicates:**
+
+```bash
+nano ~/.zprofile
+```
+
+Remove any old PATH additions. Should look like:
+
+```bash
+# Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# npm global
+export PATH=~/.npm-global/bin:$PATH
+```
+
+Save and restart Terminal.
+
+---
+
+### 4. Git Issues
+
+**Problem: "xcrun: error"**
+
+```bash
+sudo xcodebuild -license accept
+```
+
+**Problem: Old Git version**
+
+```bash
+brew install git
+# Then restart Terminal
+```
+
+**Problem: Git not configured**
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+```
+
+---
+
+### 5. Node/npm Issues
+
+**Problem: "node: command not found"**
+
+```bash
+brew install node
+```
+
+**Problem: npm install fails globally**
+
+Fix permissions (see Permission Errors above)
+
+**Problem: Old Node version**
+
+```bash
+brew upgrade node
+```
+
+---
+
+### 6. Homebrew Issues
+
+**Problem: "brew update" fails**
+
+```bash
+brew update --force --quiet
+```
+
+**Problem: "Permission denied" during brew install**
+
+```bash
+sudo chown -R $(whoami) $(brew --prefix)
+```
+
+**Problem: Homebrew says "shallow clone"**
+
+```bash
+git -C /opt/homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow
+git -C /opt/homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow
+```
+
+---
+
+## Nuclear Option: Start Completely Fresh
+
+If nothing works and you want to start over:
+
+### 1. Uninstall Everything
+
+**Uninstall Homebrew:**
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
+```
+
+**Remove Node (if not via Homebrew):**
+
+```bash
+sudo rm -rf /usr/local/lib/node_modules
+sudo rm -rf /usr/local/bin/node
+sudo rm -rf /usr/local/bin/npm
+```
+
+**Clean shell configs:**
+
+```bash
+nano ~/.zprofile
+# Remove all Homebrew, Node, npm lines
+# Save and exit
+```
+
+### 2. Restart Mac
+
+Yes, actually restart. It clears everything.
+
+### 3. Go Back to Lesson 1
+
+Start fresh from the beginning. This time it should work cleanly!
+
+---
+
+## Prevention Tips
+
+**To avoid future problems:**
+
+1. **Always use Homebrew** for installing dev tools
+2. **Never use `sudo` with Homebrew or npm**
+3. **Keep one version of each tool** (uninstall old ones)
+4. **Update regularly:**
+   ```bash
+   brew update
+   brew upgrade
+   ```
+5. **Close and reopen Terminal** after installing
+
+---
+
+## Still Stuck?
+
+### Check System Requirements
+
+**Minimum:**
+- macOS 10.15 (Catalina) or higher
+- 5GB free disk space
+- Internet connection
+- Not using work/school computer with restrictions
+
+### Get Help
+
+1. **Check error message carefully** - often tells you exactly what's wrong
+2. **Search the error** - Google the exact error message
+3. **Check official docs:**
+   - [Homebrew Troubleshooting](https://docs.brew.sh/Troubleshooting)
+   - [Node.js Issues](https://github.com/nodejs/node/issues)
+   - [Git Help](https://git-scm.com/docs)
+
+4. **Ask for help:**
+   - Open an issue on our [GitHub](https://github.com/kwtamayo/claude-code-course/issues)
+   - Include: error message, macOS version, what you tried
+
+---
+
+## Understanding What Went Wrong
+
+Common reasons for problems:
+
+**Previous installations:** Old tools installed incorrectly
+**Mixed installers:** Tools installed from different sources
+**Permission issues:** Files owned by wrong user
+**PATH problems:** Computer can't find your tools
+**Old macOS:** Need to update your operating system
+
+**The good news:** Once you get it working, it usually stays working!
+
+---
+
+**Back to:** [Lesson 1: Setup →](/course/module/0/lesson/1)  
+**Continue to:** [Module 1: Command Line Basics →](/course)

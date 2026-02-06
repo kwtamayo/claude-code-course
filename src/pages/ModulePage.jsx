@@ -1,5 +1,6 @@
 import React from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
+import { ROUTES } from '../routes'
 import { getModule } from '../utils/courseLoader'
 import '../styles/ModulePage.css'
 
@@ -18,7 +19,7 @@ function ModulePage() {
     <div className="module-page">
       <header className="module-header">
         <div className="container">
-          <Link to="/course" className="back-link">← Back to Course</Link>
+          <Link to={ROUTES.course()} className="back-link">← Back to Course</Link>
           <div className="module-badge">Module {module.id}</div>
           <h1>{module.title}</h1>
           <p className="module-intro">{module.description}</p>
@@ -37,7 +38,7 @@ function ModulePage() {
             {module.lessons.map((lesson, index) => (
               <Link
                 key={lesson.id}
-                to={`/course/module/${moduleId}/lesson/${lesson.id}`}
+                to={ROUTES.lesson(moduleId, lesson.id)}
                 className="lesson-card"
               >
                 <div className="lesson-number">{index + 1}</div>
@@ -58,7 +59,7 @@ function ModulePage() {
             <p className="hint">
               Module 0 has lessons available! Check it out to see the full lesson experience.
             </p>
-            <Link to="/course/module/0" className="btn btn-primary">
+            <Link to={ROUTES.module(0)} className="btn btn-primary">
               Go to Module 0
             </Link>
           </div>
@@ -66,12 +67,12 @@ function ModulePage() {
 
         <div className="module-navigation">
           {module.id > 0 && (
-            <Link to={`/course/module/${module.id - 1}`} className="nav-button nav-prev">
+            <Link to={ROUTES.module(module.id - 1)} className="nav-button nav-prev">
               ← Previous Module
             </Link>
           )}
           {module.id < 12 && (
-            <Link to={`/course/module/${module.id + 1}`} className="nav-button nav-next">
+            <Link to={ROUTES.module(module.id + 1)} className="nav-button nav-next">
               Next Module →
             </Link>
           )}
