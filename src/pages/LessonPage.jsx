@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { ROUTES } from '../routes'
 import { getModule, getLesson, loadLessonContent } from '../utils/courseLoader'
+import ValidationTask from '../components/ValidationTask'
 import '../styles/LessonPage.css'
 
 function LessonPage() {
@@ -76,21 +77,16 @@ function LessonPage() {
                 </ReactMarkdown>
               </div>
 
-              {/* Validation tasks placeholder */}
               {lessonData?.validation?.tasks?.length > 0 && (
                 <div className="validation-section">
                   <h2>Tasks</h2>
                   <div className="task-list">
                     {lessonData.validation.tasks.map((task, index) => (
-                      <div key={index} className="task-card">
-                        <div className="task-number">{index + 1}</div>
-                        <div className="task-content">
-                          <p className="task-description">{task.description}</p>
-                          <button className="btn btn-secondary">
-                            Check My Work
-                          </button>
-                        </div>
-                      </div>
+                      <ValidationTask
+                        key={task.id ?? index}
+                        task={task}
+                        taskNumber={index + 1}
+                      />
                     ))}
                   </div>
                 </div>

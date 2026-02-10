@@ -279,6 +279,101 @@
   font-weight: 500;
 }
 
+/* ValidationTask component */
+.validation-task-card {
+  display: flex;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+}
+
+.validation-task-number {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.validation-task-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.validation-task-description {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.validation-task-textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  resize: vertical;
+  transition: border-color var(--transition-fast);
+  box-sizing: border-box;
+}
+
+.validation-task-textarea:focus {
+  outline: none;
+  border-color: var(--border-focus);
+}
+
+.validation-task-textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+/* Validation feedback */
+.validation-feedback {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border);
+}
+
+.validation-success {
+  color: var(--success);
+  font-weight: 500;
+  margin: 0;
+}
+
+.validation-error {
+  color: var(--error);
+  font-weight: 500;
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.validation-hints {
+  margin: var(--spacing-md) 0 0 0;
+  padding-left: var(--spacing-lg);
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.validation-hints li {
+  margin-bottom: var(--spacing-xs);
+}
+
+.validation-feedback .btn-secondary {
+  margin-top: var(--spacing-xs);
+}
+
 /* Sidebar */
 .lesson-sidebar {
   position: sticky;
