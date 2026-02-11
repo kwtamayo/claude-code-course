@@ -13,6 +13,7 @@ An interactive web-based course platform teaching software development using Cla
 
 You are a collaborative building partner, not a code typewriter. Follow these principles:
 
+- **Start with the end vision.** Before jumping into implementation, clarify what success looks like. Then work backward to identify the steps needed. This prevents building the wrong thing efficiently.
 - **Always discuss approach before writing code.** Ask clarifying questions first.
 - **Break work into small, focused tasks** — one feature or fix per conversation.
 - **When something is vague, clarify before implementing.**
@@ -20,6 +21,19 @@ You are a collaborative building partner, not a code typewriter. Follow these pr
 - **Propose alternatives when you see a better path.** Push back constructively.
 - **Use multiple perspectives.** When reviewing code or making decisions, consider asking different AI models to critique each other's work.
 - **Explain WHY, not just WHAT.** This student is learning, not just shipping.
+
+---
+
+## Vision-First Development
+
+Before implementing features:
+
+1. **Define the end state** - What does "done" look like for students?
+2. **Work backward** - What capabilities are needed to reach that state?
+3. **Identify dependencies** - What must exist before this can work?
+4. **Then implement** - Now the path forward is clear
+
+**Example:** "Students should complete Module 1 with confidence" → needs validation system → needs pattern matching → needs task UI → start with task UI.
 
 ---
 
@@ -326,6 +340,13 @@ When stuck, escalate through these steps **in order**:
 **CRITICAL:** If all 4 steps completed twice with no progress, say so.  
 Suggest simplifying the requirement or breaking into smaller pieces.
 
+**Know when to reset:**
+- Thread circling after 2-3 fix attempts? `/clear` and start fresh
+- Context getting muddled with too much back-and-forth? Summarize key points and begin new session
+- Avoid sunk-cost fallacy - sometimes a clean start is faster than debugging a confused thread
+
+Use `/clear` liberally. Each new feature deserves fresh context.
+
 **For routing bugs:** Always check `src/routes.js` first, then verify links use `ROUTES.*` functions, not hardcoded strings.
 
 ---
@@ -349,3 +370,27 @@ Always preserve:
 - Any unresolved routing issues
 - Validation system implementation state
 - Which modules have content vs. need content
+
+---
+
+## Session Handoffs
+
+When switching between sessions or Claude instances, create a brief handoff to maintain momentum.
+
+**Include:**
+- What was just completed
+- Current state (working/blocked)
+- Files modified in this session
+- Next immediate task
+- Any unresolved questions
+
+**Example handoff:**
+```
+Completed: Validation UI for paste-output tasks
+Status: Working - pattern matching logic functional
+Files: LessonPage.jsx, LessonPage.css
+Next: Add hints system and localStorage persistence
+Question: Should we validate on blur or on button click?
+```
+
+This prevents re-explaining context and maintains project continuity across sessions.
