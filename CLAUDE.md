@@ -88,7 +88,7 @@ Frontend:   React 18.2 + Vite 5.0
 Routing:    React Router 6.20
 Markdown:   react-markdown 9.0 + remark-gfm 4.0
 Styling:    Plain CSS with CSS variables (no Tailwind)
-Linting:    ESLint 8.x
+Linting:    ESLint 9.x
 Hosting:    Vercel (not yet deployed)
 ```
 
