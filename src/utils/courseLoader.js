@@ -5,12 +5,12 @@ export const courseStructure = {
       id: 0,
       title: 'Setup Your Environment',
       description: 'Get your Mac ready for development in one streamlined lesson',
-      timeEstimate: '20 minutes',
+      timeEstimate: '30 minutes',
       lessons: [
         {
           id: 1,
           title: 'Setup Your Development Environment',
-          timeEstimate: '20 minutes',
+          timeEstimate: '30 minutes',
         },
         {
           id: 2,

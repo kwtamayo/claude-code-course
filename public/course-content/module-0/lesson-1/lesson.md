@@ -3,12 +3,14 @@
   "moduleId": "module-0",
   "lessonId": "lesson-1",
   "title": "Setup Your Development Environment",
-  "timeEstimate": "20 minutes",
+  "timeEstimate": "30 minutes",
   "prerequisites": [],
   "learningObjectives": [
     "Open and use the Terminal application",
     "Check what development tools are installed",
     "Install missing tools (Homebrew, Git, Node.js)",
+    "Install and configure VS Code as your code editor",
+    "Understand how VS Code and Claude Code work together",
     "Verify your setup is working correctly"
   ],
   "validation": {
@@ -63,6 +65,18 @@
           "Run: git --version",
           "Any version 2.0 or higher is fine"
         ]
+      },
+      {
+        "id": "verify-vscode",
+        "description": "Verify VS Code is installed and the 'code' command works",
+        "type": "paste-output",
+        "expectedPatterns": [
+          "\\d+\\.\\d+\\.\\d+"
+        ],
+        "hints": [
+          "Run: code --version",
+          "If 'command not found', open VS Code and install the shell command (see lesson)"
+        ]
       }
     ]
   }
@@ -81,8 +95,9 @@ By the end of this lesson, you'll have:
 - **Homebrew** (package manager - like an app store for developers)
 - **Git** (version control - tracks code changes)
 - **Node.js** (runs JavaScript outside browsers)
+- **VS Code** (code editor - where you'll read and browse your code)
 
-**Total time:** About 20 minutes
+**Total time:** About 30 minutes
 
 ---
 
@@ -332,6 +347,91 @@ git config --global user.email
 
 ---
 
+## Step 7: Install VS Code
+
+**What is VS Code?** It's a free code editor made by Microsoft. Think of it as a word processor, but built specifically for writing code. It shows your files with color-coded syntax, catches errors, and has a built-in terminal.
+
+**Why VS Code?** It's the most popular code editor in the world, it's free, and it works great alongside Claude Code.
+
+### Download and Install:
+
+1. Go to [code.visualstudio.com](https://code.visualstudio.com)
+2. Click the big **Download** button (it auto-detects your Mac)
+3. Open the downloaded `.zip` file
+4. Drag **Visual Studio Code** to your Applications folder
+5. Open VS Code from Applications (or Spotlight: `Cmd + Space`, type "Visual Studio Code")
+
+### Install the `code` Command
+
+This lets you open VS Code from Terminal — you'll use this constantly.
+
+1. Open VS Code
+2. Press `Cmd + Shift + P` to open the **Command Palette**
+3. Type: `shell command`
+4. Click **"Shell Command: Install 'code' command in PATH"**
+5. You'll see a success message
+
+**Verify it works:**
+
+```bash
+code --version
+```
+
+You should see a version number like `1.96.0`.
+
+**Try opening a folder:**
+
+```bash
+mkdir ~/test-project
+code ~/test-project
+```
+
+VS Code should open with that folder in the sidebar. You can delete the test folder later.
+
+---
+
+## Step 8: Set Up VS Code for This Course
+
+### Quick Orientation
+
+When VS Code opens, you'll see:
+
+- **Sidebar (left)** — File explorer, search, extensions
+- **Editor (center)** — Where you read and edit code
+- **Terminal (bottom)** — A built-in terminal (same as the Terminal app!)
+- **Status Bar (bottom edge)** — Info about your current file
+
+**Open the built-in terminal:** Press `` Ctrl + ` `` (backtick, the key above Tab)
+
+This terminal works exactly like the Terminal app. You can run all the same commands here.
+
+### Install the ESLint Extension
+
+Extensions add features to VS Code. ESLint catches code mistakes as you type.
+
+1. Click the **Extensions icon** in the sidebar (looks like 4 squares)
+2. Search for **"ESLint"**
+3. Click **Install** on the one by Microsoft (it has millions of downloads)
+
+That's it! ESLint will now underline problems in your code with yellow and red squiggles.
+
+### How VS Code and Claude Code Work Together
+
+This is important to understand:
+
+- **Claude Code** runs in your **Terminal**. It's an AI agent that reads your project, writes code, runs commands, and builds features for you.
+- **VS Code** is where you **see your files**. It shows you what Claude Code created or changed, with syntax highlighting and error detection.
+
+**The workflow:**
+1. You tell Claude Code what to build (in Terminal)
+2. Claude Code writes the code
+3. You see the changes appear in VS Code
+4. You review, test, and iterate
+
+They're complementary tools — Claude Code is the builder, VS Code is the viewer. You don't need an AI inside your editor because Claude Code handles that from the terminal.
+
+---
+
 ## What You've Accomplished
 
 🎉 **Congratulations!** You now have a complete development environment:
@@ -340,6 +440,7 @@ git config --global user.email
 - ✅ Homebrew - Package manager
 - ✅ Git - Version control
 - ✅ Node.js & npm - JavaScript runtime and packages
+- ✅ VS Code - Code editor with ESLint
 
 You're ready to start coding!
 
@@ -355,6 +456,10 @@ brew --version
 git --version
 node --version
 npm --version
+code --version
+
+# Open a project in VS Code
+code ~/my-project
 
 # Install packages with Homebrew
 brew install <package-name>
@@ -418,6 +523,23 @@ source ~/.zprofile
 sudo xcodebuild -license accept
 ```
 
+### "command not found: code"
+
+**Solution:** The `code` shell command isn't installed yet.
+
+1. Open VS Code manually (from Applications)
+2. Press `Cmd + Shift + P`
+3. Type `shell command` and select **"Install 'code' command in PATH"**
+4. Restart Terminal and try again
+
+### VS Code opens but no folder in sidebar
+
+Make sure you're opening a folder, not just a file:
+```bash
+code ~/my-project    # Opens a folder ✅
+code ~/file.js       # Opens just one file
+```
+
 ### Installation taking forever?
 
 **This is normal!** First-time Homebrew installs can take 10-15 minutes. Be patient, don't close Terminal.
@@ -430,11 +552,13 @@ Check [Lesson 2: Troubleshooting Guide](/course/module/0/lesson/2) for more help
 
 ## Key Concepts You Learned
 
-**Terminal**: Application for running text commands  
-**Command**: Instruction you type and execute  
-**Package Manager**: Tool that installs other tools (Homebrew, npm)  
-**Version Control**: System for tracking code changes (Git)  
-**Runtime**: Environment where code runs (Node.js for JavaScript)  
+**Terminal**: Application for running text commands
+**Command**: Instruction you type and execute
+**Package Manager**: Tool that installs other tools (Homebrew, npm)
+**Version Control**: System for tracking code changes (Git)
+**Runtime**: Environment where code runs (Node.js for JavaScript)
+**Code Editor**: Application for viewing and editing code (VS Code)
+**Extension**: Plugin that adds features to VS Code (like ESLint)
 **Global Install**: Available everywhere on your system
 
 ---
