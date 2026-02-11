@@ -1,6 +1,6 @@
 # Claude Code Course
 
-An interactive, web-based course that teaches software development using Claude Code and Cursor IDE.
+An interactive, web-based course that teaches software development using Claude Code and VS Code.
 
 ## 🎯 What You'll Learn
 
@@ -76,7 +76,7 @@ The course is self-paced with automated validation. Complete modules sequentiall
 - **Module 0**: Clean Slate Setup (~30 min)
 - **Module 1**: Command Line Basics (~60 min)
 - **Module 2**: Git Fundamentals (~60 min)
-- **Module 3**: Security & Cursor Introduction (~30 min)
+- **Module 3**: Security Fundamentals (~30 min)
 - **Module 4**: Web Dashboard - Layout & Setup (~60 min)
 - **Module 5**: API Integration (~45 min)
 - **Module 6**: Data Persistence (~45 min)
@@ -96,7 +96,7 @@ The course is self-paced with automated validation. Complete modules sequentiall
 - **Mobile**: Swift, SwiftUI
 - **Database**: Local storage → Backend persistence
 - **Deployment**: Vercel (web), TestFlight/App Store (iOS)
-- **Tools**: Claude Code, Cursor IDE, Git, GitHub
+- **Tools**: Claude Code, VS Code, Git, GitHub
 
 ## 🎓 Learning Approach
 
@@ -157,7 +157,7 @@ Built with love using Claude Code (eating our own dog food!).
 
 Special thanks to:
 - Anthropic for Claude and Claude Code
-- Cursor team for the excellent IDE
+- The VS Code team for the excellent editor
 - The open-source community
 
 ---

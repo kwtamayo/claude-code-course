@@ -16,7 +16,7 @@ This guide will help you get this code onto your personal laptop and push it to 
 On your personal laptop, you'll need:
 - Git installed
 - Node.js installed (v18 or higher recommended)
-- A code editor (VS Code, Cursor, or any text editor)
+- A code editor (VS Code recommended)
 - Terminal access
 
 ## Step-by-Step Setup

@@ -36,8 +36,8 @@ export const courseStructure = {
     },
     {
       id: 3,
-      title: 'Security & Cursor Introduction',
-      description: 'Security best practices and IDE setup',
+      title: 'Security Fundamentals',
+      description: 'Security best practices for developers',
       timeEstimate: '30 minutes',
       lessons: [],
     },

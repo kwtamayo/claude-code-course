@@ -10,7 +10,7 @@ function SimulatorPage() {
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ textAlign: 'center' }}>
           <h1>Claude Code Simulator</h1>
-          <p>This will be the interactive Cursor + Claude Code simulation environment.</p>
+          <p>This will be the interactive Claude Code simulation environment.</p>
           <p style={{ marginTop: '1rem', color: '#6b7280' }}>Coming soon...</p>
         </div>
       </div>

@@ -14,7 +14,7 @@ function HomePage() {
           </h1>
           <p className="hero-subtitle">
             An interactive course that teaches you the complete development lifecycle
-            using Claude Code and Cursor IDE
+            using Claude Code and VS Code
           </p>
           <div className="hero-cta">
             <Link to={ROUTES.course()} className="btn btn-primary btn-large">
@@ -61,7 +61,7 @@ function HomePage() {
               <div className="timeline-marker">1</div>
               <div className="timeline-content">
                 <h3>Fundamentals (3 hours)</h3>
-                <p>Command line, Git, and Cursor basics in a safe, simulated environment</p>
+                <p>Command line, Git, and VS Code basics in a safe, simulated environment</p>
               </div>
             </div>
             <div className="timeline-item">
