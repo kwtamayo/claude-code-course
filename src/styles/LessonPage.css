@@ -302,6 +302,15 @@
   font-weight: 700;
 }
 
+.validation-task-completed {
+  border-color: var(--success);
+  background-color: color-mix(in srgb, var(--success) 5%, var(--bg-secondary));
+}
+
+.validation-task-number-completed {
+  background-color: var(--success);
+}
+
 .validation-task-content {
   flex: 1;
   min-width: 0;

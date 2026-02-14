@@ -2,19 +2,60 @@ import React, { useState, useEffect } from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import remarkDirective from 'remark-directive'
+import { remarkValidateDirective } from '../utils/remarkValidateDirective'
 import { ROUTES } from '../routes'
 import { getModule, getLesson, loadLessonContent } from '../utils/courseLoader'
 import ValidationTask from '../components/ValidationTask'
 import '../styles/LessonPage.css'
 
+// Build the localStorage key for a given module/lesson pair
+function getStorageKey(moduleId, lessonId) {
+  return `module-${moduleId}-lesson-${lessonId}`
+}
+
+// Read completed tasks from localStorage
+function loadCompletedTasks(moduleId, lessonId) {
+  try {
+    const stored = localStorage.getItem(getStorageKey(moduleId, lessonId))
+    if (stored) {
+      const parsed = JSON.parse(stored)
+      return parsed.completedTasks || []
+    }
+  } catch (e) {
+    console.error('Failed to read progress from localStorage:', e)
+  }
+  return []
+}
+
+// Save a completed task to localStorage
+function saveCompletedTask(moduleId, lessonId, taskId) {
+  const key = getStorageKey(moduleId, lessonId)
+  try {
+    const existing = localStorage.getItem(key)
+    const data = existing ? JSON.parse(existing) : { completedTasks: [] }
+
+    if (!data.completedTasks.includes(taskId)) {
+      data.completedTasks.push(taskId)
+    }
+    data.lastUpdated = new Date().toISOString()
+
+    localStorage.setItem(key, JSON.stringify(data))
+  } catch (e) {
+    console.error('Failed to save progress to localStorage:', e)
+  }
+}
+
 function LessonPage() {
   const { moduleId, lessonId } = useParams()
   const [lessonData, setLessonData] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [completedTasks, setCompletedTasks] = useState([])
 
   const module = getModule(moduleId)
   const lesson = getLesson(moduleId, lessonId)
 
+  // Load lesson content
   useEffect(() => {
     async function fetchLesson() {
       setLoading(true)
@@ -24,6 +65,19 @@ function LessonPage() {
     }
     fetchLesson()
   }, [moduleId, lessonId])
+
+  // Load completed tasks from localStorage
+  useEffect(() => {
+    setCompletedTasks(loadCompletedTasks(moduleId, lessonId))
+  }, [moduleId, lessonId])
+
+  // Called when a student successfully validates a task
+  const handleTaskComplete = (taskId) => {
+    saveCompletedTask(moduleId, lessonId, taskId)
+    setCompletedTasks(prev =>
+      prev.includes(taskId) ? prev : [...prev, taskId]
+    )
+  }
 
   // If module or lesson doesn't exist, redirect to 404
   if (!module || !lesson) {
@@ -70,27 +124,32 @@ function LessonPage() {
         <div className="container">
           <div className="content-wrapper">
             <div className="lesson-body">
-              {/* Render markdown content properly */}
+              {/* Render markdown content with inline validation directives */}
               <div className="markdown-content">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm, remarkDirective, remarkValidateDirective]}
+                  components={{
+                    // Map ::validate[task-id] directives to ValidationTask components
+                    validate: ({ taskId }) => {
+                      const tasks = lessonData?.validation?.tasks || []
+                      const task = tasks.find(t => t.id === taskId)
+                      if (!task) return null
+
+                      const taskNumber = tasks.indexOf(task) + 1
+                      return (
+                        <ValidationTask
+                          task={task}
+                          taskNumber={taskNumber}
+                          isCompleted={completedTasks.includes(task.id)}
+                          onComplete={handleTaskComplete}
+                        />
+                      )
+                    },
+                  }}
+                >
                   {lessonData?.content}
                 </ReactMarkdown>
               </div>
-
-              {lessonData?.validation?.tasks?.length > 0 && (
-                <div className="validation-section">
-                  <h2>Tasks</h2>
-                  <div className="task-list">
-                    {lessonData.validation.tasks.map((task, index) => (
-                      <ValidationTask
-                        key={task.id ?? index}
-                        task={task}
-                        taskNumber={index + 1}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
 
             <aside className="lesson-sidebar">

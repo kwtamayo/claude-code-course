@@ -143,8 +143,10 @@ ProductVersion:     14.2.1
 BuildVersion:       23C71
 ```
 
-**✅ You're good if:** ProductVersion is **10.15 or higher**  
+**✅ You're good if:** ProductVersion is **10.15 or higher**
 **❌ If lower:** You'll need to update macOS first
+
+::validate[verify-macos]
 
 ---
 
@@ -225,6 +227,8 @@ You should see: `Homebrew 4.x.x`
 - Open a new Terminal window
 - Try again
 
+::validate[verify-homebrew]
+
 ---
 
 ### B. Install Git (If You Don't Have It)
@@ -250,6 +254,8 @@ git --version
 ```
 
 Should show: `git version 2.43.0` (or similar)
+
+::validate[verify-git]
 
 ---
 
@@ -284,6 +290,8 @@ npm --version
 ```
 
 Should show: `10.2.4` (or similar)
+
+::validate[verify-node]
 
 ---
 
@@ -379,6 +387,8 @@ code --version
 
 You should see a version number like `1.96.0`.
 
+::validate[verify-vscode]
+
 **Try opening a folder:**
 
 ```bash
@@ -404,6 +414,21 @@ When VS Code opens, you'll see:
 **Open the built-in terminal:** Press `` Ctrl + ` `` (backtick, the key above Tab)
 
 This terminal works exactly like the Terminal app. You can run all the same commands here.
+
+### Disable Built-in AI Features
+
+VS Code now ships with **GitHub Copilot** enabled by default. It may show a Chat panel, offer AI suggestions as you type, or both. **We need to turn this off.**
+
+**Why?** This course teaches you to use **Claude Code in the Terminal** as your AI tool. Having a second AI auto-completing code inside your editor creates confusion — you won't know what you wrote vs. what the AI suggested. We want you to understand every line of code in your project.
+
+**Disable GitHub Copilot:**
+1. Click the **Extensions icon** in the sidebar (looks like 4 squares)
+2. Search for **"Copilot"**
+3. You'll see **GitHub Copilot** and **GitHub Copilot Chat** — click **Disable** on both
+4. If you see any other AI extensions, disable those too
+5. If there's a Chat panel open on the right side, click the **X** to close it
+
+**Don't worry** — you're not losing anything. Claude Code is more powerful for what we're doing because it reads your entire project, runs commands, and builds features end-to-end. Editor-based AI just autocompletes individual lines.
 
 ### Install the ESLint Extension
 
@@ -471,82 +496,6 @@ npm install <package-name>
 brew update
 brew upgrade
 ```
-
----
-
-## Troubleshooting
-
-### "Permission denied" errors
-
-**Don't use `sudo` with Homebrew!** If you have permission issues:
-
-```bash
-sudo chown -R $(whoami) /opt/homebrew
-```
-
-Or for Intel Macs:
-
-```bash
-sudo chown -R $(whoami) /usr/local
-```
-
-### "Command not found: brew"
-
-**Solution:**
-1. Close Terminal completely (Cmd+Q)
-2. Open new Terminal
-3. Try again
-
-Still not working? You may need to add Homebrew to your PATH manually:
-
-```bash
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
-source ~/.zprofile
-```
-
-### npm install fails with EACCES
-
-**Solution:** npm installed with wrong permissions. Fix it:
-
-```bash
-mkdir ~/.npm-global
-npm config set prefix '~/.npm-global'
-echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zprofile
-source ~/.zprofile
-```
-
-### Git shows "xcrun: error"
-
-**Solution:** Accept Xcode license:
-
-```bash
-sudo xcodebuild -license accept
-```
-
-### "command not found: code"
-
-**Solution:** The `code` shell command isn't installed yet.
-
-1. Open VS Code manually (from Applications)
-2. Press `Cmd + Shift + P`
-3. Type `shell command` and select **"Install 'code' command in PATH"**
-4. Restart Terminal and try again
-
-### VS Code opens but no folder in sidebar
-
-Make sure you're opening a folder, not just a file:
-```bash
-code ~/my-project    # Opens a folder ✅
-code ~/file.js       # Opens just one file
-```
-
-### Installation taking forever?
-
-**This is normal!** First-time Homebrew installs can take 10-15 minutes. Be patient, don't close Terminal.
-
-### Still stuck?
-
-Check [Lesson 2: Troubleshooting Guide](/course/module/0/lesson/2) for more help!
 
 ---
 

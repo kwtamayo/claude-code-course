@@ -4,11 +4,11 @@ import React, { useState } from 'react'
  * ValidationTask - UI for a single validation task (paste-output type).
  * Validates user output against task.expectedPatterns via regex.
  */
-function ValidationTask({ task, taskNumber }) {
+function ValidationTask({ task, taskNumber, isCompleted, onComplete }) {
   const [userOutput, setUserOutput] = useState('')
-  const [status, setStatus] = useState(null) // null | 'success' | 'error'
+  const [status, setStatus] = useState(isCompleted ? 'success' : null)
   const [showHints, setShowHints] = useState(false)
-  const [hasValidated, setHasValidated] = useState(false)
+  const [hasValidated, setHasValidated] = useState(isCompleted)
   const isPasteOutput = task.type === 'paste-output'
 
   const handleCheck = () => {
@@ -32,14 +32,19 @@ function ValidationTask({ task, taskNumber }) {
 
     if (matched) {
       setStatus('success')
+      if (onComplete) {
+        onComplete(task.id)
+      }
     } else {
       setStatus('error')
     }
   }
 
   return (
-    <div className="validation-task-card">
-      <div className="validation-task-number">{taskNumber}</div>
+    <div className={`validation-task-card ${isCompleted ? 'validation-task-completed' : ''}`}>
+      <div className={`validation-task-number ${isCompleted ? 'validation-task-number-completed' : ''}`}>
+        {isCompleted ? '✓' : taskNumber}
+      </div>
       <div className="validation-task-content">
         <p className="validation-task-description">{task.description}</p>
 

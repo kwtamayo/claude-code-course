@@ -225,6 +225,31 @@ git -C /opt/homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow
 
 ---
 
+### 7. VS Code Issues
+
+**Problem: "command not found: code"**
+
+The `code` shell command isn't installed yet.
+
+1. Open VS Code manually (from Applications)
+2. Press `Cmd + Shift + P`
+3. Type `shell command` and select **"Install 'code' command in PATH"**
+4. Restart Terminal and try again
+
+**Problem: VS Code opens but no folder in sidebar**
+
+Make sure you're opening a folder, not just a file:
+```bash
+code ~/my-project    # Opens a folder ✅
+code ~/file.js       # Opens just one file
+```
+
+**Problem: Installation taking forever**
+
+This is normal! First-time Homebrew installs can take 10-15 minutes. Be patient, don't close Terminal.
+
+---
+
 ## Nuclear Option: Start Completely Fresh
 
 If nothing works and you want to start over:
