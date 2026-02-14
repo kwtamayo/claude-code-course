@@ -104,7 +104,8 @@ claude-code-course/
 │           ├── lesson-1/lesson.md
 │           └── lesson-2/lesson.md
 ├── src/
-│   ├── components/              # Empty — future use
+│   ├── components/
+│   │   └── ValidationTask.jsx   # Inline validation UI for paste-output tasks
 │   ├── pages/
 │   │   ├── HomePage.jsx         # Landing page
 │   │   ├── CoursePage.jsx       # All 13 modules overview
@@ -114,7 +115,8 @@ claude-code-course/
 │   │   └── NotFoundPage.jsx
 │   ├── styles/                  # Component-scoped CSS files
 │   ├── utils/
-│   │   └── courseLoader.js      # Course structure, data fetching
+│   │   ├── courseLoader.js              # Course structure, data fetching
+│   │   └── remarkValidateDirective.js   # Remark plugin for ::validate directives
 │   ├── routes.js                # ⚠️ SINGLE SOURCE OF TRUTH for routes
 │   ├── App.jsx
 │   └── main.jsx
@@ -200,44 +202,37 @@ Lesson files live in `public/course-content/` and are fetched at runtime via `fe
 - ESLint configured
 - All pages built: Home, Course, Module, Lesson, 404
 - Module 0 complete (2 lessons):
-  - Lesson 1: Setup Your Development Environment (20 min)
-  - Lesson 2: Troubleshooting Guide (optional)
+  - Lesson 1: Setup Your Development Environment (30 min)
+  - Lesson 2: Troubleshooting Guide (optional, all troubleshooting consolidated here)
 - Markdown rendering with syntax highlighting
 - Professional CSS design system
 - Full navigation: Home → Course → Module → Lesson (working!)
-- Validation tasks defined in lesson frontmatter (data ready, UI not built)
+- **Validation system — fully working:**
+  - `ValidationTask` component with textarea, regex matching, success/error/hints UI
+  - Inline placement via `remark-directive` (`::validate[task-id]` markers in markdown)
+  - localStorage persistence — completed tasks survive refresh
+  - Completed state styling (green border, checkmark)
+  - Plugin: `src/utils/remarkValidateDirective.js`
+- Lesson 1 includes "Disable Built-in AI Features" step (Copilot)
 
-### 🚧 Next: Validation System
+### 🚧 Next
 
-Tasks already defined in lesson frontmatter — just need the UI and logic.
+- **Surface progress % on CoursePage** — read localStorage to show completion per module
+- **Module 1 content** — Command Line Basics (first content module after setup)
 
-**Implementation plan:**
-1. Read validation tasks from `lessonData`
-2. Render task cards with "Check My Work" buttons  
-3. Textarea for `paste-output` type tasks
-4. Pattern matching against `expectedPatterns` (regex)
-5. Feedback UI: ✅ success / ❌ failure / 💡 hints
-6. Persist completed tasks to `localStorage`
-7. Surface progress % on CoursePage
-
+**localStorage structure (already implemented):**
 ```javascript
-// Core validation logic (to build)
-function validateTask(task, userInput) {
-  for (const pattern of task.expectedPatterns) {
-    if (new RegExp(pattern).test(userInput)) {
-      return { success: true, message: "Great job!" }
-    }
-  }
-  return { success: false, message: "Not quite. Try again?", hints: task.hints }
-}
-
-// localStorage structure
 {
   "module-0-lesson-1": {
     "completedTasks": ["verify-homebrew", "verify-node"],
     "lastUpdated": "2026-02-10T10:30:00Z"
   }
 }
+```
+
+**Inline validation marker syntax (already implemented):**
+```markdown
+::validate[verify-homebrew]
 ```
 
 ### 📋 Module Status
