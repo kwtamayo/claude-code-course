@@ -48,7 +48,23 @@ export const courseStructure = {
       title: 'Git Fundamentals',
       description: 'Learn version control with Git and GitHub',
       timeEstimate: '60 minutes',
-      lessons: [],
+      lessons: [
+        {
+          id: 1,
+          title: 'Git Basics',
+          timeEstimate: '20 minutes',
+        },
+        {
+          id: 2,
+          title: 'Working with GitHub',
+          timeEstimate: '20 minutes',
+        },
+        {
+          id: 3,
+          title: 'Branches and Workflow',
+          timeEstimate: '20 minutes',
+        },
+      ],
     },
     {
       id: 3,

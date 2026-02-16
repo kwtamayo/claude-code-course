@@ -208,17 +208,25 @@ Lesson files live in `public/course-content/` and are fetched at runtime via `fe
 - Professional CSS design system
 - Full navigation: Home → Course → Module → Lesson (working!)
 - **Validation system — fully working:**
-  - `ValidationTask` component with textarea, regex matching, success/error/hints UI
+  - `ValidationTask` component with two types: `paste-output` (regex) and `command-match` (exact match, normalized)
   - Inline placement via `remark-directive` (`::validate[task-id]` markers in markdown)
   - localStorage persistence — completed tasks survive refresh
   - Completed state styling (green border, checkmark)
   - Plugin: `src/utils/remarkValidateDirective.js`
 - Lesson 1 includes "Disable Built-in AI Features" step (Copilot)
+- Module 1 complete (3 lessons):
+  - Lesson 1: Navigating the File System (20 min) — pwd, ls, cd, paths
+  - Lesson 2: Working with Files (20 min) — mkdir, touch, cat, cp, mv, rm
+  - Lesson 3: Putting It All Together (20 min) — project structure, open, chaining, extras
+- Module 2 complete (3 lessons):
+  - Lesson 1: Git Basics (20 min) — config, init, stage, commit, log, diff
+  - Lesson 2: Working with GitHub (20 min) — remote, push, clone, pull
+  - Lesson 3: Branches and Workflow (20 min) — branch, switch, merge, professional workflow
 
 ### 🚧 Next
 
 - **Surface progress % on CoursePage** — read localStorage to show completion per module
-- **Module 1 content** — Command Line Basics (first content module after setup)
+- **Module 3 content** — Security Fundamentals
 
 **localStorage structure (already implemented):**
 ```javascript
@@ -240,8 +248,8 @@ Lesson files live in `public/course-content/` and are fetched at runtime via `fe
 | Module | Title | Status |
 |--------|-------|--------|
 | 0 | Setup Your Environment | ✅ Complete |
-| 1 | Command Line Basics | ⏳ Content needed |
-| 2 | Git Fundamentals | ⏳ Content needed |
+| 1 | Command Line Basics | ✅ Complete |
+| 2 | Git Fundamentals | ✅ Complete |
 | 3 | Security Fundamentals | ⏳ Content needed |
 | 4 | Web Dashboard Layout | ⏳ Content needed |
 | 5 | API Integration | ⏳ Content needed |
