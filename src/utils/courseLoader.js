@@ -25,7 +25,23 @@ export const courseStructure = {
       title: 'Command Line Basics',
       description: 'Master the terminal and essential commands',
       timeEstimate: '60 minutes',
-      lessons: [],
+      lessons: [
+        {
+          id: 1,
+          title: 'Navigating the File System',
+          timeEstimate: '20 minutes',
+        },
+        {
+          id: 2,
+          title: 'Working with Files',
+          timeEstimate: '20 minutes',
+        },
+        {
+          id: 3,
+          title: 'Putting It All Together',
+          timeEstimate: '20 minutes',
+        },
+      ],
     },
     {
       id: 2,

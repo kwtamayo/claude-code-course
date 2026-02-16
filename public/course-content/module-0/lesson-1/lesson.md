@@ -310,7 +310,7 @@ npm install -g cowsay
 **Now run it:**
 
 ```bash
-cowsay "My dev environment works!"
+cowsay 'My dev environment works!'
 ```
 
 **If you see an ASCII cow, you're ready to code!** 🐮

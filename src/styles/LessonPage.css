@@ -348,6 +348,29 @@
   color: var(--text-tertiary);
 }
 
+.validation-task-input {
+  width: 100%;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  resize: none;
+}
+
+.validation-task-input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+}
+
+.validation-task-input::placeholder {
+  color: var(--text-tertiary);
+}
+
 /* Validation feedback */
 .validation-feedback {
   margin-top: var(--spacing-md);
