@@ -71,7 +71,18 @@ export const courseStructure = {
       title: 'Security Fundamentals',
       description: 'Security best practices for developers',
       timeEstimate: '30 minutes',
-      lessons: [],
+      lessons: [
+        {
+          id: 1,
+          title: 'Secrets & Environment Variables',
+          timeEstimate: '15 minutes',
+        },
+        {
+          id: 2,
+          title: 'Safe Development Practices',
+          timeEstimate: '15 minutes',
+        },
+      ],
     },
     {
       id: 4,

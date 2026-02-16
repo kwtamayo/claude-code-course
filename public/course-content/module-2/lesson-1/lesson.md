@@ -55,25 +55,29 @@
         ]
       },
       {
-        "id": "command-compact-log",
-        "description": "What command shows a compact, one-line-per-commit history?",
-        "type": "command-match",
-        "acceptableAnswers": ["git log --oneline"],
+        "id": "compact-log-output",
+        "description": "Run git log --oneline and paste the output",
+        "type": "paste-output",
+        "expectedPatterns": [
+          "[a-f0-9]{7}"
+        ],
         "hints": [
-          "It's a variation of git log with a flag",
-          "The flag tells Git to show each commit on one line",
-          "Try: git log --oneline"
+          "Run: git log --oneline",
+          "You should see short commit hashes followed by messages",
+          "Make sure you have at least one commit first"
         ]
       },
       {
-        "id": "command-see-changes",
-        "description": "What command shows the changes you've made but haven't staged yet?",
-        "type": "command-match",
-        "acceptableAnswers": ["git diff", "git diff ."],
+        "id": "diff-output",
+        "description": "Run git diff after editing README.md and paste the output",
+        "type": "paste-output",
+        "expectedPatterns": [
+          "(\\+|\\-|diff|@@)"
+        ],
         "hints": [
-          "This command shows the 'difference' between your working files and the last commit",
-          "It's two words, starting with 'git'",
-          "Try: git diff"
+          "First edit a file: echo 'This is my practice repository for learning Git.' >> README.md",
+          "Then run: git diff",
+          "You should see added lines marked with + in green"
         ]
       }
     ]
@@ -230,7 +234,7 @@ git log --oneline
 
 Shows each commit on one line — just the short hash and message. This is what you'll use most often.
 
-::validate[command-compact-log]
+::validate[compact-log-output]
 
 ## Making More Changes
 
@@ -256,7 +260,7 @@ git diff
 
 This shows the exact lines that were added (green with `+`) or removed (red with `-`). It's incredibly useful for reviewing your own work before committing.
 
-::validate[command-see-changes]
+::validate[diff-output]
 
 Now stage and commit this change:
 

@@ -42,36 +42,42 @@
         ]
       },
       {
-        "id": "command-merge",
-        "description": "You're on the main branch. What command merges a branch called 'feature' into main?",
-        "type": "command-match",
-        "acceptableAnswers": ["git merge feature", "git merge feature/"],
+        "id": "merge-output",
+        "description": "Merge your branch into main and paste the output",
+        "type": "paste-output",
+        "expectedPatterns": [
+          "(Fast-forward|Merge made|Already up to date)"
+        ],
         "hints": [
-          "First make sure you're on main (the branch you want to merge INTO)",
-          "Then use git merge followed by the branch name",
-          "Try: git merge feature"
+          "First switch to main: git switch main",
+          "Then merge: git merge add-about-page",
+          "You should see 'Fast-forward' and a summary of changed files"
         ]
       },
       {
-        "id": "command-switch-branch",
-        "description": "What command switches you to a branch called 'dev'?",
-        "type": "command-match",
-        "acceptableAnswers": ["git switch dev", "git checkout dev"],
+        "id": "switch-back-output",
+        "description": "After merging, run git branch to show your branch was on main",
+        "type": "paste-output",
+        "expectedPatterns": [
+          "\\* (main|master)"
+        ],
         "hints": [
-          "The modern command is 'git switch' followed by the branch name",
-          "The older equivalent is 'git checkout' — both work",
-          "Try: git switch dev"
+          "Run: git branch",
+          "The asterisk (*) should be next to main",
+          "If not, run: git switch main"
         ]
       },
       {
-        "id": "command-create-switch",
-        "description": "What single command creates a new branch called 'feature' AND switches to it?",
-        "type": "command-match",
-        "acceptableAnswers": ["git switch -c feature", "git checkout -b feature"],
+        "id": "create-switch-output",
+        "description": "Create a new branch called 'experiment' and switch to it in one command, then paste git branch output",
+        "type": "paste-output",
+        "expectedPatterns": [
+          "\\* experiment"
+        ],
         "hints": [
-          "You can combine creating and switching into one command",
-          "With git switch, add the -c flag (for 'create')",
-          "Try: git switch -c feature"
+          "Run: git switch -c experiment",
+          "Then run: git branch",
+          "You should see the asterisk (*) next to 'experiment'"
         ]
       }
     ]
@@ -232,7 +238,9 @@ git branch -d add-about-page
 
 The `-d` flag only deletes the branch if it's been merged. This is a safety net — Git won't let you accidentally delete unmerged work.
 
-::validate[command-merge]
+::validate[merge-output]
+
+::validate[switch-back-output]
 
 ## Switching and Creating in One Step
 
@@ -249,11 +257,14 @@ git branch feature-name
 git switch feature-name
 ```
 
-You'll use this shortcut almost every time.
+You'll use this shortcut almost every time. Try it now — create a branch called `experiment` and check that you're on it:
 
-::validate[command-switch-branch]
+```bash
+git switch -c experiment
+git branch
+```
 
-::validate[command-create-switch]
+::validate[create-switch-output]
 
 ## Pushing Branches to GitHub
 

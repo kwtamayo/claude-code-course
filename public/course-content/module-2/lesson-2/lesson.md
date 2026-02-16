@@ -43,7 +43,7 @@
       },
       {
         "id": "verify-push",
-        "description": "Paste your git log after pushing to confirm your commits are recorded",
+        "description": "After pushing, run git log and paste just the first few lines showing origin/main",
         "type": "paste-output",
         "expectedPatterns": [
           "commit [a-f0-9]",
@@ -51,30 +51,34 @@
         ],
         "hints": [
           "After pushing, run: git log",
-          "You should see 'origin/main' next to your latest commit",
+          "Copy the first 3-4 lines — you should see 'origin/main' next to your latest commit",
           "If not, run: git push -u origin main"
         ]
       },
       {
-        "id": "command-clone",
-        "description": "What command downloads a copy of a remote repository to your computer?",
-        "type": "command-match",
-        "acceptableAnswers": ["git clone", "git clone url", "git clone URL"],
+        "id": "clone-log-output",
+        "description": "Clone your repo to a new folder and paste the git log --oneline from the clone",
+        "type": "paste-output",
+        "expectedPatterns": [
+          "[a-f0-9]{7}"
+        ],
         "hints": [
-          "This command creates a local copy of a remote repository",
-          "It's two words, starting with 'git'",
-          "Try: git clone"
+          "Run: git clone https://github.com/yourusername/my-first-repo.git ~/Desktop/my-first-repo-clone",
+          "Then: cd ~/Desktop/my-first-repo-clone && git log --oneline",
+          "You should see the same commits as your original repo"
         ]
       },
       {
-        "id": "command-pull",
-        "description": "What command brings remote changes down to your local repo?",
-        "type": "command-match",
-        "acceptableAnswers": ["git pull", "git pull origin main", "git pull origin master"],
+        "id": "pull-output",
+        "description": "Run git pull in your original repo and paste the output",
+        "type": "paste-output",
+        "expectedPatterns": [
+          "(Already up to date|Updating|Fast-forward|Current branch)"
+        ],
         "hints": [
-          "It's the opposite of push — it 'pulls' changes from the remote",
-          "Two words, starting with 'git'",
-          "Try: git pull"
+          "Go back to your original repo: cd ~/my-first-repo",
+          "Then run: git pull",
+          "You should see 'Already up to date.' since nothing changed on the remote"
         ]
       }
     ]
@@ -223,7 +227,7 @@ You should see the same commits you pushed. Cloning is how you get a project sta
 > rm -rf my-first-repo-clone
 > ```
 
-::validate[command-clone]
+::validate[clone-log-output]
 
 ## The Pull-Push Cycle
 
@@ -266,7 +270,7 @@ git commit -m 'Add progress note to README'
 git push
 ```
 
-::validate[command-pull]
+::validate[pull-output]
 
 ## Quick Reference Card
 

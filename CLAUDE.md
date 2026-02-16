@@ -222,11 +222,14 @@ Lesson files live in `public/course-content/` and are fetched at runtime via `fe
   - Lesson 1: Git Basics (20 min) — config, init, stage, commit, log, diff
   - Lesson 2: Working with GitHub (20 min) — remote, push, clone, pull
   - Lesson 3: Branches and Workflow (20 min) — branch, switch, merge, professional workflow
+- Module 3 complete (2 lessons):
+  - Lesson 1: Secrets & Environment Variables (15 min) — .env, .gitignore, API key safety
+  - Lesson 2: Safe Development Practices (15 min) — npm audit, node_modules, HTTPS, least privilege
 
 ### 🚧 Next
 
 - **Surface progress % on CoursePage** — read localStorage to show completion per module
-- **Module 3 content** — Security Fundamentals
+- **Module 4 content** — Web Dashboard Layout
 
 **localStorage structure (already implemented):**
 ```javascript
@@ -250,7 +253,7 @@ Lesson files live in `public/course-content/` and are fetched at runtime via `fe
 | 0 | Setup Your Environment | ✅ Complete |
 | 1 | Command Line Basics | ✅ Complete |
 | 2 | Git Fundamentals | ✅ Complete |
-| 3 | Security Fundamentals | ⏳ Content needed |
+| 3 | Security Fundamentals | ✅ Complete |
 | 4 | Web Dashboard Layout | ⏳ Content needed |
 | 5 | API Integration | ⏳ Content needed |
 | 6 | Data Persistence | ⏳ Content needed |
