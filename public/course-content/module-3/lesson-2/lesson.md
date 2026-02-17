@@ -31,7 +31,7 @@
         "description": "Run npm audit in the course project and paste the output",
         "type": "paste-output",
         "expectedPatterns": [
-          "(found 0 vulnerabilities|found \\d+ vulnerabilit|no known vulnerabilities)"
+          "(found 0 vulnerabilities|\\d+ .* vulnerabilit|no known vulnerabilities)"
         ],
         "hints": [
           "Navigate to the course project: cd ~/Developer/claude-code-course",
@@ -44,7 +44,7 @@
         "description": "Run npm audit fix (if needed) then npm audit again, and paste the final output",
         "type": "paste-output",
         "expectedPatterns": [
-          "(found 0 vulnerabilities|found \\d+ vulnerabilit|no known vulnerabilities)"
+          "(found 0 vulnerabilities|\\d+ .* vulnerabilit|no known vulnerabilities)"
         ],
         "hints": [
           "If npm audit found issues, run: npm audit fix",
@@ -76,14 +76,30 @@ In Lesson 1, you learned to keep secrets out of your code. Now let's talk about 
 
 When you build a web app, you don't write everything from scratch. You use **packages** — pre-built code written by other developers. This is powerful, but it comes with responsibility. You need to know what you're installing and how to check that it's safe.
 
+## Clone the Course Project
+
+To explore these concepts hands-on, let's clone a real Node.js project — the course platform you're using right now. This is great practice for the `git clone` command you learned in Module 2.
+
+```bash
+git clone https://github.com/kwtamayo/claude-code-course.git ~/Developer/claude-code-course
+```
+
+Now install its dependencies:
+
+```bash
+cd ~/Developer/claude-code-course
+npm install
+```
+
+> **What just happened?** You downloaded the full source code of this course app and installed its packages. Now you have a real project to examine.
+
 ## Understanding node_modules
 
-When you ran `npm install` in Module 0, something happened behind the scenes. npm downloaded all the project's dependencies into a folder called `node_modules/`.
+When you ran `npm install` just now, something happened behind the scenes. npm downloaded all the project's dependencies into a folder called `node_modules/`.
 
 Take a look:
 
 ```bash
-cd ~/Developer/claude-code-course
 ls node_modules | head -20
 ```
 

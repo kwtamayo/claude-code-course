@@ -96,15 +96,15 @@
 .module-number {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--primary);
-  background-color: rgba(37, 99, 235, 0.1);
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.3);
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: var(--radius-md);
 }
 
 .module-time {
   font-size: 0.875rem;
-  color: var(--text-secondary);
+  color: #ffffff;
 }
 
 .module-title {

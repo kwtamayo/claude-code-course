@@ -89,7 +89,23 @@ export const courseStructure = {
       title: 'Web Dashboard - Layout & Setup',
       description: 'Start building your personal dashboard',
       timeEstimate: '60 minutes',
-      lessons: [],
+      lessons: [
+        {
+          id: 1,
+          title: 'Your First Project with Claude Code',
+          timeEstimate: '20 minutes',
+        },
+        {
+          id: 2,
+          title: 'Understanding What Got Built',
+          timeEstimate: '20 minutes',
+        },
+        {
+          id: 3,
+          title: 'Making It Yours',
+          timeEstimate: '20 minutes',
+        },
+      ],
     },
     {
       id: 5,

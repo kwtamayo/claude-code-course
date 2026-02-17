@@ -65,20 +65,6 @@
           "You should see .gitignore listed (it's a new/modified file) but NOT .env",
           "If .env appears, make sure your .gitignore file contains '.env' on its own line"
         ]
-      },
-      {
-        "id": "gitignore-contents",
-        "description": "Run cat .gitignore in the course project and paste the output",
-        "type": "paste-output",
-        "expectedPatterns": [
-          "node_modules",
-          "\\.env"
-        ],
-        "hints": [
-          "Navigate to the course project: cd ~/Developer/claude-code-course",
-          "Then run: cat .gitignore",
-          "You should see entries like node_modules and .env"
-        ]
       }
     ]
   }
@@ -212,9 +198,7 @@ build/
 .DS_Store
 ```
 
-Every project should have a `.gitignore` from day one. When we start building your web dashboard in Module 4, we'll create one with all the right entries.
-
-::validate[gitignore-contents]
+Every project should have a `.gitignore` from day one. When we start building your web dashboard in Module 4, we'll create one with all the right entries. In the next lesson, you'll also get to examine the `.gitignore` of a real Node.js project.
 
 ## What If You Accidentally Commit a Secret?
 
