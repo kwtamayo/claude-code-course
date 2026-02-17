@@ -224,12 +224,18 @@ Lesson files live in `public/course-content/` and are fetched at runtime via `fe
   - Lesson 3: Branches and Workflow (20 min) — branch, switch, merge, professional workflow
 - Module 3 complete (2 lessons):
   - Lesson 1: Secrets & Environment Variables (15 min) — .env, .gitignore, API key safety
-  - Lesson 2: Safe Development Practices (15 min) — npm audit, node_modules, HTTPS, least privilege
+  - Lesson 2: Safe Development Practices (15 min) — npm audit, node_modules, HTTPS, least privilege, clone course repo
+- Module 4 complete (3 lessons):
+  - Lesson 1: Your First Project with Claude Code (20 min) — install, plain-English prompt, scaffold, run dev server
+  - Lesson 2: Understanding What Got Built (20 min) — project tour, JSX, components, App.jsx
+  - Lesson 3: Making It Yours (20 min) — hot reload, customize, Claude Code iteration, git init, push to GitHub
+- Accessibility fix: module card labels now white-on-dark for color vision accessibility (protonopia)
 
 ### 🚧 Next
 
 - **Surface progress % on CoursePage** — read localStorage to show completion per module
-- **Module 4 content** — Web Dashboard Layout
+- **Module 5 content** — API Integration
+- **Still testing Module 4** — user was mid-test when session ended
 
 **localStorage structure (already implemented):**
 ```javascript
