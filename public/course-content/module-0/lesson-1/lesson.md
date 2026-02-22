@@ -99,6 +99,12 @@ By the end of this lesson, you'll have:
 
 **Total time:** About 30 minutes
 
+:::warning
+**Claude Code requires a paid Claude subscription.** To complete this course, you'll need a Claude Pro or Max plan (~$20–$100/month). A free tier exists but has strict usage limits that will block you mid-lesson.
+
+You can subscribe now at [claude.ai](https://claude.ai), or wait — you'll be prompted when you install Claude Code in Module 4. If you prefer pay-as-you-go instead of a monthly plan, Claude Code also works via the Anthropic API — we cover that in Module 12.
+:::
+
 ---
 
 ## Step 1: Open Terminal

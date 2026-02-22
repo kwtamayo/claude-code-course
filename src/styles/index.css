@@ -191,6 +191,37 @@ code {
   color: #1e40af;
 }
 
+/* Callout / admonition boxes */
+.callout {
+  border-left: 4px solid;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.callout-warning {
+  border-color: #f59e0b;
+  background-color: #fef3c7;
+  color: #78350f;
+}
+
+.callout-info {
+  border-color: #3b82f6;
+  background-color: #dbeafe;
+  color: #1e3a8a;
+}
+
+.callout-title {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.callout p:last-child {
+  margin-bottom: 0;
+}
+
 /* Loading spinner */
 .spinner {
   border: 3px solid var(--bg-tertiary);

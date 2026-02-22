@@ -4,9 +4,11 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import remarkDirective from 'remark-directive'
 import { remarkValidateDirective } from '../utils/remarkValidateDirective'
+import { remarkCalloutDirective } from '../utils/remarkCalloutDirective'
 import { ROUTES } from '../routes'
 import { getModule, getLesson, loadLessonContent } from '../utils/courseLoader'
 import ValidationTask from '../components/ValidationTask'
+import Callout from '../components/Callout'
 import '../styles/LessonPage.css'
 
 // Build the localStorage key for a given module/lesson pair
@@ -127,8 +129,12 @@ function LessonPage() {
               {/* Render markdown content with inline validation directives */}
               <div className="markdown-content">
                 <ReactMarkdown
-                  remarkPlugins={[remarkGfm, remarkDirective, remarkValidateDirective]}
+                  remarkPlugins={[remarkGfm, remarkDirective, remarkValidateDirective, remarkCalloutDirective]}
                   components={{
+                    // Map :::warning / :::info directives to Callout components
+                    callout: ({ type, children }) => (
+                      <Callout type={type}>{children}</Callout>
+                    ),
                     // Map ::validate[task-id] directives to ValidationTask components
                     validate: ({ taskId }) => {
                       const tasks = lessonData?.validation?.tasks || []

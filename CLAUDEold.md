@@ -13,7 +13,7 @@ An interactive web-based course platform teaching software development using Cla
 
 You are a collaborative building partner, not a code typewriter. Follow these principles:
 
-- **Start with the end vision.** Define "done," work backward through dependencies, then implement. This prevents building the wrong thing efficiently.
+- **Start with the end vision.** Before jumping into implementation, clarify what success looks like. Then work backward to identify the steps needed. This prevents building the wrong thing efficiently.
 - **Always discuss approach before writing code.** Ask clarifying questions first.
 - **Break work into small, focused tasks** — one feature or fix per conversation.
 - **When something is vague, clarify before implementing.**
@@ -21,6 +21,19 @@ You are a collaborative building partner, not a code typewriter. Follow these pr
 - **Propose alternatives when you see a better path.** Push back constructively.
 - **Use multiple perspectives.** When reviewing code or making decisions, consider asking different AI models to critique each other's work.
 - **Explain WHY, not just WHAT.** This student is learning, not just shipping.
+
+---
+
+## Vision-First Development
+
+Before implementing features:
+
+1. **Define the end state** - What does "done" look like for students?
+2. **Work backward** - What capabilities are needed to reach that state?
+3. **Identify dependencies** - What must exist before this can work?
+4. **Then implement** - Now the path forward is clear
+
+**Example:** "Students should complete Module 1 with confidence" → needs validation system → needs pattern matching → needs task UI → start with task UI.
 
 ---
 
@@ -33,8 +46,38 @@ npm run lint       # Run ESLint
 npm install        # Install dependencies after cloning
 ```
 
-**Project slash commands** (`.claude/commands/`):
-- `/review-lesson` — Check lesson content quality
+---
+
+## Custom Slash Commands
+
+Create reusable workflows by saving prompts as markdown files. This is essential for building repeatable course development workflows.
+
+**Project commands** (shared via git):  
+`.claude/commands/` - Available in this project only
+
+**Personal commands** (your toolkit):  
+`~/.claude/commands/` - Available across all your projects
+
+**Quick example:**
+```bash
+# Create a command to review lesson content
+mkdir -p .claude/commands
+echo "Review this lesson for clarity, accuracy, and proper markdown formatting" > .claude/commands/review-lesson.md
+```
+
+**Usage:** `/review-lesson`
+
+**With arguments:**
+```bash
+# Create a command that takes module and lesson numbers
+echo "Create a new lesson outline for Module $1, Lesson $2" > .claude/commands/new-lesson.md
+```
+
+**Usage:** `/new-lesson 3 1`
+
+**Our project commands:**
+- `/review-lesson` - Check lesson content quality
+- [Add more as we create them]
 
 ---
 
@@ -152,7 +195,41 @@ Lesson files live in `public/course-content/` and are fetched at runtime via `fe
 
 ## Current State
 
-Core infrastructure complete: React + Vite + React Router, markdown rendering with `remark-directive`, validation system (`paste-output` + `command-match`), CSS design system, localStorage persistence. See module status below.
+### ✅ Complete
+
+- React + Vite + React Router infrastructure
+- Routes system (`src/routes.js`) — bulletproof navigation
+- ESLint configured
+- All pages built: Home, Course, Module, Lesson, 404
+- Module 0 complete (2 lessons):
+  - Lesson 1: Setup Your Development Environment (30 min)
+  - Lesson 2: Troubleshooting Guide (optional, all troubleshooting consolidated here)
+- Markdown rendering with syntax highlighting
+- Professional CSS design system
+- Full navigation: Home → Course → Module → Lesson (working!)
+- **Validation system — fully working:**
+  - `ValidationTask` component with two types: `paste-output` (regex) and `command-match` (exact match, normalized)
+  - Inline placement via `remark-directive` (`::validate[task-id]` markers in markdown)
+  - localStorage persistence — completed tasks survive refresh
+  - Completed state styling (green border, checkmark)
+  - Plugin: `src/utils/remarkValidateDirective.js`
+- Lesson 1 includes "Disable Built-in AI Features" step (Copilot)
+- Module 1 complete (3 lessons):
+  - Lesson 1: Navigating the File System (20 min) — pwd, ls, cd, paths
+  - Lesson 2: Working with Files (20 min) — mkdir, touch, cat, cp, mv, rm
+  - Lesson 3: Putting It All Together (20 min) — project structure, open, chaining, extras
+- Module 2 complete (3 lessons):
+  - Lesson 1: Git Basics (20 min) — config, init, stage, commit, log, diff
+  - Lesson 2: Working with GitHub (20 min) — remote, push, clone, pull
+  - Lesson 3: Branches and Workflow (20 min) — branch, switch, merge, professional workflow
+- Module 3 complete (2 lessons):
+  - Lesson 1: Secrets & Environment Variables (15 min) — .env, .gitignore, API key safety
+  - Lesson 2: Safe Development Practices (15 min) — npm audit, node_modules, HTTPS, least privilege, clone course repo
+- Module 4 complete (3 lessons):
+  - Lesson 1: Your First Project with Claude Code (20 min) — install, plain-English prompt, scaffold, run dev server
+  - Lesson 2: Understanding What Got Built (20 min) — project tour, JSX, components, App.jsx
+  - Lesson 3: Making It Yours (20 min) — hot reload, customize, Claude Code iteration, git init, push to GitHub
+- Accessibility fix: module card labels now white-on-dark for color vision accessibility (protonopia)
 
 ### 🚧 Next
 
@@ -160,7 +237,22 @@ Core infrastructure complete: React + Vite + React Router, markdown rendering wi
 - **Module 5 content** — API Integration
 - **Still testing Module 4** — user was mid-test when session ended
 
-### Module Status
+**localStorage structure (already implemented):**
+```javascript
+{
+  "module-0-lesson-1": {
+    "completedTasks": ["verify-homebrew", "verify-node"],
+    "lastUpdated": "2026-02-10T10:30:00Z"
+  }
+}
+```
+
+**Inline validation marker syntax (already implemented):**
+```markdown
+::validate[verify-homebrew]
+```
+
+### 📋 Module Status
 
 | Module | Title | Status |
 |--------|-------|--------|
@@ -168,7 +260,7 @@ Core infrastructure complete: React + Vite + React Router, markdown rendering wi
 | 1 | Command Line Basics | ✅ Complete |
 | 2 | Git Fundamentals | ✅ Complete |
 | 3 | Security Fundamentals | ✅ Complete |
-| 4 | Web Dashboard Layout | ✅ Complete |
+| 4 | Web Dashboard Layout | ⏳ Content needed |
 | 5 | API Integration | ⏳ Content needed |
 | 6 | Data Persistence | ⏳ Content needed |
 | 7 | Backend & Database | ⏳ Content needed |
@@ -234,11 +326,38 @@ git pull origin main
 
 ## Debugging Escalation
 
-When stuck, escalate in order: **1. Rephrase** (exact error + expected vs. actual) → **2. Add Context** (ask "what do you think is happening?" before fixing) → **3. Step Back** (ask "walk me through what this code does") → **4. Revert and Retry** (`git stash`, try a different approach).
+When stuck, escalate through these steps **in order**:
 
-If all 4 steps completed twice with no progress, say so. Suggest simplifying or decomposing.
+### Step 1: Rephrase
+- Describe expected vs. actual behavior with specificity
+- Include **exact error message** and file/line location
+- Show what you tried
 
-**Know when to reset:** Thread circling after 2-3 attempts? `/clear` and start fresh. Avoid sunk-cost fallacy — a clean start is often faster. Each new feature deserves fresh context.
+### Step 2: Add Context
+- Paste error output + relevant code + attempts made
+- Ask: **"What do you think is happening?"** (diagnose before fix)
+
+### Step 3: Step Back
+- Stop trying to fix it
+- Ask: **"Walk me through what this code does step by step"**
+- Ask: **"What assumptions is this code making?"**
+- Often reveals the real issue
+
+### Step 4: Revert and Retry
+- If steps 1-3 fail twice, **the approach may be wrong**
+- `git stash` or checkout to known good state
+- Try fundamentally different approach
+- Consider decomposing feature further
+
+**CRITICAL:** If all 4 steps completed twice with no progress, say so.  
+Suggest simplifying the requirement or breaking into smaller pieces.
+
+**Know when to reset:**
+- Thread circling after 2-3 fix attempts? `/clear` and start fresh
+- Context getting muddled with too much back-and-forth? Summarize key points and begin new session
+- Avoid sunk-cost fallacy - sometimes a clean start is faster than debugging a confused thread
+
+Use `/clear` liberally. Each new feature deserves fresh context.
 
 **For routing bugs:** Always check `src/routes.js` first, then verify links use `ROUTES.*` functions, not hardcoded strings.
 
@@ -253,3 +372,37 @@ If all 4 steps completed twice with no progress, say so. Suggest simplifying or 
 - **GitHub:** https://github.com/kwtamayo/claude-code-course
 - **Learning style:** Practical, wants to understand WHY, pushes back on unnecessary complexity
 
+---
+
+## When Compacting
+
+Always preserve:
+- List of modified files
+- Current feature in progress
+- Any unresolved routing issues
+- Validation system implementation state
+- Which modules have content vs. need content
+
+---
+
+## Session Handoffs
+
+When switching between sessions or Claude instances, create a brief handoff to maintain momentum.
+
+**Include:**
+- What was just completed
+- Current state (working/blocked)
+- Files modified in this session
+- Next immediate task
+- Any unresolved questions
+
+**Example handoff:**
+```
+Completed: Validation UI for paste-output tasks
+Status: Working - pattern matching logic functional
+Files: LessonPage.jsx, LessonPage.css
+Next: Add hints system and localStorage persistence
+Question: Should we validate on blur or on button click?
+```
+
+This prevents re-explaining context and maintains project continuity across sessions.

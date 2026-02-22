@@ -156,6 +156,8 @@ This is the workflow you'll use going forward:
 
 > **Experiment freely.** Try asking Claude Code for other changes — a different layout, rounded corners, a dark mode. The worst that can happen is you don't like it, and you can always ask Claude Code to undo it or use `git checkout` to revert (once we set up Git next).
 
+This is how real development works — you try something, see what happens, and adjust. And when you hit a wall or get an error you don't understand, you describe it to Claude Code and work through it together. You're never stuck alone.
+
 ## Save Your Work with Git
 
 Time to use everything you learned in Module 2. Your project isn't tracked by Git yet — let's fix that.

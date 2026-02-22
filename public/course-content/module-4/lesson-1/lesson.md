@@ -131,18 +131,23 @@ You should see a version number.
 
 > **Getting a permission error?** Try: `sudo npm install -g @anthropic-ai/claude-code` and enter your password. On Apple Silicon Macs, this is rarely needed if you installed Node via Homebrew in Module 0.
 
+> **Still stuck?** You can always launch `claude` in your Terminal and describe the error you're seeing. Claude Code can help you troubleshoot — that's one of its superpowers.
+
 ## Writing a Good Prompt
 
 Before you use Claude Code, let's talk about what makes a good prompt. You don't need to know any programming terminology — just describe what you want clearly.
 
-A good prompt has two parts:
+A good prompt has three parts:
 
 | Part | Purpose | Example |
 |------|---------|---------|
 | **What** you're building | The big picture | "A Daily Planner web app" |
 | **What it should have** | The specific pieces | "Calendar, task list, notes, habit tracker" |
+| **What framework** to use | How it should be built | "using React" |
 
-That's it. Claude Code handles the technical decisions — what language to use, how to organize the files, how to style it. You just describe what you want, and it figures out how to build it.
+That third part — the framework — is worth explaining. **React** is one of the most popular tools for building web apps. You don't need to know how React works yet (that's what Lesson 2 is for). But telling Claude Code to "use React" means it will create a proper project with organized files and folders, instead of cramming everything into a single file.
+
+> **Good to know:** React is just one option. In future projects, you could say "using Vue" or "using Svelte" instead — they're all great frameworks. For this course, we'll use React because it's the most widely used.
 
 ## Create Your Daily Planner
 
@@ -181,10 +186,10 @@ Select login method:
 Once you're logged in, Claude Code will show a prompt where you can type. Paste this prompt:
 
 ```
-Build me a Daily Planner web app with a calendar, task list, notes section, and habit tracker. Make it look clean and modern with some example data so I can see how it looks right away.
+Build me a Daily Planner web app using React with a calendar, task list, notes section, and habit tracker. Make it look clean and modern with some example data so I can see how it looks right away. Use everyday tasks like groceries, exercise, and errands for the example data.
 ```
 
-That's it — two sentences. Claude Code will decide how to build it, what tools to use, and how to organize the code. You'll explore all of those decisions in Lesson 2.
+That's it. Claude Code will handle the rest — how to organize the files, how to style it, and what code to write. You'll explore all of those decisions in Lesson 2.
 
 ### What Happens Next
 
@@ -217,6 +222,8 @@ Do you want to proceed?
 For both types, **select option 2** each time. This tells Claude Code "I trust you for this session — go ahead." Since it's building an entire project from scratch, there will be many files to create and commands to run. You don't want to approve each one individually.
 
 > **Don't worry if your output looks slightly different.** Claude Code may name files or organize things a bit differently each time. That's normal — the important thing is that you end up with a working project.
+
+> **If something goes wrong during the build,** don't panic. You can tell Claude Code what happened — just type something like "I'm getting an error" or "that didn't work" — and it will help you fix it.
 
 When Claude Code finishes, exit it by typing `/exit` or pressing `Ctrl + C`. You're back in your regular Terminal now.
 
@@ -262,6 +269,19 @@ Check that `.gitignore` exists and has the right entries:
 cat .gitignore
 ```
 
+> **Getting "No such file or directory"?** Claude Code doesn't always create a `.gitignore`. Create one now:
+> ```bash
+> printf 'node_modules/\n.env\ndist/\n' > .gitignore
+> ```
+> Then run `cat .gitignore` again to verify.
+
+If your `.gitignore` exists but is missing `node_modules/` or `.env`, add them:
+
+```bash
+echo 'node_modules/' >> .gitignore
+echo '.env' >> .gitignore
+```
+
 ::validate[verify-gitignore]
 
 Verify React is properly listed as a dependency:
@@ -271,13 +291,6 @@ grep react package.json
 ```
 
 ::validate[verify-package-json]
-
-If your `.gitignore` is missing `node_modules/` or `.env`, add them now:
-
-```bash
-echo 'node_modules/' >> .gitignore
-echo '.env' >> .gitignore
-```
 
 Good habits start from the first project.
 
@@ -292,6 +305,8 @@ Let's step back and appreciate what you just did:
 5. **Verified security** by checking `.gitignore`
 
 In the next lesson, we'll look under the hood — you'll understand every file Claude Code created and learn the vocabulary of React development.
+
+> **Pro Tip:** Anytime you're confused or hit an error during this course, you can open Claude Code in your project folder and ask it for help. Try things like "explain what this error means" or "something broke, can you fix it?" Think of it as a knowledgeable friend who's always available.
 
 ## Quick Reference Card
 
