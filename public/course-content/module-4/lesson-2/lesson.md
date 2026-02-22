@@ -15,20 +15,6 @@
   "validation": {
     "tasks": [
       {
-        "id": "verify-src-contents",
-        "description": "Run ls src/ in your daily-planner project and paste the output",
-        "type": "paste-output",
-        "expectedPatterns": [
-          "(App|app|index)",
-          "\\.(jsx|tsx|js|ts|css)"
-        ],
-        "hints": [
-          "Navigate to your project: cd ~/Developer/daily-planner",
-          "Then run: ls src/",
-          "You should see source files like App.jsx or App.tsx, and possibly a components folder"
-        ]
-      },
-      {
         "id": "verify-app-file",
         "description": "Run head -30 src/App.jsx (or App.tsx) and paste the output to see the main app file",
         "type": "paste-output",
@@ -58,7 +44,7 @@
       },
       {
         "id": "verify-component-structure",
-        "description": "Pick any component file from the list above, run head -15 on it, and paste the output",
+        "description": "Pick any component file from the list above, run cat on it, and paste the output",
         "type": "paste-output",
         "expectedPatterns": [
           "(function|const|export)",
@@ -66,8 +52,8 @@
         ],
         "hints": [
           "Choose one of the files from the previous step (not App.jsx)",
-          "Run: head -15 src/components/Calendar.jsx (or whatever your file is called)",
-          "You should see a function that returns JSX (HTML-like code)"
+          "Run: cat src/components/Calendar.jsx (or whatever your file is called)",
+          "Scroll through and look for: imports, a function definition, a return with JSX, and an export"
         ]
       }
     ]
@@ -107,13 +93,7 @@ The most important folder is `src/`. That's where your dashboard code lives.
 
 ## Inside src/
 
-```bash
-ls src/
-```
-
-::validate[verify-src-contents]
-
-Here's what the key files typically are:
+You already ran `ls src/` in Lesson 1 to verify your project structure. Here's what those files actually do:
 
 | File | Purpose |
 |------|---------|
@@ -144,16 +124,16 @@ This separation is intentional. In React, you break your interface into **compon
 
 A component is a **function that returns what should appear on screen**. That's it. Every piece of your dashboard — the calendar, the task list, even the header — is a component.
 
-Here's the pattern every React component follows:
+Every React component has **four ingredients**. They won't always appear in this exact order — real code is messier than textbook examples — but every component has them:
 
 ```
-1. Import what you need        ← bring in tools and styles
-2. Define a function           ← the component itself
-3. Return JSX                  ← describe what it looks like
-4. Export the function         ← make it available to other files
+1. Imports                     ← bring in tools and styles
+2. A function                  ← the component itself
+3. A return with JSX           ← describe what it looks like
+4. An export                   ← make it available to other files
 ```
 
-Let's see this in action.
+Let's see these in action.
 
 ## Reading the Main App File
 
@@ -211,40 +191,24 @@ Don't overthink this. JSX is just a way to write HTML inside JavaScript. You'll 
 
 ## Reading a Component
 
-Let's look inside one of your components. Pick any component file from the `find` output above (not the App file) and look at the first 15 lines:
+Now let's look inside one of your components. Pick any component file from the `find` output above (not the App file) and read the whole thing:
 
 ```bash
-head -15 src/components/Calendar.jsx
+cat src/components/Calendar.jsx
 ```
 
-> **Use your own filename.** Replace `src/components/Calendar.jsx` with whatever path showed up in your `find` results. For example, it might be `src/components/TaskList.tsx` or `src/Calendar.jsx`.
+> **Use your own filename.** Replace `src/components/Calendar.jsx` with whatever path showed up in your `find` results. If you have several options, pick one of the shorter files — it'll be easier to read.
 
 ::validate[verify-component-structure]
 
-You'll see the four-part pattern:
+Don't worry if the code looks complex. Your job right now isn't to understand every line — it's to **spot the four ingredients.** Scan through the file and look for:
 
-```jsx
-// 1. Import what you need
-import './Calendar.css'
+1. **Imports** — lines starting with `import`. They might be at the very top, or a few lines down after some constants. Example: `import { useState } from 'react'`
+2. **A function** — the component itself. Look for `function Calendar()` or `export default function Calendar()`. This is where the real work happens.
+3. **A return with JSX** — inside the function, look for `return (` followed by HTML-like code with angle brackets (`<div>`, `<h2>`, etc.). This describes what appears on screen.
+4. **An export** — usually `export default Calendar` at the bottom, or `export default function` at the function definition. This makes the component available to App.jsx.
 
-// 2. Define a function (this IS the component)
-function Calendar() {
-  // ... some logic here ...
-
-  // 3. Return JSX (what appears on screen)
-  return (
-    <div className="calendar">
-      <h2>Calendar</h2>
-      {/* ... calendar grid ... */}
-    </div>
-  )
-}
-
-// 4. Export it
-export default Calendar
-```
-
-**That's a complete React component.** A function that returns JSX. Everything inside the `return (...)` describes what this section of your dashboard looks like.
+> **Your file might also have** constants (like `const DAYS = [...]`), helper functions, or other code outside the main component function. That's normal — components often need supporting code. The component itself is the function with the JSX return.
 
 > **You might see `const Calendar = () => {`** instead of `function Calendar()`. These are two ways to write the same thing in JavaScript. Both work — Claude Code might use either style.
 
@@ -273,7 +237,7 @@ ls                                                      # See top-level files
 ls src/                                                 # See source files
 find src/ -name '*.jsx' -o -name '*.tsx' | head -10     # Find all React files
 head -30 src/App.jsx                                    # See the main App file
-head -15 src/components/SomeComponent.jsx               # See a component file
+cat src/components/SomeComponent.jsx                    # Read a component file
 ```
 
 ## Key Concepts
