@@ -157,8 +157,8 @@ Core infrastructure complete: React + Vite + React Router, markdown rendering wi
 ### 🚧 Next
 
 - **Surface progress % on CoursePage** — read localStorage to show completion per module
-- **Module 5 content** — API Integration
-- **Still testing Module 4** — user was mid-test when session ended
+- **Module 6 content** — Data Persistence
+- **Dogfood Module 5** — test all 3 lessons as a student would
 
 ### Module Status
 
@@ -169,7 +169,7 @@ Core infrastructure complete: React + Vite + React Router, markdown rendering wi
 | 2 | Git Fundamentals | ✅ Complete |
 | 3 | Security Fundamentals | ✅ Complete |
 | 4 | Web Dashboard Layout | ✅ Complete |
-| 5 | API Integration | ⏳ Content needed |
+| 5 | API Integration | ✅ Complete |
 | 6 | Data Persistence | ⏳ Content needed |
 | 7 | Backend & Database | ⏳ Content needed |
 | 8 | Web Deployment | ⏳ Content needed |

@@ -112,7 +112,23 @@ export const courseStructure = {
       title: 'API Integration',
       description: 'Connect to external APIs for live data',
       timeEstimate: '45 minutes',
-      lessons: [],
+      lessons: [
+        {
+          id: 1,
+          title: 'Your Dashboard Goes Live',
+          timeEstimate: '15 minutes',
+        },
+        {
+          id: 2,
+          title: 'Understanding the New Code',
+          timeEstimate: '15 minutes',
+        },
+        {
+          id: 3,
+          title: 'Error Handling & Make It Yours',
+          timeEstimate: '15 minutes',
+        },
+      ],
     },
     {
       id: 6,
