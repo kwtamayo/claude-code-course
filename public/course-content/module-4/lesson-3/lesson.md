@@ -95,7 +95,7 @@ This is called **hot module replacement** (HMR). Vite watches your files and pus
 
 ### Change the Title
 
-Open the main App file in VS Code:
+Open a new Terminal tab (`Cmd + T`) — your dev server is running in the current one and needs to stay running. Then open the main App file in VS Code:
 
 ```bash
 code src/App.jsx
@@ -103,7 +103,7 @@ code src/App.jsx
 
 > **File not found?** Try `code src/App.tsx` — Claude Code may have used TypeScript.
 
-Find the main heading or title text — it probably says something like "Daily Planner" or "My Dashboard." Change it to include your name:
+Find the main heading or title text. Use `Cmd + F` in VS Code to search for words like "Planner" or "Dashboard" — that should find it. It's usually inside an `<h1>` or `<h2>` tag. Change it to include your name:
 
 ```
 Alex's Daily Planner
@@ -121,11 +121,16 @@ Now let's change how it looks. Open one of the CSS files:
 code src/App.css
 ```
 
-Look for a `background-color`, `color`, or any color value. CSS colors can be:
-- **Named colors:** `blue`, `tomato`, `darkslategray`
-- **Hex codes:** `#7c3aed` (purple), `#3b82f6` (blue), `#10b981` (green)
+Use `Cmd + F` to search for `#` — this finds **hex color codes** like `#7c3aed` (purple) or `#3b82f6` (blue). Pick any hex code you find and change it to a different one:
 
-Try changing a background color to something you like. Save and watch the browser update.
+- `#3b82f6` — blue
+- `#10b981` — green
+- `#f59e0b` — amber
+- `#ef4444` — red
+
+Save the file and watch the browser update.
+
+> **Seeing `var(--something)` instead of colors?** Those are CSS variables — named shortcuts for color values. Look near the top of the file for a `:root {` section where they're defined. That's where you'll find the actual hex codes to change.
 
 > **Don't worry about "breaking" things.** CSS changes are purely visual — you can always change them back. This is what branches are for, too (remember Module 2?).
 
@@ -146,7 +151,11 @@ Try a prompt like:
 Change the color scheme of my dashboard to use blue as the primary color. Update the header, buttons, and accent colors to use a cohesive blue palette.
 ```
 
-Claude Code will read your existing CSS files and update them. After it's done, check the browser — your dashboard should look different.
+Claude Code will read your existing CSS files and update them. When it's done:
+
+1. Exit Claude Code: type `/exit` or press `Ctrl + C`
+2. If your dev server stopped, restart it: `npm run dev`
+3. Check the browser — your dashboard should look different.
 
 This is the workflow you'll use going forward:
 
@@ -181,10 +190,23 @@ You'll see a lot of untracked files — that's everything Claude Code created. B
 
 ### Your First Commit
 
-Stage everything and commit:
+Stage everything:
 
 ```bash
 git add .
+```
+
+Now run `git status` again:
+
+```bash
+git status
+```
+
+Notice how the files changed from **red** (untracked) to **green** (staged). That means Git is ready to include them in your next commit.
+
+Now commit:
+
+```bash
 git commit -m 'Initial commit: Daily Planner dashboard'
 ```
 
@@ -213,14 +235,16 @@ Let's back up your project to GitHub — just like you did in Module 2 Lesson 2.
 
 ### Step 2: Connect and Push
 
-Copy the HTTPS URL from GitHub, then run:
+Copy the HTTPS URL from GitHub, then run these commands — but **replace `yourusername` with your actual GitHub username first:**
 
 ```bash
 git remote add origin https://github.com/yourusername/daily-planner.git
 git push -u origin main
 ```
 
-Replace `yourusername` with your actual GitHub username.
+> **⚠️ Don't copy this literally!** Change `yourusername` to YOUR GitHub username. For example, if your username is `alexsmith`, the URL would be `https://github.com/alexsmith/daily-planner.git`.
+
+> **Getting "Authentication failed"?** This usually means you didn't replace `yourusername`, or GitHub needs you to use a personal access token instead of your password. To fix the URL: `git remote set-url origin https://github.com/YOUR-ACTUAL-USERNAME/daily-planner.git`. For token setup, see [GitHub's guide](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
 
 Verify the connection:
 

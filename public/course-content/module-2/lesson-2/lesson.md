@@ -143,11 +143,13 @@ Now you need to tell your local repo where the remote copy lives. Make sure you'
 cd ~/my-first-repo
 ```
 
-Then add the remote:
+Then add the remote — but **replace `yourusername` with your actual GitHub username first:**
 
 ```bash
 git remote add origin https://github.com/yourusername/my-first-repo.git
 ```
+
+> **⚠️ Don't copy this literally!** Change `yourusername` to YOUR GitHub username. For example, if your username is `alexsmith`, the URL would be `https://github.com/alexsmith/my-first-repo.git`.
 
 Let's break this down:
 - `git remote add` — "add a new remote connection"
@@ -206,7 +208,7 @@ Let's practice by cloning a public repository. Go to a temporary folder:
 cd ~/Desktop
 ```
 
-Now clone:
+Now clone — **replace `yourusername` with your actual GitHub username:**
 
 ```bash
 git clone https://github.com/yourusername/my-first-repo.git my-first-repo-clone
