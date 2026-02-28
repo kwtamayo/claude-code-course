@@ -125,6 +125,15 @@ ROUTE_PATTERNS.lesson   // → "/course/module/:moduleId/lesson/:lessonId"
 
 Lesson files live in `public/course-content/` and are fetched at runtime via `fetch()`.
 
+**The Student Prompt Test:** Every Claude Code prompt in a lesson must pass this test: *"Would a non-technical student type this?"* If not, either simplify the prompt or explain why the technical language is necessary. Claude Code brings its own expertise — tell it WHAT you want, not HOW to do it. Only include technical terms when the validation requires specific output.
+
+```
+✅ "Add a weather widget to my Daily Planner using the Open-Meteo API."
+✅ "Switch my weather widget from Open-Meteo to OpenWeatherMap."
+❌ "Use try/catch for error handling."
+❌ "Access it in the code with import.meta.env.VITE_OPENWEATHER_API_KEY."
+```
+
 **Lesson frontmatter structure (JSON between `---` delimiters):**
 ```json
 {
@@ -156,9 +165,9 @@ Core infrastructure complete: React + Vite + React Router, markdown rendering wi
 
 ### 🚧 Next
 
-- **Surface progress % on CoursePage** — read localStorage to show completion per module
+- **Finish dogfooding Module 5 Lesson 3** — re-run with updated content, check "Save Your Work" section (git remote issue noted)
 - **Module 6 content** — Data Persistence
-- **Dogfood Module 5** — test all 3 lessons as a student would
+- **Surface progress % on CoursePage** — read localStorage to show completion per module
 
 ### Module Status
 

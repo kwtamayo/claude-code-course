@@ -512,7 +512,11 @@ Write the docs/content first, build features to match. Module lessons were writt
 
 AI tools are confident. They'll present a plan that sounds great but rests on a bad assumption. The fix: challenge the premise, not just the output. "Is this a safe assumption?" caught more bugs than "is this code correct?" Pushback isn't adversarial — it's collaborative quality control.
 
-### 6. Dogfooding Catches What Code Review Misses
+### 6. The Student Prompt Test
+
+If a non-technical student wouldn't type it, it doesn't belong in the prompt — unless the validation requires it. Every Claude Code prompt in the course should pass this test. When technical language IS needed (like "using React"), explain why. When it's NOT needed (like "Use try/catch"), remove it — Claude Code brings its own expertise. Tell it WHAT you want, not HOW to do it.
+
+### 7. Dogfooding Catches What Code Review Misses
 
 Every Phase 2 "Got Stuck" entry was discovered by actually doing the lesson as a student — not by reading the code. Path references, missing .gitignore, auth flow, permission prompts, terminal context confusion — none of these are visible in a code review.
 
