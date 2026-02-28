@@ -161,6 +161,8 @@ Here's the side-by-side comparison:
 
 The word **await** means "wait for this to finish before continuing." API calls take time — the request has to travel across the internet to the server and back. JavaScript needs to pause and wait for the response before doing anything with the data.
 
+> **Don't see `await` in your code?** Claude Code might have used `.then()` instead — it does the same thing with different syntax. Where `await` says "wait here," `.then()` says "when the result arrives, do this next." Both are valid ways to handle API calls. Look for `fetch(` in your code — that's the important part.
+
 The `.json()` call at the end converts the raw response into structured data your code can use — the same JSON you saw in the Terminal with `curl`.
 
 ## JSON — Reading the Data
@@ -182,25 +184,27 @@ Think of it like navigating folders on your computer. To get to a file, you go: 
 
 ## Props — Passing Data Between Components
 
-Remember Module 4 Lesson 2? The Key Concepts table mentioned: "**Props** — Settings passed from a parent component to a child (we'll use these in Module 5)." Here's the payoff.
+Remember Module 4 Lesson 2? The Key Concepts table mentioned: "**Props** — Settings passed from a parent component to a child (we'll use these in Module 5)." Let's talk about what that means.
 
-If Claude Code put the weather logic in App.jsx and passes the data to a Weather component, that's **props** in action:
+Your weather component probably handles everything itself — it fetches the data, stores it with useState, and displays it. That's a perfectly good pattern for a self-contained widget.
+
+But what happens when components need to **share** data? For example, what if App.jsx wanted to control which city the weather shows? Instead of hardcoding the coordinates inside the Weather component, App.jsx could pass them in:
 
 ```jsx
-// In App.jsx — the parent:
-<Weather temperature={72} condition="Sunny" />
+// In App.jsx — the parent passes data in:
+<Weather latitude={37.77} longitude={-122.42} />
 ```
 
 ```jsx
-// In Weather.jsx — the child:
-function Weather({ temperature, condition }) {
-  return <p>{temperature}°F — {condition}</p>
+// In Weather.jsx — the child receives it:
+function Weather({ latitude, longitude }) {
+  // Use latitude and longitude in the API call
 }
 ```
 
-Props are like handing someone a filled-out form. App.jsx fills in the values (temperature = 72, condition = "Sunny") and hands the form to the Weather component. Weather reads the form and displays it on screen.
+Those values inside the curly braces (`latitude={37.77}`) are **props** — data passed from a parent component to a child. Think of it like handing someone a filled-out form. The parent fills in the values, and the child reads them.
 
-> **Your code might not use visible props.** If Claude Code put the fetch logic directly inside the Weather component (instead of in App.jsx), there may not be obvious props. That's totally fine — the concept still applies. Props are how *any* React component receives data from its parent. You'll see more of them as your app grows.
+You might not see props in your weather code right now, and that's fine. As your app grows and components need to talk to each other, props are how they do it. You'll see them naturally as you add more features.
 
 ## See the API Call in Your Browser
 
@@ -213,9 +217,9 @@ This is where it gets tangible. You can actually watch the API call happen using
 5. Refresh the page: press `Cmd + R`
 6. Look for a request to `api.open-meteo.com`
 
-You should see a line with something like `forecast?latitude=37.77...`. Click it to see:
-- **Status**: 200 (that means "success")
-- **Response**: The actual JSON data that came back
+You should see a line with something like `forecast?latitude=37.77...`. Click it, then:
+- The **Headers** tab shows the status — look for **200** (that means "success")
+- Click the **Response** tab to see the actual JSON data that came back
 
 ::validate[verify-network-tab]
 

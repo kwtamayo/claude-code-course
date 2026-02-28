@@ -110,9 +110,11 @@ function LessonPage() {
             ← Back to Module {moduleId}
           </Link>
           <div className="lesson-breadcrumb">
-            <span className="breadcrumb-item">{module.title}</span>
+            <Link to={ROUTES.course()} className="breadcrumb-item breadcrumb-link">Course</Link>
             <span className="breadcrumb-separator">/</span>
-            <span className="breadcrumb-item current">{lesson.title}</span>
+            <Link to={ROUTES.module(moduleId)} className="breadcrumb-item breadcrumb-link">Module {moduleId}: {module.title}</Link>
+            <span className="breadcrumb-separator">/</span>
+            <span className="breadcrumb-item current">Lesson {lessonId}: {lesson.title}</span>
           </div>
           <h1>{lesson.title}</h1>
           <div className="lesson-meta">

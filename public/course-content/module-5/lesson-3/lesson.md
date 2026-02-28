@@ -73,7 +73,7 @@
 
 # Error Handling & Make It Yours
 
-Your dashboard shows live weather data — that's a huge step. But what happens when the internet is slow? Or when the API server is down? Right now, your app might show a blank space or an ugly error. Real apps handle failure gracefully.
+Your dashboard shows live weather data — that's a huge step. But what happens when the internet is slow? Or when the API server is down? Your widget might already handle some of this — Claude Code sometimes adds basic error handling automatically. Let's find out what you have and make sure it's solid.
 
 In this lesson, you'll make your dashboard resilient, add a second live data widget, and save everything with Git.
 
@@ -87,13 +87,32 @@ Three things can go wrong when your app calls an API:
 | **API is down** | Blank space or crash | The "restaurant" is closed today |
 | **Bad request** | Nothing or wrong data | You "ordered" something that doesn't exist |
 
-Right now, your weather widget probably handles none of these. While the API request is in flight (that fraction of a second), your widget might show nothing. If the request fails entirely, it might stay blank forever. A user would think your app is broken.
+A well-built widget handles all three of these. The solution: **loading states** ("Loading weather..." while waiting) and **error states** ("Couldn't load weather" if something goes wrong). Let's check what your weather component already does — and what it might be missing.
 
-The fix: **loading states** ("Loading weather..." while waiting) and **error states** ("Couldn't load weather" if something goes wrong).
+## Check What You Already Have
 
-## Add Loading and Error Handling
+Before changing anything, let's see what error handling your weather component already has. Run this in your Terminal:
 
-Launch Claude Code:
+```bash
+grep -n 'error\|Error\|loading\|Loading\|catch\|try' src/components/Weather.jsx
+```
+
+> **Use your actual filename** if it's different from `Weather.jsx`.
+
+Look at the output. Here's what to check for:
+
+| Feature | What to Look For | Why It Matters |
+|---------|-----------------|----------------|
+| **Loading state** | `loading`, `Loading`, `isLoading` | Shows "Loading..." while data is being fetched |
+| **Error state** | `error`, `setError`, `Error` | Tracks whether something went wrong |
+| **Error catching** | `catch`, `try` | Prevents the app from crashing when a request fails |
+| **Retry button** | (check your browser) | Lets users try again without refreshing the whole page |
+
+> **Did Claude Code add error handling without being asked?** AI coding tools often include best practices automatically. Error handling is standard for API calls, so Claude Code may have added basic versions in Lesson 1. That's one benefit of AI-assisted development — it brings experience to your code. Whether it did or didn't, the next step ensures your widget has everything it needs.
+
+## Add or Improve Error Handling
+
+Whether your widget already has some error handling or none at all, let's make sure it has the full set. Launch Claude Code:
 
 ```bash
 cd ~/Developer/daily-planner
@@ -103,7 +122,7 @@ claude
 Give it this prompt:
 
 ```
-Add loading and error handling to my weather widget. While the weather data is loading, show a "Loading weather..." message. If the API request fails, show a friendly error message like "Couldn't load weather data" with a retry button. Use try/catch for error handling.
+Add or improve error handling in my weather widget. Make sure it includes: a "Loading weather..." message that shows while data is being fetched, a friendly error message like "Couldn't load weather data" if the request fails, and a Retry button that re-fetches the data.
 ```
 
 When Claude Code finishes:
@@ -122,14 +141,15 @@ grep -n 'error\|Error\|loading\|Loading\|catch' src/components/Weather.jsx
 
 ::validate[verify-error-handling]
 
-Here's what Claude Code likely added:
+Here's what should be in your code now:
 
-- **A loading state** — another `useState`, starting as `true`, becoming `false` when data arrives or the request fails
-- **An error state** — starting as `null`, getting set to an error message if something goes wrong
+- **A loading state** — a `useState` that starts as `true`, becoming `false` when data arrives or the request fails
+- **An error state** — starting as `null` or `false`, getting set to a message if something goes wrong
 - **A try/catch block** around the fetch call — "try this code, and if it fails, catch the error instead of crashing"
 - **Conditional rendering** — showing different things depending on whether the data is loading, errored, or ready
+- **A retry button** — lets users re-fetch without refreshing the whole page
 
-> **Want to test the error handling?** Turn off your Wi-Fi, then refresh the page. You should see the error message instead of a blank space. Turn Wi-Fi back on and click the retry button (if Claude Code added one). Your weather data should reappear.
+> **Want to test the error handling?** Turn off your Wi-Fi, then refresh the page. You should see the error message instead of a blank space. Turn Wi-Fi back on and click the retry button. Your weather data should reappear.
 
 ## Add a Second API
 
@@ -139,7 +159,7 @@ Pick one that interests you — the APIs below are all free and require no sign-
 
 | Widget Idea | API | What It Returns |
 |-------------|-----|----------------|
-| Inspirational quote | `https://api.quotable.io/quotes/random` | A random quote with author |
+| Inspirational quote | `https://dummyjson.com/quotes/random` | A random quote with author |
 | Random fun fact | `https://uselessfacts.jsph.pl/api/v2/facts/random` | A random interesting fact |
 | Dad joke | `https://icanhazdadjoke.com` | A random dad joke |
 
@@ -148,7 +168,7 @@ Pick one that interests you — the APIs below are all free and require no sign-
 Launch Claude Code and use a prompt like this (adjust for whichever API you chose):
 
 ```
-Add a motivational quote widget to my Daily Planner. Fetch a random quote when the page loads using the API at https://api.quotable.io/quotes/random. Show the quote text and the author. Include loading and error handling like the weather widget. Add a "New Quote" button that fetches another random quote.
+Add a motivational quote widget to my Daily Planner. Fetch a random quote when the page loads using the API at https://dummyjson.com/quotes/random. Show the quote text and the author. Include loading and error handling like the weather widget. Add a "New Quote" button that fetches another random quote.
 ```
 
 When Claude Code finishes, exit and check the browser:
@@ -263,7 +283,7 @@ This is exactly what Module 3 taught — secrets stay local, never in the reposi
 Launch Claude Code and give it this prompt:
 
 ```
-Switch my weather widget from Open-Meteo to OpenWeatherMap. My API key is stored in the environment variable VITE_OPENWEATHER_API_KEY. Access it in the code with import.meta.env.VITE_OPENWEATHER_API_KEY. The OpenWeatherMap API URL is: https://api.openweathermap.org/data/2.5/weather?q=San+Francisco&appid={API_KEY}&units=imperial
+Switch my weather widget from Open-Meteo to OpenWeatherMap.
 ```
 
 Exit Claude Code, restart the dev server, and check the browser.
