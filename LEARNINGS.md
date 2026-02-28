@@ -357,6 +357,137 @@ git pull origin main
 
 ---
 
+## Phase 3: Dogfooding Module 5
+
+*Feb 27, 2026. Created Module 5 (API Integration) content, then dogfooded all 3 lessons as a student would. Every lesson needed fixes — and the fixes came from pushback, not just bug reports.*
+
+### Teaching Moments
+
+#### 18. Claude Code's Non-Deterministic Output Changes Everything
+
+**What happened:** Lesson 3 assumed students had no error handling ("your weather widget probably handles none of these"). But when dogfooding Lesson 1, Claude Code proactively added basic error handling — `useState(false)` for error, `.catch()`, conditional rendering — without being asked.
+
+**The problem:** If Lesson 3 tells students "you have nothing" and they can see error handling in their code, they lose trust in the course.
+
+**The bigger problem:** We can't assume Claude Code *always* does this. Its behavior varies by model version, context, and run. Some students will have error handling, others won't.
+
+**The fix:** Rewrote Lesson 3 as "inspect → enhance" — students check what they have first, then run a prompt ("Add or improve...") that works regardless. No assumptions either way.
+
+**The lesson:** When writing curriculum around AI-generated code, never assume specific output. Design lessons that work for a range of possible results.
+
+---
+
+#### 19. Simplify Prompts to Natural Language
+
+**What happened:** Multiple prompts across Module 5 contained technical jargon that a non-developer student would never write:
+
+| Before | After |
+|--------|-------|
+| "Use try/catch for error handling." | *(removed — Claude Code knows this)* |
+| "My API key is stored in the environment variable VITE_OPENWEATHER_API_KEY. Access it in the code with import.meta.env.VITE_OPENWEATHER_API_KEY. The OpenWeatherMap API URL is: https://api.openweathermap.org/..." | "Switch my weather widget from Open-Meteo to OpenWeatherMap." |
+
+**The test:** If a non-technical student wouldn't type it, it doesn't belong in the prompt — unless the validation requires it. In every case above, the validation worked fine without the technical language.
+
+**The lesson:** Claude Code brings its own expertise. You don't need to tell it HOW to do things — tell it WHAT you want. The simpler the prompt, the more authentic the student experience.
+
+---
+
+#### 20. Dead APIs Are Inevitable
+
+**What happened:** The `api.quotable.io` quote API had an expired SSL certificate (536 days expired). Discovered during dogfooding when it was too late to ignore.
+
+**The fix:** Replaced with `dummyjson.com/quotes/random` (free, no signup, CORS-friendly). Also verified the other two APIs (uselessfacts, icanhazdadjoke) still worked.
+
+**The lesson:** Free APIs die. Any lesson that depends on third-party APIs needs periodic verification. The course should use well-maintained APIs and have fallback options documented.
+
+---
+
+#### 21. Dark Mode Isn't Automatic
+
+**What happened:** The course platform had a dark mode media query, but it only overrode 7 CSS variables. Text was black on dark backgrounds — completely illegible. Badges and callouts had hardcoded light backgrounds.
+
+**The fix:** Expanded from 7 to 15+ variable overrides, added component-specific dark mode rules for badges and callouts.
+
+**The lesson:** Adding `prefers-color-scheme: dark` is 10% of the work. The other 90% is auditing every component for hardcoded colors.
+
+---
+
+### Pushback Moments
+
+*Working with AI isn't just about accepting output — it's about knowing when to challenge it. These are moments where pushing back on Claude's suggestions led to better outcomes.*
+
+#### P1. "Is this a safe assumption?"
+
+**Context:** Claude proposed rewriting Lesson 3 with the premise "Claude Code already added basic error handling — let's understand what it did." The plan assumed Claude Code WOULD add error handling.
+
+**The pushback:** "This assumes that when the student runs Lesson 1, Claude Code *will* add basic error handling. Is this a safe assumption?"
+
+**What changed:** Claude acknowledged the assumption wasn't safe and rewrote the plan to work for both cases — students who have error handling AND students who don't. The hedged language ("you might already see...") and the "Add or improve..." prompt both came from this pushback.
+
+**Why it matters:** The original plan would have confused students whose Claude Code didn't add error handling. One question prevented a whole class of bugs.
+
+---
+
+#### P2. "A non-technical user wouldn't come up with this"
+
+**Context:** The error handling prompt included "Use try/catch for error handling." The OpenWeatherMap prompt included environment variable names and API URLs.
+
+**The pushback:** "This is another example of a prompt that a non-technical user wouldn't come up with on their own."
+
+**What changed:** We checked whether the validation required the technical language (it didn't), then removed it. The OpenWeatherMap prompt went from 50+ words of technical jargon to 7 words of plain English.
+
+**Why it matters:** Every prompt in the course should pass the "would a student actually type this?" test. If not, either simplify the prompt or explain why the technical language is necessary.
+
+---
+
+#### P3. "Does this change how the course could/should go?"
+
+**Context:** When starting Lesson 3, the student found error handling already in their code — before the lesson that supposedly adds it.
+
+**The pushback:** Instead of just reporting a bug, asked whether this fundamentally changes the lesson's approach.
+
+**What changed:** It did. The entire first half of Lesson 3 was rewritten — from "add error handling from scratch" to "inspect what you have, then enhance it." New section added ("Check What You Already Have"), new callout about AI tools anticipating needs.
+
+**Why it matters:** Bug reports fix symptoms. Asking "does this change the approach?" fixes the design. The question elevated a fix from "update one paragraph" to "rethink the lesson structure."
+
+---
+
+#### P4. "Would Claude Code have figured that out on its own?"
+
+**Context:** The OpenWeatherMap prompt told Claude Code where the API key was stored and how to access it (`import.meta.env.VITE_OPENWEATHER_API_KEY`).
+
+**The pushback:** "Is it even necessary to tell Claude where my API key is, or would it have figured that out on its own?"
+
+**What changed:** Trimmed the prompt from "I saved my API key in the .env file. Show weather for San Francisco." to just "Switch my weather widget from Open-Meteo to OpenWeatherMap." Claude Code can read the `.env` file itself.
+
+**Why it matters:** Developers instinctively over-specify because they're used to working with dumb tools. AI tools are different — they can discover context on their own. The pushback exposed a teaching opportunity about trust in AI capabilities.
+
+---
+
+### Got Stuck
+
+#### Daily-Planner Remote Pointed to Wrong Repo
+
+**Problem:** `git push` from the daily-planner directory tried to push to `github.com:kwtamayo/claude-code-course.git` — the course repo, not a daily-planner repo.
+
+**What happened:** Claude Code set up the git remote during Lesson 1, pointing it at the only repo it knew about.
+
+**Fix:** Created a new GitHub repo for daily-planner and updated the remote: `git remote set-url origin git@github.com:kwtamayo/daily-planner.git`
+
+**Lesson:** Claude Code's git remote setup reflects what it knows at the time. Verify remotes before pushing — especially in student projects created by AI. This is a dogfooding note for Lesson 3's "Save Your Work" section.
+
+---
+
+#### Dead Quotable API
+
+**Problem:** `api.quotable.io` SSL certificate expired 536 days ago. Students following Lesson 3 would hit a security warning.
+
+**Fix:** Replaced with `dummyjson.com/quotes/random`. Verified all other APIs in the lesson still work.
+
+**Lesson:** Always test third-party dependencies before shipping content that relies on them.
+
+---
+
 ## Patterns That Emerged
 
 ### 1. Four-Step Debugging Escalation
@@ -377,7 +508,11 @@ Applied to routes (`routes.js`), course structure (`courseLoader.js`), and desig
 
 Write the docs/content first, build features to match. Module lessons were written before the validation system existed. CLAUDE.md was written before switching to Claude Code. Forces clarity of vision.
 
-### 5. Dogfooding Catches What Code Review Misses
+### 5. Pushback Is a Skill
+
+AI tools are confident. They'll present a plan that sounds great but rests on a bad assumption. The fix: challenge the premise, not just the output. "Is this a safe assumption?" caught more bugs than "is this code correct?" Pushback isn't adversarial — it's collaborative quality control.
+
+### 6. Dogfooding Catches What Code Review Misses
 
 Every Phase 2 "Got Stuck" entry was discovered by actually doing the lesson as a student — not by reading the code. Path references, missing .gitignore, auth flow, permission prompts, terminal context confusion — none of these are visible in a code review.
 
@@ -387,7 +522,7 @@ Every Phase 2 "Got Stuck" entry was discovered by actually doing the lesson as a
 
 1. **Try AI pair programming** — Start with a real project, not tutorials
 2. **Ask "why" not just "what"** — Understanding prevents future bugs
-3. **Push back when something feels wrong** — AI suggestions aren't gospel
+3. **Push back when something feels wrong** — AI suggestions aren't gospel. Challenge assumptions, not just output
 4. **Build something you want to exist** — Motivation is built-in
 5. **Document as you go** — Future you will thank you
 6. **Git is your safety net** — Commit early, commit often
@@ -397,8 +532,9 @@ Every Phase 2 "Got Stuck" entry was discovered by actually doing the lesson as a
 
 ---
 
-*Last Updated: February 21, 2026*
-*Status: Modules 0-4 complete, Module 5 next*
-*Total Sessions: 5+ major sessions across Claude Chat and Claude Code*
+*Last Updated: February 27, 2026*
+*Status: Modules 0-5 complete, Module 6 next*
+*Total Sessions: 6+ major sessions across Claude Chat and Claude Code*
 *Bugs Fixed: Too many to count*
+*Pushback Moments Catalogued: 4 (and counting)*
 *Xzibit Memes Made: 1 (and counting)*
