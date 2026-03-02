@@ -136,6 +136,17 @@ Lesson files live in `public/course-content/` and are fetched at runtime via `fe
 
 **Plan mode progression:** Modules 0–5 use execute mode with specific prompts for reliable step-by-step learning. Module 6+ should introduce plan mode — tasks become more open-ended, prompts should be ambiguous enough that planning makes sense (e.g., "add data persistence to your dashboard"), and validation loosens accordingly. The key teaching: plan mode is about alignment when you don't know exactly what you want, not about being careful.
 
+**Slash command progression:** Don't create a dedicated slash commands lesson. Instead, introduce a brief "what are slash commands" overview in Module 4 Lesson 1, then teach individual commands at the moment students feel the pain they solve:
+
+| Module | Command | Why now |
+|--------|---------|---------|
+| 4.1 | `/exit` | First Claude Code session (already there) |
+| 4.1 | Slash commands intro | Brief overview: "commands start with `/`, we'll learn them as needed" |
+| 5.1 | `/context` | One-liner: check token usage |
+| 6 | `/clear`, `/compact` | Tasks get open-ended, context rot becomes real |
+| 7–8 | `/init`, CLAUDE.md | Students define their own project conventions |
+| 9+ | `/model` | Switching models for different tasks |
+
 **Lesson frontmatter structure (JSON between `---` delimiters):**
 ```json
 {
