@@ -134,6 +134,8 @@ Lesson files live in `public/course-content/` and are fetched at runtime via `fe
 ❌ "Access it in the code with import.meta.env.VITE_OPENWEATHER_API_KEY."
 ```
 
+**Plan mode progression:** Modules 0–5 use execute mode with specific prompts for reliable step-by-step learning. Module 6+ should introduce plan mode — tasks become more open-ended, prompts should be ambiguous enough that planning makes sense (e.g., "add data persistence to your dashboard"), and validation loosens accordingly. The key teaching: plan mode is about alignment when you don't know exactly what you want, not about being careful.
+
 **Lesson frontmatter structure (JSON between `---` delimiters):**
 ```json
 {

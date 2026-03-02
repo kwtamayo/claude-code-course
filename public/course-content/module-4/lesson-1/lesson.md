@@ -109,6 +109,14 @@ Think of it as a pair programming partner who can type very fast. You provide th
 
 > **Important:** Claude Code is a tool, not a replacement for understanding. Throughout this course, we'll always review what Claude Code generates so you know what's happening in your project.
 
+:::info
+**Plan mode vs execute mode.** Claude Code can work in two ways. In **execute mode** (the default), it reads your prompt and starts building right away. In **plan mode**, it first shows you a plan and waits for your approval before writing any code.
+
+In this course, we use execute mode with specific prompts so you can follow along step-by-step. This works because each task is focused — one clear goal at a time. When tasks get more open-ended in later modules, we'll introduce plan mode so Claude Code can propose an approach before diving in.
+
+You don't need to change any settings right now. Just know that both modes exist.
+:::
+
 ## Install Claude Code
 
 Open your Terminal and install Claude Code globally:
@@ -200,17 +208,16 @@ Claude Code will start creating your project. You'll see it:
 3. **Write CSS** — styling for the layout and individual components
 4. **Set up configuration** — `.gitignore`, `package.json`, and more
 
-This may take a minute or two. Along the way, Claude Code will ask for your permission before it does anything. There are two types of prompts you'll see:
+This may take a minute or two. Along the way, Claude Code will ask for your permission before it does anything — file edits, running commands, etc.
 
-**File creation/editing:**
-```
-Do you want to create Calendar.jsx?
-❯ 1. Yes
-  2. Yes, allow all edits during this session (shift+tab)
-  3. No
-```
+### Permissions: The Shift+Tab Ritual
 
-**Running commands:**
+By default, Claude Code asks you to approve every single file it creates or edits. That's safe, but when it's building an entire project from scratch, you don't want to approve dozens of files one by one.
+
+**Press `Shift+Tab` once** before giving your first prompt. This switches Claude Code to "accept edits" mode for the current session — it will create and edit files without asking each time.
+
+You'll still see prompts for **running commands** like this:
+
 ```
 Bash command: npm run dev
 Do you want to proceed?
@@ -219,11 +226,15 @@ Do you want to proceed?
   3. No
 ```
 
-For both types, **select option 2** each time. This tells Claude Code "I trust you for this session — go ahead." Since it's building an entire project from scratch, there will be many files to create and commands to run. You don't want to approve each one individually.
+For commands, **select option 2** the first time you see each one. This tells Claude Code "I trust this command — don't ask me again this session."
 
-> **Don't worry if your output looks slightly different.** Claude Code may name files or organize things a bit differently each time. That's normal — the important thing is that you end up with a working project.
+:::info
+**Make this a habit.** Every time you open Claude Code: press `Shift+Tab` once, then start working. This setting resets when you close Claude Code, so you'll need to do it at the start of each session.
+:::
 
-> **If something goes wrong during the build,** don't panic. You can tell Claude Code what happened — just type something like "I'm getting an error" or "that didn't work" — and it will help you fix it.
+**Don't worry if your output looks slightly different.** Claude Code may name files or organize things a bit differently each time. That's normal — the important thing is that you end up with a working project.
+
+**If something goes wrong during the build,** don't panic. You can tell Claude Code what happened — just type something like "I'm getting an error" or "that didn't work" — and it will help you fix it.
 
 When Claude Code finishes, exit it by typing `/exit` or pressing `Ctrl + C`. You're back in your regular Terminal now.
 
@@ -250,6 +261,12 @@ Then start the development server:
 ```bash
 npm run dev
 ```
+
+:::warning
+**If you see "Port 3000 is already in use"**, it means you have a dev server still running from before. Find the Terminal tab where it's running and press `Ctrl + C` to stop it, then run `npm run dev` again.
+
+We've configured this project to use a fixed port so you always know where to find your app at `http://localhost:3000`. Outside this course, most tools will silently switch to a different port (like 3001) if 3000 is taken — which can be confusing when your browser tab is still pointing at the old one.
+:::
 
 ::validate[verify-dev-server]
 

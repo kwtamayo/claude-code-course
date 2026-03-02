@@ -112,6 +112,11 @@
     background-color: #172554;
     color: #bfdbfe;
   }
+
+  .markdown-content .callout code {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
 }
 
 body {
@@ -260,6 +265,18 @@ code {
 
 .callout p:last-child {
   margin-bottom: 0;
+}
+
+.markdown-content .callout strong,
+.markdown-content .callout em,
+.markdown-content .callout a {
+  color: inherit;
+}
+
+.markdown-content .callout code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.15);
 }
 
 /* Loading spinner */
