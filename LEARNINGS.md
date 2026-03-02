@@ -488,6 +488,66 @@ git pull origin main
 
 ---
 
+## Phase 4: Course UX & Curriculum Design
+
+*March 1, 2026. Focused on student experience rather than content — subscription transparency, permissions workflow, port conflicts, and documenting curriculum decisions for future sessions.*
+
+### Teaching Moments
+
+#### 22. Silent Port Conflicts Are a Beginner Trap
+
+**What happened:** Realized that students might leave dev servers running between lessons. When they run `npm run dev` again, Vite silently increments the port (3000 → 3001). The student's browser tab still points at 3000 — they see stale content or a connection error and have no idea why.
+
+**The fix:** Added `strictPort: true` to `vite.config.js` so Vite errors loudly instead of silently switching. Added a troubleshooting callout explaining the error and how to fix it (`Ctrl + C` the old server). Also explained that this is a course-specific setting — outside this course, most tools silently switch ports.
+
+**The lesson:** When building for beginners, make invisible failures visible. A clear error message is better than silent misbehavior every time.
+
+---
+
+#### 23. CSS Specificity Bites Inside Component Boundaries
+
+**What happened:** Built a callout component (:::warning, :::info). Text looked fine — until dark mode. Bold text and inline code were white on yellow. Turns out `.markdown-content strong { color: var(--text-primary) }` was overriding `.callout strong { color: inherit }` because they had the same specificity and LessonPage.css loaded later.
+
+**The fix:** Changed selectors to `.markdown-content .callout strong` — higher specificity than `.markdown-content strong`.
+
+**The lesson:** When nesting components inside a styled content area, the parent's styles win at equal specificity. You need to explicitly scope overrides with combined selectors.
+
+---
+
+#### 24. Permissions UX: Shift+Tab as a Ritual
+
+**What happened:** Students were being told to "select option 2" for every permission prompt — dozens of times during a project build. Shift+Tab enables "accept edits" mode for the whole session, but it wasn't documented.
+
+**The problem:** Shift+Tab resets every session. Students need to know this so they don't get confused when permissions come back.
+
+**The fix:** Framed it as a ritual: "Every time you open Claude Code, press Shift+Tab once." Added an info callout explaining it resets per session.
+
+**The lesson:** Repeatable workflows should be taught as habits, not one-time instructions. If something resets, tell people it resets.
+
+---
+
+#### 25. Document Decisions or They'll Be Forgotten
+
+**What happened:** We decided Module 6+ should introduce plan mode with open-ended prompts. But Claude Code doesn't have memory across sessions — without writing it down, the next session would have no idea.
+
+**The fix:** Added the rule to CLAUDE.md (so it's in the project docs) AND MEMORY.md (so it's in auto-loaded session context). Belt and suspenders.
+
+**The lesson:** Decisions made in conversation are worthless if they're not persisted somewhere the AI will see them. CLAUDE.md is the project's institutional memory. MEMORY.md is the session bridge.
+
+---
+
+### Pushback Moments
+
+#### P5. "This won't translate to their experience outside the course"
+
+**Context:** Proposed adding `strictPort: true` to prevent silent port conflicts. The concern: students would expect this behavior everywhere, but Vite's default is to silently switch ports.
+
+**The pushback:** Worth it — but be transparent. Added a line explaining "we've configured this for the course" and how the default behavior differs.
+
+**Why it matters:** Training wheels are fine, but students should know they're wearing them. Otherwise they'll be confused when the real world behaves differently.
+
+---
+
 ## Patterns That Emerged
 
 ### 1. Four-Step Debugging Escalation
@@ -536,9 +596,9 @@ Every Phase 2 "Got Stuck" entry was discovered by actually doing the lesson as a
 
 ---
 
-*Last Updated: February 27, 2026*
+*Last Updated: March 1, 2026*
 *Status: Modules 0-5 complete, Module 6 next*
-*Total Sessions: 6+ major sessions across Claude Chat and Claude Code*
+*Total Sessions: 7+ major sessions across Claude Chat and Claude Code*
 *Bugs Fixed: Too many to count*
-*Pushback Moments Catalogued: 4 (and counting)*
+*Pushback Moments Catalogued: 5 (and counting)*
 *Xzibit Memes Made: 1 (and counting)*
