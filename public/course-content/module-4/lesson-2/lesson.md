@@ -2,58 +2,70 @@
 {
   "moduleId": "module-4",
   "lessonId": "lesson-2",
-  "title": "Understanding What Got Built",
-  "timeEstimate": "20 minutes",
+  "title": "Plan & Build Your Dashboard",
+  "timeEstimate": "25 minutes",
   "prerequisites": ["module-4-lesson-1"],
   "learningObjectives": [
-    "Understand the role of each file in a Vite + React project",
-    "Recognize JSX as HTML-like syntax inside JavaScript",
-    "Understand components as reusable building blocks of a UI",
-    "Read a React component and identify its structure",
-    "See how App.jsx composes the dashboard from smaller components"
+    "Use plan mode to design a project before any code is written",
+    "Review and shape a plan before approving it",
+    "Watch Claude Code execute an approved plan and build a full React project",
+    "Run a development server and see your app in the browser",
+    "Apply the security checklist from Module 3 to a new project"
   ],
   "validation": {
     "tasks": [
       {
-        "id": "verify-app-file",
-        "description": "Run head -30 src/App.jsx (or App.tsx) and paste the output to see the main app file",
+        "id": "verify-project-structure",
+        "description": "Run ls src/ in your daily-planner project and paste the output",
         "type": "paste-output",
         "expectedPatterns": [
-          "(import|from|require)",
-          "(function|const|export|return)"
+          "(App|app|index)",
+          "\\.(jsx|tsx|js|ts|css)"
         ],
         "hints": [
-          "Run: head -30 src/App.jsx",
-          "If that doesn't work, try: head -30 src/App.tsx",
-          "You should see import statements and a function that puts your dashboard together"
+          "Make sure you're in the project: cd ~/Developer/daily-planner",
+          "Then run: ls src/",
+          "You should see files like App.jsx or App.tsx and possibly a components folder"
         ]
       },
       {
-        "id": "verify-project-files",
-        "description": "Run find src/ -name '*.jsx' -o -name '*.tsx' | head -10 and paste the output to see all your source files",
+        "id": "verify-dev-server",
+        "description": "Run npm run dev and paste the first few lines of output showing the local URL",
         "type": "paste-output",
         "expectedPatterns": [
-          "src/",
-          "\\.(jsx|tsx)"
+          "localhost",
+          "(5173|5174|5175|3000|3001)"
         ],
         "hints": [
-          "Run: find src/ -name '*.jsx' -o -name '*.tsx' | head -10",
-          "This finds all React files in your project",
-          "You should see several files — one for each section of your dashboard"
+          "In your project folder, run: npm run dev",
+          "You should see a URL like http://localhost:5173/",
+          "Copy the lines showing the server is ready"
         ]
       },
       {
-        "id": "verify-component-structure",
-        "description": "Pick any component file from the list above, run cat on it, and paste the output",
+        "id": "verify-gitignore",
+        "description": "Run cat .gitignore in your project and paste the output",
         "type": "paste-output",
         "expectedPatterns": [
-          "(function|const|export)",
-          "(return|=>)"
+          "node_modules"
         ],
         "hints": [
-          "Choose one of the files from the previous step (not App.jsx)",
-          "Run: cat src/components/Calendar.jsx (or whatever your file is called)",
-          "Scroll through and look for: imports, a function definition, a return with JSX, and an export"
+          "Run: cat .gitignore",
+          "You should see node_modules listed",
+          "If the file doesn't exist, follow the instructions above to create it"
+        ]
+      },
+      {
+        "id": "verify-package-json",
+        "description": "Run grep react package.json and paste the output to confirm React is installed",
+        "type": "paste-output",
+        "expectedPatterns": [
+          "react",
+          "\\d+\\."
+        ],
+        "hints": [
+          "Run: grep react package.json",
+          "You should see react and react-dom with version numbers"
         ]
       }
     ]
@@ -61,200 +73,187 @@
 }
 ---
 
-# Understanding What Got Built
+# Plan & Build Your Dashboard
 
-Claude Code generated your entire Daily Planner in minutes. That's powerful — but you should never deploy code you don't understand. In this lesson, we'll take a tour of what got built so you can confidently read and navigate your project.
+In Lesson 1 you installed Claude Code and learned about plan mode. Now you'll use it.
 
-You don't need to memorize anything here. The goal is **recognition** — when you see these patterns later, you'll know what they are.
+This lesson has two phases: first you'll design your dashboard through a planning conversation, then you'll watch Claude Code build it. By the end, you'll have a running web app in your browser.
 
-## The Project Map
+## Set Up the Project Folder
 
-Let's start with the big picture. In your Terminal:
+Create the folder for your project and navigate into it:
 
 ```bash
+mkdir -p ~/Developer/daily-planner
 cd ~/Developer/daily-planner
-ls
 ```
 
-You'll see something like this (your exact files may vary slightly):
+## Launch Claude Code in Plan Mode
 
-| File/Folder | What It Does |
-|-------------|-------------|
-| `package.json` | Lists your project's dependencies and scripts (like `npm run dev`) |
-| `package-lock.json` | Locks exact versions of every dependency for consistent installs |
-| `vite.config.js` | Configuration for Vite, the build tool that runs your dev server |
-| `index.html` | The single HTML page that loads your React app |
-| `node_modules/` | Downloaded dependencies — never edit, never commit |
-| `public/` | Static files like images or icons |
-| `src/` | **Your source code — this is where everything important lives** |
-| `.gitignore` | Files Git should ignore (you verified this in Lesson 1!) |
-
-The most important folder is `src/`. That's where your dashboard code lives.
-
-## Inside src/
-
-You already ran `ls src/` in Lesson 1 to verify your project structure. Here's what those files actually do:
-
-| File | Purpose |
-|------|---------|
-| `main.jsx` (or `main.tsx`) | The **entry point** — the first file that runs. It loads your App into the browser. |
-| `App.jsx` (or `App.tsx`) | The **root component** — assembles all the pieces of your dashboard together. |
-| `.css` files | Styles — colors, spacing, layout. |
-| `components/` | A folder containing each section of your dashboard as a separate file. |
-
-> **Your filenames might be slightly different.** Claude Code might use `.tsx` instead of `.jsx`, or organize files differently. That's fine — the concepts are the same.
-
-Think of it like a building: `main.jsx` is the foundation, `App.jsx` is the blueprint, and the component files are the individual rooms.
-
-## Your Source Files
-
-Let's see all the React files in your project:
+Start Claude Code:
 
 ```bash
-find src/ -name '*.jsx' -o -name '*.tsx' | head -10
+claude
 ```
 
-::validate[verify-project-files]
+**First-time setup:** Claude Code will ask you to log in. Select option 1 (Claude account with subscription). Your browser opens — log in and authorize. You only do this once.
 
-You should see several files — one for each section of your dashboard (calendar, tasks, notes, habits), plus the main App file. Claude Code broke your dashboard into separate pieces.
+> **Browser didn't open?** Press `c` in your Terminal to copy the login URL, then paste it into your browser.
 
-This separation is intentional. In React, you break your interface into **components** — small, self-contained pieces that each handle one job. This makes code easier to understand, easier to change, and easier to reuse.
+Once you're at the Claude Code prompt, set up your session:
 
-## What is a Component?
+**Step 1 — Enable plan mode:** Press **Shift+Tab** until the footer shows `Plan mode`. This ensures Claude Code will propose a plan before touching anything.
 
-A component is a **function that returns what should appear on screen**. That's it. Every piece of your dashboard — the calendar, the task list, even the header — is a component.
+**Step 2 — Enable auto-accept for file edits:** Press **Shift+Tab** once more. You should see both plan mode active and auto-accept for edits enabled. When building an entire project from scratch, you don't want to manually approve every file.
 
-Every React component has **four ingredients**. They won't always appear in this exact order — real code is messier than textbook examples — but every component has them:
+> **Make this a habit.** Every time you open Claude Code: Shift+Tab to plan mode, Shift+Tab again for auto-accept. This resets when you close Claude Code, so you'll do it at the start of each session.
+
+## Describe What You Want
+
+Now give Claude Code your prompt. Don't think about code — just describe what you want:
 
 ```
-1. Imports                     ← bring in tools and styles
-2. A function                  ← the component itself
-3. A return with JSX           ← describe what it looks like
-4. An export                   ← make it available to other files
+I want to build a personal Daily Planner web app using React. It should have a calendar to see the current date and week, a task list where I can add and check off to-dos, a notes section for free writing, and a habit tracker to check off daily habits. Make it look clean and modern with some example data so I can see how it looks right away.
 ```
 
-Let's see these in action.
+Claude Code will **not** start building yet. In plan mode, it proposes an approach first.
 
-## Reading the Main App File
+## Review the Plan
 
-Your App component is the **root** — it pulls in all the other components and arranges them on the page.
+You'll see something like a structured breakdown — the files it plans to create, how it'll organize the components, what each piece will do.
+
+Read through it. A few things to look for:
+
+- **Does the structure make sense?** You should see separate files for each section (calendar, tasks, notes, habits).
+- **Is there anything you don't want?** If it's proposing something you didn't ask for, say so.
+- **Are there things you'd change?** This is your chance to shape it before any code is written.
+
+When Claude Code is done proposing, it will show an approval prompt like this:
+
+```
+Claude has written up a plan and is ready to execute. Would you like to proceed?
+
+  1. Yes, clear context and auto-accept edits
+  2. Yes, auto-accept edits
+  3. Yes, manually approve edits
+  4. Type here to tell Claude what to change
+```
+
+Here's what each option means:
+
+| Option | When to use it |
+|---|---|
+| **1. Yes, clear context + auto-accept** | Fresh start — clears the planning conversation and builds. Good if context is getting large. |
+| **2. Yes, auto-accept edits** | Most common choice. Proceeds with auto-accept for file edits — no need to approve each file one by one. |
+| **3. Yes, manually approve edits** | If you want to review every file before it's written. Tedious for a full project build. |
+| **4. Type here to tell Claude what to change** | Use this to push back on the plan before building. |
+
+**If you're happy with the plan:** choose option **2**.
+
+**If you want changes first:** choose option **4** and describe what you'd like adjusted. For example:
+
+> "Skip the calendar — just tasks, notes, and habits."
+
+> "Keep it simpler — two columns, not a grid."
+
+Claude Code will revise the plan and show you the approval prompt again.
+
+:::info
+**This conversation is the work.** In execute mode, you write a prompt and wait. In plan mode, you *participate* — you make decisions about your project before any code exists. The planning conversation isn't overhead; it's where the important choices happen.
+:::
+
+## Watch It Build
+
+Once you approve, Claude Code starts building. You'll see it create files one by one — the project config, each component, the CSS, everything.
+
+If it asks for permission to run a command like `npm install`, select option 2 ("don't ask again for this command"). You'll only need to do this once per command type.
+
+When it finishes, exit:
+
+```
+/exit
+```
+
+## See Your Dashboard
+
+Install dependencies if Claude Code didn't already:
 
 ```bash
-head -30 src/App.jsx
+npm install
 ```
 
-> **Getting "No such file"?** Try `head -30 src/App.tsx` instead. Claude Code may have used TypeScript (`.tsx`) rather than JavaScript (`.jsx`). Both work the same way for our purposes.
-
-::validate[verify-app-file]
-
-At the top, you'll see `import` statements. Each one brings in a component or a style file. Something like:
-
-```jsx
-import Calendar from './components/Calendar'
-import TaskList from './components/TaskList'
-```
-
-These imports tell JavaScript: "Go find this file and make its component available here." The `./` means "in the current directory."
-
-Further down, you'll see something like:
-
-```jsx
-function App() {
-  return (
-    <div className="app">
-      <Calendar />
-      <TaskList />
-      <Notes />
-      <HabitTracker />
-    </div>
-  )
-}
-```
-
-Those angle brackets (`<Calendar />`, `<TaskList />`) aren't HTML — they're **JSX**. Each one says "render this component here." Your exact component names will depend on what Claude Code chose, but the pattern is the same: the App component assembles your dashboard by placing each section where it belongs.
-
-## What is JSX?
-
-JSX looks like HTML, but it lives inside JavaScript files. React uses it to describe what should appear on screen.
-
-If you've seen HTML before, JSX will look familiar:
-
-| HTML | JSX |
-|------|-----|
-| `<div class="box">` | `<div className="box">` |
-| `<h1>Hello</h1>` | `<h1>Hello</h1>` |
-| Self-closing: `<img>` | Self-closing: `<img />` |
-
-The main differences: JSX uses `className` instead of `class` (because `class` is a reserved word in JavaScript), and all tags must be closed.
-
-Don't overthink this. JSX is just a way to write HTML inside JavaScript. You'll get comfortable with it as you make changes in Lesson 3.
-
-## Reading a Component
-
-Now let's look inside one of your components. Pick any component file from the `find` output above (not the App file) and read the whole thing:
+Start the development server:
 
 ```bash
-cat src/components/Calendar.jsx
+npm run dev
 ```
 
-> **Use your own filename.** Replace `src/components/Calendar.jsx` with whatever path showed up in your `find` results. If you have several options, pick one of the shorter files — it'll be easier to read.
+:::warning
+**Port already in use?** Find the Terminal tab running your other dev server and press `Ctrl + C` to stop it, then run `npm run dev` again.
+:::
 
-::validate[verify-component-structure]
+Open the URL in your browser (usually `http://localhost:5173`). You should see your Daily Planner with all the sections you designed.
 
-Don't worry if the code looks complex. Your job right now isn't to understand every line — it's to **spot the four ingredients.** Scan through the file and look for:
+**Take a moment.** You went from an empty folder to a running web application — and you made real decisions about what got built before a single line of code was written.
 
-1. **Imports** — lines starting with `import`. They might be at the very top, or a few lines down after some constants. Example: `import { useState } from 'react'`
-2. **A function** — the component itself. Look for `function Calendar()` or `export default function Calendar()`. This is where the real work happens.
-3. **A return with JSX** — inside the function, look for `return (` followed by HTML-like code with angle brackets (`<div>`, `<h2>`, etc.). This describes what appears on screen.
-4. **An export** — usually `export default Calendar` at the bottom, or `export default function` at the function definition. This makes the component available to App.jsx.
+::validate[verify-project-structure]
 
-> **Your file might also have** constants (like `const DAYS = [...]`), helper functions, or other code outside the main component function. That's normal — components often need supporting code. The component itself is the function with the JSX return.
+::validate[verify-dev-server]
 
-> **You might see `const Calendar = () => {`** instead of `function Calendar()`. These are two ways to write the same thing in JavaScript. Both work — Claude Code might use either style.
+## Security Checkpoint
 
-## How It All Fits Together
-
-Here's the full picture:
-
-```
-Browser loads index.html
-  → index.html loads main.jsx (or main.tsx)
-    → main.jsx renders <App />
-      → App.jsx imports and renders your components:
-        → <Calendar />
-        → <TaskList />
-        → <Notes />
-        → <HabitTracker />
-```
-
-Your component names will be different — that's expected. The pattern is the same: App is the conductor that puts all the pieces on stage.
-
-## Quick Reference Card
+Remember Module 3? Every project needs a `.gitignore` before its first commit. Two things must never end up on GitHub: `node_modules/` (thousands of files that don't belong to you) and `.env` (your secrets). Claude Code usually creates a `.gitignore` — but not always.
 
 ```bash
-# Explore your project
-ls                                                      # See top-level files
-ls src/                                                 # See source files
-find src/ -name '*.jsx' -o -name '*.tsx' | head -10     # Find all React files
-head -30 src/App.jsx                                    # See the main App file
-cat src/components/SomeComponent.jsx                    # Read a component file
+cat .gitignore
 ```
 
-## Key Concepts
+> **No .gitignore?** Claude Code didn't create one. Make it now:
+> ```bash
+> printf 'node_modules/\n.env\ndist/\n' > .gitignore
+> ```
 
-| Term | Meaning |
-|------|---------|
-| **JSX** | HTML-like syntax inside JavaScript — describes what appears on screen |
-| **Component** | A function that returns JSX — one self-contained piece of your UI |
-| **Import/Export** | How JavaScript files share code with each other |
-| **App.jsx** | The root component that assembles all other components |
-| **main.jsx** | The entry point that loads App into the browser |
-| **Props** | Settings passed from a parent component to a child (we'll use these in Module 5) |
+If `node_modules/` or `.env` are missing from an existing `.gitignore`:
+
+```bash
+echo 'node_modules/' >> .gitignore
+echo '.env' >> .gitignore
+```
+
+::validate[verify-gitignore]
+
+Verify React is installed:
+
+```bash
+grep react package.json
+```
+
+::validate[verify-package-json]
+
+## What Just Happened
+
+Compare this to how most people first use AI coding tools: paste a prompt, get code, hope it's right. You did something different — you had a conversation about what to build, shaped the approach, and *then* let it build. The output reflects decisions you made, not just defaults Claude Code chose.
+
+That's the pattern you'll use for every new feature in this course.
+
+## Quick Reference
+
+```bash
+# Session startup ritual
+claude                    # Launch Claude Code
+# Shift+Tab → plan mode
+# Shift+Tab → auto-accept edits
+
+# After building
+npm install               # Install dependencies
+npm run dev               # Start dev server
+# Ctrl + C                # Stop dev server
+```
 
 ---
 
-**Next:** [Lesson 3: Making It Yours →](/course/module/4/lesson/3)
+**Next:** [Lesson 3: Understanding What Got Built →](/course/module/4/lesson/3)
 
-**Previous:** [Lesson 1: Your First Project with Claude Code](/course/module/4/lesson/1)
+**Previous:** [Lesson 1: Meet Claude Code](/course/module/4/lesson/1)
 
 **Module Overview:** [Module 4: Web Dashboard - Layout & Setup](/course/module/4)

@@ -2,14 +2,13 @@
 {
   "moduleId": "module-4",
   "lessonId": "lesson-1",
-  "title": "Your First Project with Claude Code",
-  "timeEstimate": "20 minutes",
+  "title": "Meet Claude Code",
+  "timeEstimate": "10 minutes",
   "prerequisites": ["module-3"],
   "learningObjectives": [
-    "Understand what Claude Code is and how it works as a development tool",
-    "Use an effective prompt to scaffold a complete React project",
-    "Run a development server and see your app in the browser",
-    "Apply the security checklist from Module 3 to a new project"
+    "Understand what Claude Code is and how it differs from Claude in the browser",
+    "Install Claude Code and verify it works",
+    "Understand the difference between plan mode and execute mode"
   ],
   "validation": {
     "tasks": [
@@ -25,107 +24,32 @@
           "If you see 'command not found', run: npm install -g @anthropic-ai/claude-code",
           "The Claude desktop app has its own copy but doesn't add it to your Terminal — the npm install fixes this"
         ]
-      },
-      {
-        "id": "verify-project-structure",
-        "description": "Run ls src/ in your daily-planner project and paste the output",
-        "type": "paste-output",
-        "expectedPatterns": [
-          "(App|app|index)",
-          "\\.(jsx|tsx|js|ts|css)"
-        ],
-        "hints": [
-          "Make sure you're in the project: cd ~/Developer/daily-planner",
-          "Then run: ls src/",
-          "You should see files like App.jsx or App.tsx and possibly a components folder"
-        ]
-      },
-      {
-        "id": "verify-dev-server",
-        "description": "Run npm run dev and paste the first few lines of output showing the local URL",
-        "type": "paste-output",
-        "expectedPatterns": [
-          "localhost",
-          "(5173|5174|5175|3000|3001)"
-        ],
-        "hints": [
-          "In your project folder, run: npm run dev",
-          "You should see a URL like http://localhost:5173/",
-          "Copy the lines showing the server is ready"
-        ]
-      },
-      {
-        "id": "verify-gitignore",
-        "description": "Run cat .gitignore in your project and paste the output",
-        "type": "paste-output",
-        "expectedPatterns": [
-          "node_modules"
-        ],
-        "hints": [
-          "Run: cat .gitignore",
-          "You should see node_modules listed",
-          "If the file doesn't exist, we'll fix that — keep going"
-        ]
-      },
-      {
-        "id": "verify-package-json",
-        "description": "Run grep react package.json and paste the output to confirm React is installed",
-        "type": "paste-output",
-        "expectedPatterns": [
-          "react",
-          "\\d+\\."
-        ],
-        "hints": [
-          "Run: grep react package.json",
-          "You should see react and react-dom with version numbers",
-          "If no output, you may not be in the right directory"
-        ]
       }
     ]
   }
 }
 ---
 
-# Your First Project with Claude Code
+# Meet Claude Code
 
-You've learned the terminal. You've learned Git. You've learned how to keep secrets safe. Now it's time to use all of that to **build something real**.
-
-In this lesson, you'll create a Daily Planner dashboard — a web app with a calendar, task list, notes, and habit tracker. And you won't be writing it from scratch. You'll use **Claude Code** to generate the entire project, then spend the rest of this module understanding and customizing it.
-
-By the end of this lesson, you'll have a working web app running on your computer. Let's go.
-
-## What is Claude Code?
-
-Claude Code is an AI tool that runs directly in your Terminal. It's not a chatbot in a browser — it's an agent that can read your files, write code, and run commands on your computer.
+You've used Claude in the browser. Claude Code is different — it runs directly in your Terminal, reads your files, writes code, and runs commands on your computer. It's not a chatbot. It's a collaborator that works inside your project.
 
 Here's how it works:
 
-1. You open Claude Code in a project folder
-2. You describe what you want to build
-3. Claude Code creates the files, writes the code, and sets everything up
-4. You review what it built, then iterate
+1. You open Claude Code inside a project folder
+2. You describe what you want to build or change
+3. Claude Code reads your existing files, writes new code, and sets things up
+4. You review what it built and decide what to do next
 
-Think of it as a pair programming partner who can type very fast. You provide the direction — it does the heavy lifting. But you still need to understand what it produces. That's what this module is about.
-
-> **Important:** Claude Code is a tool, not a replacement for understanding. Throughout this course, we'll always review what Claude Code generates so you know what's happening in your project.
-
-:::info
-**Plan mode vs execute mode.** Claude Code can work in two ways. In **execute mode** (the default), it reads your prompt and starts building right away. In **plan mode**, it first shows you a plan and waits for your approval before writing any code.
-
-In this course, we use execute mode with specific prompts so you can follow along step-by-step. This works because each task is focused — one clear goal at a time. When tasks get more open-ended in later modules, we'll introduce plan mode so Claude Code can propose an approach before diving in.
-
-You don't need to change any settings right now. Just know that both modes exist.
-:::
+Think of it as a pair programmer who can type very fast and never gets tired. You provide direction — it does the heavy lifting. But here's the key: **you stay in the loop.** Claude Code doesn't make decisions without showing you what it's doing.
 
 ## Install Claude Code
-
-Open your Terminal and install Claude Code globally:
 
 ```bash
 npm install -g @anthropic-ai/claude-code
 ```
 
-Verify it's installed:
+Verify it worked:
 
 ```bash
 claude --version
@@ -135,227 +59,47 @@ You should see a version number.
 
 ::validate[verify-claude-code]
 
-> **Getting "command not found"?** If you have the Claude desktop app installed, it bundles its own copy of Claude Code — but it doesn't add the `claude` command to your Terminal's PATH. Running `npm install -g @anthropic-ai/claude-code` installs the standalone version that works from any Terminal window. This is what you want.
+> **Getting "command not found"?** If you have the Claude desktop app, it bundles its own copy of Claude Code — but doesn't add the `claude` command to your Terminal. The `npm install` above fixes this.
 
-> **Getting a permission error?** Try: `sudo npm install -g @anthropic-ai/claude-code` and enter your password. On Apple Silicon Macs, this is rarely needed if you installed Node via Homebrew in Module 0.
+> **Getting a permission error?** Try: `sudo npm install -g @anthropic-ai/claude-code`
 
-> **Still stuck?** You can always launch `claude` in your Terminal and describe the error you're seeing. Claude Code can help you troubleshoot — that's one of its superpowers.
+## How You'll Work With It
 
-## Writing a Good Prompt
+Every time you use Claude Code, you'll do two things before typing anything:
 
-Before you use Claude Code, let's talk about what makes a good prompt. You don't need to know any programming terminology — just describe what you want clearly.
+**1. The permissions ritual (Shift+Tab)**
+Claude Code asks for permission before editing files. That's safe, but when building an entire project it means approving dozens of files one by one. Press **Shift+Tab** at the start of each session to enable auto-accept for file edits. You'll still be asked about running commands — that's intentional.
 
-A good prompt has three parts:
+**2. Choose your mode**
+Claude Code has two modes, and choosing the right one is one of the most important habits you'll build:
 
-| Part | Purpose | Example |
-|------|---------|---------|
-| **What** you're building | The big picture | "A Daily Planner web app" |
-| **What it should have** | The specific pieces | "Calendar, task list, notes, habit tracker" |
-| **What framework** to use | How it should be built | "using React" |
+| Mode | What happens | When to use it |
+|---|---|---|
+| **Plan mode** | Claude Code proposes an approach and waits for your approval before touching anything | When you're starting something new or aren't sure exactly what you want |
+| **Execute mode** | Claude Code reads your prompt and starts building immediately | When the task is specific and well-defined |
 
-That third part — the framework — is worth explaining. **React** is one of the most popular tools for building web apps. You don't need to know how React works yet (that's what Lesson 2 is for). But telling Claude Code to "use React" means it will create a proper project with organized files and folders, instead of cramming everything into a single file.
+You switch between modes with **Shift+Tab** — it cycles through options and shows the current mode at the bottom of the screen.
 
-> **Good to know:** React is just one option. In future projects, you could say "using Vue" or "using Svelte" instead — they're all great frameworks. For this course, we'll use React because it's the most widely used.
+**The habit to build:** default to plan mode for anything new. Execute mode is the fast path you use once you already know what you want. Most mistakes happen when people execute before they've thought through what they're asking for.
 
-## Create Your Daily Planner
+In the next lesson, you'll use Claude Code for the first time — and you'll start in plan mode.
 
-First, create the project folder and navigate into it:
+## Slash Commands
 
-```bash
-mkdir -p ~/Developer/daily-planner
-cd ~/Developer/daily-planner
-```
+Claude Code has built-in commands that start with `/`. You'll learn them as you need them — there's no need to memorize them upfront.
 
-Now launch Claude Code:
+The first one you'll use is `/exit` to end a Claude Code session. Others like `/clear`, `/compact`, and `/model` will come up in later modules at the moment they become useful.
 
-```bash
-claude
-```
+You can also create your own custom commands — repeatable prompts you invoke with a `/` that Claude Code runs on demand. This course already uses one behind the scenes. We'll build your own in a later module.
 
-### First-Time Setup
+Whenever you see a `/command` in a lesson, that's Claude Code's vocabulary — not something you type in your regular Terminal.
 
-The first time you run `claude`, it will ask you to log in. You'll see a menu like this:
+## What's Next
 
-```
-Select login method:
-❯ 1. Claude account with subscription
-  2. Anthropic Console account
-  3. 3rd-party platform
-```
-
-**Select option 1** (Claude account with subscription). This opens your browser — log in with your Claude account, authorize the connection, and return to your Terminal. You only need to do this once.
-
-> **Browser didn't open?** Press `c` in your Terminal to copy the login URL, then paste it into your browser manually.
-
-> **Don't have a Claude subscription?** You'll need a Claude Pro, Max, Team, or Enterprise plan to use Claude Code. Visit [claude.ai](https://claude.ai) to sign up.
-
-### Give Claude Code Your Prompt
-
-Once you're logged in, Claude Code will show a prompt where you can type. Paste this prompt:
-
-```
-Build me a Daily Planner web app using React with a calendar, task list, notes section, and habit tracker. Make it look clean and modern with some example data so I can see how it looks right away. Use everyday tasks like groceries, exercise, and errands for the example data.
-```
-
-That's it. Claude Code will handle the rest — how to organize the files, how to style it, and what code to write. You'll explore all of those decisions in Lesson 2.
-
-### What Happens Next
-
-Claude Code will start creating your project. You'll see it:
-
-1. **Initialize a Vite + React project** — this creates the base project structure
-2. **Create component files** — one for each section of your dashboard
-3. **Write CSS** — styling for the layout and individual components
-4. **Set up configuration** — `.gitignore`, `package.json`, and more
-
-This may take a minute or two. Along the way, Claude Code will ask for your permission before it does anything — file edits, running commands, etc.
-
-### Permissions: The Shift+Tab Ritual
-
-By default, Claude Code asks you to approve every single file it creates or edits. That's safe, but when it's building an entire project from scratch, you don't want to approve dozens of files one by one.
-
-**Press `Shift+Tab` once** before giving your first prompt. This switches Claude Code to "accept edits" mode for the current session — it will create and edit files without asking each time.
-
-You'll still see prompts for **running commands** like this:
-
-```
-Bash command: npm run dev
-Do you want to proceed?
-❯ 1. Yes
-  2. Yes, and don't ask again for npm run dev commands
-  3. No
-```
-
-For commands, **select option 2** the first time you see each one. This tells Claude Code "I trust this command — don't ask me again this session."
-
-:::info
-**Make this a habit.** Every time you open Claude Code: press `Shift+Tab` once, then start working. This setting resets when you close Claude Code, so you'll need to do it at the start of each session.
-:::
-
-**Don't worry if your output looks slightly different.** Claude Code may name files or organize things a bit differently each time. That's normal — the important thing is that you end up with a working project.
-
-**If something goes wrong during the build,** don't panic. You can tell Claude Code what happened — just type something like "I'm getting an error" or "that didn't work" — and it will help you fix it.
-
-When Claude Code finishes, exit it by typing `/exit` or pressing `Ctrl + C`. You're back in your regular Terminal now.
-
-Verify the project structure:
-
-```bash
-ls src/
-```
-
-You should see source code files — things like `App.jsx`, `main.jsx`, and possibly a `components/` folder. The exact names may vary, and that's fine.
-
-::validate[verify-project-structure]
-
-## Run Your Dashboard
-
-Now let's see it in action. First, make sure all dependencies are installed:
-
-```bash
-npm install
-```
-
-Then start the development server:
-
-```bash
-npm run dev
-```
-
-:::warning
-**If you see "Port 3000 is already in use"**, it means you have a dev server still running from before. Find the Terminal tab where it's running and press `Ctrl + C` to stop it, then run `npm run dev` again.
-
-We've configured this project to use a fixed port so you always know where to find your app at `http://localhost:3000`. Outside this course, most tools will silently switch to a different port (like 3001) if 3000 is taken — which can be confusing when your browser tab is still pointing at the old one.
-:::
-
-::validate[verify-dev-server]
-
-Open the URL shown in your Terminal (usually `http://localhost:5173`) in your browser. You should see your Daily Planner dashboard with all four sections.
-
-**Take a moment.** You just went from an empty folder to a running web application. Every section you see — the calendar, the task list, the notes, the habit tracker — is a separate piece of code that Claude Code generated for you.
-
-> **To stop the dev server,** press `Ctrl + C` in your Terminal. You can restart it anytime with `npm run dev`.
-
-## Security Checkpoint
-
-Remember the security checklist from Module 3? Let's apply it to your new project.
-
-Check that `.gitignore` exists and has the right entries:
-
-```bash
-cat .gitignore
-```
-
-> **Getting "No such file or directory"?** Claude Code doesn't always create a `.gitignore`. Create one now:
-> ```bash
-> printf 'node_modules/\n.env\ndist/\n' > .gitignore
-> ```
-> Then run `cat .gitignore` again to verify.
-
-If your `.gitignore` exists but is missing `node_modules/` or `.env`, add them:
-
-```bash
-echo 'node_modules/' >> .gitignore
-echo '.env' >> .gitignore
-```
-
-::validate[verify-gitignore]
-
-Verify React is properly listed as a dependency:
-
-```bash
-grep react package.json
-```
-
-::validate[verify-package-json]
-
-Good habits start from the first project.
-
-## What Just Happened?
-
-Let's step back and appreciate what you just did:
-
-1. **Installed a development tool** (Claude Code) using npm
-2. **Wrote a prompt** that described a complete web application
-3. **Generated an entire project** with multiple components and styling
-4. **Ran a development server** and saw your app in a browser
-5. **Verified security** by checking `.gitignore`
-
-In the next lesson, we'll look under the hood — you'll understand every file Claude Code created and learn the vocabulary of React development.
-
-> **Pro Tip:** Anytime you're confused or hit an error during this course, you can open Claude Code in your project folder and ask it for help. Try things like "explain what this error means" or "something broke, can you fix it?" Think of it as a knowledgeable friend who's always available.
-
-## Quick Reference Card
-
-```bash
-# Claude Code
-npm install -g @anthropic-ai/claude-code   # Install Claude Code
-claude --version                            # Verify installation
-claude                                      # Launch Claude Code in current folder
-
-# Project setup
-mkdir -p ~/Developer/project-name           # Create project folder
-cd ~/Developer/project-name                 # Navigate to it
-npm install                                 # Install dependencies
-
-# Development
-npm run dev                                 # Start dev server
-# Ctrl + C                                  # Stop dev server
-```
-
-## Key Concepts
-
-| Term | Meaning |
-|------|---------|
-| **Claude Code** | An AI development tool that runs in your Terminal — reads, writes, and runs code |
-| **Prompt** | The instructions you give Claude Code describing what to build |
-| **Scaffold** | Generate the initial structure of a project — files, folders, configuration |
-| **Development server** | A local server that runs your app and auto-refreshes when you make changes |
-| **Vite** | A fast build tool for web projects — handles bundling, dev server, and more |
-| **Dependencies** | External packages your project needs (listed in package.json) |
+In **Lesson 2**, you'll design your Daily Planner dashboard with Claude Code in plan mode, review and approve what it proposes, then watch it build. By the end of that lesson, you'll have a running web app in your browser.
 
 ---
 
-**Next:** [Lesson 2: Understanding What Got Built →](/course/module/4/lesson/2)
+**Next:** [Lesson 2: Plan & Build Your Dashboard →](/course/module/4/lesson/2)
 
 **Module Overview:** [Module 4: Web Dashboard - Layout & Setup](/course/module/4)

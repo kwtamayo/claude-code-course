@@ -87,21 +87,26 @@ export const courseStructure = {
     {
       id: 4,
       title: 'Web Dashboard - Layout & Setup',
-      description: 'Start building your personal dashboard',
-      timeEstimate: '60 minutes',
+      description: 'Plan, build, and understand your personal dashboard',
+      timeEstimate: '75 minutes',
       lessons: [
         {
           id: 1,
-          title: 'Your First Project with Claude Code',
-          timeEstimate: '20 minutes',
+          title: 'Meet Claude Code',
+          timeEstimate: '10 minutes',
         },
         {
           id: 2,
+          title: 'Plan & Build Your Dashboard',
+          timeEstimate: '25 minutes',
+        },
+        {
+          id: 3,
           title: 'Understanding What Got Built',
           timeEstimate: '20 minutes',
         },
         {
-          id: 3,
+          id: 4,
           title: 'Making It Yours',
           timeEstimate: '20 minutes',
         },
@@ -133,9 +138,20 @@ export const courseStructure = {
     {
       id: 6,
       title: 'Data Persistence',
-      description: 'Save user data locally',
-      timeEstimate: '45 minutes',
-      lessons: [],
+      description: 'Save user data locally and customize your dashboard',
+      timeEstimate: '35 minutes',
+      lessons: [
+        {
+          id: 1,
+          title: "Your Dashboard's Memory",
+          timeEstimate: '15 minutes',
+        },
+        {
+          id: 2,
+          title: 'Plan Before You Build',
+          timeEstimate: '20 minutes',
+        },
+      ],
     },
     {
       id: 7,

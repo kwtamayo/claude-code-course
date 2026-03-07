@@ -134,7 +134,7 @@ Lesson files live in `public/course-content/` and are fetched at runtime via `fe
 ❌ "Access it in the code with import.meta.env.VITE_OPENWEATHER_API_KEY."
 ```
 
-**Plan mode progression:** Modules 0–5 use execute mode with specific prompts for reliable step-by-step learning. Module 6+ should introduce plan mode — tasks become more open-ended, prompts should be ambiguous enough that planning makes sense (e.g., "add data persistence to your dashboard"), and validation loosens accordingly. The key teaching: plan mode is about alignment when you don't know exactly what you want, not about being careful.
+**Plan mode progression:** Plan mode is introduced in **Module 4 Lesson 2** as the student's very first Claude Code interaction — they plan the dashboard before any code is written. It's reinforced in Module 6 Lesson 2 (settings panel). The teaching throughout: plan mode is the default for anything new or open-ended; execute mode is the fast path for specific, well-defined changes. Plan mode is not an advanced feature — it's the foundation.
 
 **Slash command progression:** Don't create a dedicated slash commands lesson. Instead, introduce a brief "what are slash commands" overview in Module 4 Lesson 1, then teach individual commands at the moment students feel the pain they solve:
 
