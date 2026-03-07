@@ -136,16 +136,7 @@ Lesson files live in `public/course-content/` and are fetched at runtime via `fe
 
 **Plan mode progression:** Plan mode is introduced in **Module 4 Lesson 2** as the student's very first Claude Code interaction — they plan the dashboard before any code is written. It's reinforced in Module 6 Lesson 2 (settings panel). The teaching throughout: plan mode is the default for anything new or open-ended; execute mode is the fast path for specific, well-defined changes. Plan mode is not an advanced feature — it's the foundation.
 
-**Slash command progression:** Don't create a dedicated slash commands lesson. Instead, introduce a brief "what are slash commands" overview in Module 4 Lesson 1, then teach individual commands at the moment students feel the pain they solve:
-
-| Module | Command | Why now |
-|--------|---------|---------|
-| 4.1 | `/exit` | First Claude Code session (already there) |
-| 4.1 | Slash commands intro | Brief overview: "commands start with `/`, we'll learn them as needed" |
-| 5.1 | `/context` | One-liner: check token usage |
-| 6 | `/clear`, `/compact` | Tasks get open-ended, context rot becomes real |
-| 7–8 | `/init`, CLAUDE.md | Students define their own project conventions |
-| 9+ | `/model` | Switching models for different tasks |
+**Slash command progression:** No dedicated lesson — teach commands at the moment of need. See MEMORY.md for full table.
 
 **Lesson frontmatter structure (JSON between `---` delimiters):**
 ```json
@@ -169,36 +160,6 @@ Lesson files live in `public/course-content/` and are fetched at runtime via `fe
   }
 }
 ```
-
----
-
-## Current State
-
-Core infrastructure complete: React + Vite + React Router, markdown rendering with `remark-directive`, validation system (`paste-output` + `command-match`), CSS design system, localStorage persistence. See module status below.
-
-### 🚧 Next
-
-- **Finish dogfooding Module 5 Lesson 3** — re-run with updated content, check "Save Your Work" section (git remote issue noted)
-- **Module 6 content** — Data Persistence
-- **Surface progress % on CoursePage** — read localStorage to show completion per module
-
-### Module Status
-
-| Module | Title | Status |
-|--------|-------|--------|
-| 0 | Setup Your Environment | ✅ Complete |
-| 1 | Command Line Basics | ✅ Complete |
-| 2 | Git Fundamentals | ✅ Complete |
-| 3 | Security Fundamentals | ✅ Complete |
-| 4 | Web Dashboard Layout | ✅ Complete |
-| 5 | API Integration | ✅ Complete |
-| 6 | Data Persistence | ⏳ Content needed |
-| 7 | Backend & Database | ⏳ Content needed |
-| 8 | Web Deployment | ⏳ Content needed |
-| 9 | Refactoring for Mobile API | ⏳ Content needed |
-| 10 | iOS App Development | ⏳ Content needed |
-| 11 | iOS Deployment | ⏳ Content needed |
-| 12 | Capstone & Showcase | ⏳ Content needed |
 
 ---
 
