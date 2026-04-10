@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-An interactive web-based course platform teaching software development using Claude Code and VS Code. Weekend-intensive format (8-12 hours), macOS/iOS focused, designed for tech-savvy non-developers. Students build a personal web dashboard and an iOS companion app, deployed to Vercel and TestFlight.
+An interactive web-based course platform teaching software development using Claude Code and Cursor IDE. Weekend-intensive format (8-12 hours), macOS/iOS focused, designed for tech-savvy non-developers. Students build a personal web dashboard and an iOS companion app, deployed to Vercel and TestFlight.
 
 **GitHub:** https://github.com/kwtamayo/claude-code-course  
 **Dev server:** http://localhost:3000  
@@ -232,7 +232,7 @@ If all 4 steps completed twice with no progress, say so. Suggest simplifying or 
 - **Machine:** Apple Silicon Mac (M1/M2/M3) — Homebrew at `/opt/homebrew`
 - **Shell:** zsh
 - **Tools installed:** Homebrew, Git, Node.js, npm
-- **IDE:** VS Code
+- **IDE:** Cursor
 - **GitHub:** https://github.com/kwtamayo/claude-code-course
 - **Learning style:** Practical, wants to understand WHY, pushes back on unnecessary complexity
 
