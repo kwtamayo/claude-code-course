@@ -1,0 +1,26 @@
+.simulator-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.simulator-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.simulator-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.simulator-placeholder {
+  text-align: center;
+}
+
+.simulator-placeholder p {
+  margin-top: 1rem;
+  color: var(--text-secondary);
+}

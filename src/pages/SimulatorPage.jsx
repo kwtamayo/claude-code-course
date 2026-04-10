@@ -1,17 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { ROUTES } from '../routes'
+import '../styles/SimulatorPage.css'
 
 function SimulatorPage() {
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>
-        <Link to="/course">← Exit Simulator</Link>
+    <div className="simulator-page">
+      <div className="simulator-header">
+        <Link to={ROUTES.course()}>← Exit Simulator</Link>
       </div>
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ textAlign: 'center' }}>
+      <div className="simulator-body">
+        <div className="simulator-placeholder">
           <h1>Claude Code Simulator</h1>
           <p>This will be the interactive Claude Code simulation environment.</p>
-          <p style={{ marginTop: '1rem', color: '#6b7280' }}>Coming soon...</p>
+          <p>Coming soon...</p>
         </div>
       </div>
     </div>
