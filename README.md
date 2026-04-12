@@ -119,16 +119,6 @@ You'll learn by:
 - Your code and projects belong to you
 - Optional anonymous feedback export in Module 12
 
-## 🤝 Contributing
-
-Found a bug? Have a suggestion? Want to improve a lesson?
-
-1. Fork this repo
-2. Make your changes
-3. Submit a pull request
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
-
 ## 📖 License
 
 MIT License - See [LICENSE](./LICENSE) for details.
