@@ -15,7 +15,7 @@ function CoursePage() {
           <Link to="/" className="back-link">← Back to Home</Link>
           <h1>Course Overview</h1>
           <p className="course-subtitle">
-            Your weekend journey to becoming a developer
+            Five modules. One real project shipped to the internet.
           </p>
           <div className="course-stats">
             <div className="stat">
@@ -65,42 +65,33 @@ function CoursePage() {
         </div>
 
         <div className="learning-path">
-          <h2>Your Learning Path</h2>
+          <h2>What You&apos;re Building Toward</h2>
           <div className="path-phases">
             <div className="path-phase">
-              <h3>Phase 1: Fundamentals</h3>
-              <p>Modules 0-3 • Browser-based learning</p>
+              <h3>Get Comfortable</h3>
+              <p>Modules 1–2 • Setup and collaboration skills</p>
               <ul>
-                <li>Safe, simulated environment</li>
-                <li>Command line and Git basics</li>
-                <li>Security fundamentals</li>
+                <li>Terminal without fear</li>
+                <li>Tools installed and working</li>
+                <li>Prompting with intention</li>
               </ul>
             </div>
             <div className="path-phase">
-              <h3>Phase 2: Web Development</h3>
-              <p>Modules 4-8 • Real development</p>
+              <h3>Build and Ship</h3>
+              <p>Modules 3–4 • Real project, live on the internet</p>
               <ul>
-                <li>Build your dashboard</li>
-                <li>APIs and databases</li>
-                <li>Deploy to the internet</li>
+                <li>Git and GitHub basics</li>
+                <li>Link-in-bio site from scratch</li>
+                <li>Deployed to Vercel</li>
               </ul>
             </div>
             <div className="path-phase">
-              <h3>Phase 3: Mobile Development</h3>
-              <p>Modules 9-11 • iOS app creation</p>
+              <h3>Go Independent</h3>
+              <p>Module 5 • Your idea, your build</p>
               <ul>
-                <li>Swift and SwiftUI</li>
-                <li>Mobile API integration</li>
-                <li>App Store deployment</li>
-              </ul>
-            </div>
-            <div className="path-phase">
-              <h3>Phase 4: Showcase</h3>
-              <p>Module 12 • Capstone project</p>
-              <ul>
-                <li>Polish your work</li>
-                <li>Document your journey</li>
-                <li>Plan next steps</li>
+                <li>Scope your own project</li>
+                <li>Build without hand-holding</li>
+                <li>Deploy it yourself</li>
               </ul>
             </div>
           </div>
@@ -108,9 +99,9 @@ function CoursePage() {
 
         <div className="start-prompt">
           <h2>Ready to Begin?</h2>
-          <p>Start with Module 0 to set up your development environment</p>
-          <Link to={ROUTES.module(0)} className="btn btn-primary btn-large">
-            Start Module 0
+          <p>Start with Module 1 — you&apos;re not going to break anything.</p>
+          <Link to={ROUTES.module(1)} className="btn btn-primary btn-large">
+            Start Module 1
           </Link>
         </div>
       </main>

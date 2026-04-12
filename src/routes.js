@@ -14,9 +14,6 @@ export const ROUTES = {
   // Lessons
   lesson: (moduleId, lessonId) => `/course/module/${moduleId}/lesson/${lessonId}`,
   
-  // Simulator
-  simulator: () => '/simulator',
-  
   // 404
   notFound: () => '/404',
 }
@@ -28,7 +25,6 @@ export const ROUTE_PATTERNS = {
   course: '/course',
   module: '/course/module/:moduleId',
   lesson: '/course/module/:moduleId/lesson/:lessonId',
-  simulator: '/simulator',
   notFound: '/404',
   catchAll: '*',
 }

@@ -5,7 +5,6 @@ import HomePage from './pages/HomePage'
 import CoursePage from './pages/CoursePage'
 import ModulePage from './pages/ModulePage'
 import LessonPage from './pages/LessonPage'
-import SimulatorPage from './pages/SimulatorPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 function App() {
@@ -23,9 +22,6 @@ function App() {
         
         {/* Individual lessons */}
         <Route path={ROUTE_PATTERNS.lesson} element={<LessonPage />} />
-        
-        {/* Claude Code simulator */}
-        <Route path={ROUTE_PATTERNS.simulator} element={<SimulatorPage />} />
         
         {/* 404 page */}
         <Route path={ROUTE_PATTERNS.notFound} element={<NotFoundPage />} />

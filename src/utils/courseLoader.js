@@ -2,196 +2,37 @@
 export const courseStructure = {
   modules: [
     {
-      id: 0,
-      title: 'Setup Your Environment',
-      description: 'Get your Mac ready for development in one streamlined lesson',
-      timeEstimate: '30 minutes',
-      lessons: [
-        {
-          id: 1,
-          title: 'Setup Your Development Environment',
-          timeEstimate: '30 minutes',
-        },
-        {
-          id: 2,
-          title: 'Troubleshooting Guide',
-          timeEstimate: 'As needed',
-          optional: true,
-        },
-      ],
-    },
-    {
       id: 1,
-      title: 'Command Line Basics',
-      description: 'Master the terminal and essential commands',
-      timeEstimate: '60 minutes',
-      lessons: [
-        {
-          id: 1,
-          title: 'Navigating the File System',
-          timeEstimate: '20 minutes',
-        },
-        {
-          id: 2,
-          title: 'Working with Files',
-          timeEstimate: '20 minutes',
-        },
-        {
-          id: 3,
-          title: 'Putting It All Together',
-          timeEstimate: '20 minutes',
-        },
-      ],
+      title: "You're Not Going to Break Anything",
+      description: 'Terminal comfort, tools installation (Homebrew, Node, Git, Cursor), environment setup. The goal is comfort, not mastery.',
+      timeEstimate: '45 minutes',
+      lessons: [],
     },
     {
       id: 2,
-      title: 'Git Fundamentals',
-      description: 'Learn version control with Git and GitHub',
-      timeEstimate: '60 minutes',
-      lessons: [
-        {
-          id: 1,
-          title: 'Git Basics',
-          timeEstimate: '20 minutes',
-        },
-        {
-          id: 2,
-          title: 'Working with GitHub',
-          timeEstimate: '20 minutes',
-        },
-        {
-          id: 3,
-          title: 'Branches and Workflow',
-          timeEstimate: '20 minutes',
-        },
-      ],
+      title: 'How to Talk to Your AI',
+      description: 'Prompting, scoping requests, CLAUDE.md as a communication tool, context management. The collaboration skills that make AI-assisted development actually work.',
+      timeEstimate: '45 minutes',
+      lessons: [],
     },
     {
       id: 3,
-      title: 'Security Fundamentals',
-      description: 'Security best practices for developers',
-      timeEstimate: '30 minutes',
-      lessons: [
-        {
-          id: 1,
-          title: 'Secrets & Environment Variables',
-          timeEstimate: '15 minutes',
-        },
-        {
-          id: 2,
-          title: 'Safe Development Practices',
-          timeEstimate: '15 minutes',
-        },
-      ],
-    },
-    {
-      id: 4,
-      title: 'Web Dashboard - Layout & Setup',
-      description: 'Plan, build, and understand your personal dashboard',
-      timeEstimate: '75 minutes',
-      lessons: [
-        {
-          id: 1,
-          title: 'Meet Claude Code',
-          timeEstimate: '10 minutes',
-        },
-        {
-          id: 2,
-          title: 'Plan & Build Your Dashboard',
-          timeEstimate: '25 minutes',
-        },
-        {
-          id: 3,
-          title: 'Understanding What Got Built',
-          timeEstimate: '20 minutes',
-        },
-        {
-          id: 4,
-          title: 'Making It Yours',
-          timeEstimate: '20 minutes',
-        },
-      ],
-    },
-    {
-      id: 5,
-      title: 'API Integration',
-      description: 'Connect to external APIs for live data',
-      timeEstimate: '45 minutes',
-      lessons: [
-        {
-          id: 1,
-          title: 'Your Dashboard Goes Live',
-          timeEstimate: '15 minutes',
-        },
-        {
-          id: 2,
-          title: 'Understanding the New Code',
-          timeEstimate: '15 minutes',
-        },
-        {
-          id: 3,
-          title: 'Error Handling & Make It Yours',
-          timeEstimate: '15 minutes',
-        },
-      ],
-    },
-    {
-      id: 6,
-      title: 'Data Persistence',
-      description: 'Save user data locally and customize your dashboard',
-      timeEstimate: '35 minutes',
-      lessons: [
-        {
-          id: 1,
-          title: "Your Dashboard's Memory",
-          timeEstimate: '15 minutes',
-        },
-        {
-          id: 2,
-          title: 'Plan Before You Build',
-          timeEstimate: '20 minutes',
-        },
-      ],
-    },
-    {
-      id: 7,
-      title: 'Backend & Database',
-      description: 'Build a backend to store data permanently',
-      timeEstimate: '60 minutes',
-      lessons: [],
-    },
-    {
-      id: 8,
-      title: 'Web Deployment',
-      description: 'Deploy your dashboard to the internet',
-      timeEstimate: '30 minutes',
-      lessons: [],
-    },
-    {
-      id: 9,
-      title: 'Refactoring for Mobile API',
-      description: 'Add API endpoints for the iOS app',
-      timeEstimate: '45 minutes',
-      lessons: [],
-    },
-    {
-      id: 10,
-      title: 'iOS App Development',
-      description: 'Build the mobile companion app',
+      title: 'Build Something Real',
+      description: 'Git/GitHub intro, then a guided build of a link-in-bio site. Each phase teaches a judgment skill: reading AI output, debugging when you don\'t understand the code, knowing when to push back.',
       timeEstimate: '90 minutes',
       lessons: [],
     },
     {
-      id: 11,
-      title: 'iOS Deployment',
-      description: 'Publish to TestFlight and App Store',
-      timeEstimate: '45 minutes',
+      id: 4,
+      title: 'Put It on the Internet',
+      description: 'Deploy the bio site to Vercel. Short but critical — the moment the project becomes real.',
+      timeEstimate: '30 minutes',
       lessons: [],
     },
     {
-      id: 12,
-      title: 'Capstone & Showcase',
-      description: 'Polish your projects and plan next steps',
+      id: 5,
+      title: 'Now Do It Again',
+      description: 'Student picks their own idea, scopes it, builds it, deploys it. Frameworks and prompts, not step-by-step instructions. Training wheels off.',
       timeEstimate: '60 minutes',
       lessons: [],
     },
