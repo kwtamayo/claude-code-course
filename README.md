@@ -1,159 +1,82 @@
 # Claude Code Course
 
-An interactive, web-based course that teaches software development using Claude Code and VS Code.
+Learn to build real software with AI as your collaborator — not just a code generator.
 
-## 🎯 What You'll Learn
+## What This Is
 
-This weekend-intensive course (8-12 hours) teaches tech-savvy professionals the complete software development lifecycle:
+A course for the tech-savvy professional who's always been curious about building software but too intimidated to start. You'll learn to work with AI as a collaborator — how to communicate with it, how to know when it's wrong, how to get unstuck when it loops, and how to maintain momentum across sessions.
 
-- **Command line fundamentals**
-- **Git & GitHub workflows**
-- **Modern web development** (HTML, CSS, JavaScript, React)
-- **iOS app development** (Swift, Xcode, TestFlight)
-- **Deployment & DevOps** (Vercel, App Store)
-- **Security best practices**
-- **Testing & debugging**
+You'll ship a real project to the internet. And you'll walk away with the confidence and judgment to build the next one on your own.
 
-## 🏗️ What You'll Build
+**The meta layer:** This course platform was built by a non-developer using the same AI-assisted workflow it teaches. The app is the proof of concept.
 
-By the end of this course, you'll have created two fully-functional applications:
+## What You'll Build
 
-1. **Personal Dashboard Web App** - A customizable command center with weather, news, to-do lists, and notes
-2. **iOS Companion App** - Mobile version that syncs with your web dashboard
+A link-in-bio site — built from scratch, deployed to Vercel, live on a real URL. Not a tutorial clone. Something you made.
 
-Both apps will be deployed and live!
+## Course Structure
 
-## 📋 Prerequisites
+| Module | Title | Focus | Time |
+|--------|-------|-------|------|
+| 1 | You're Not Going to Break Anything | Terminal, tools (Homebrew, Node, Git, Cursor), environment setup | 45 min |
+| 2 | How to Talk to Your AI | Prompting, scoping, CLAUDE.md, context management | 45 min |
+| 3 | Build Something Real | Git/GitHub intro + guided link-in-bio build | 90 min |
+| 4 | Put It on the Internet | Deploy to Vercel | 30 min |
+| 5 | Now Do It Again | Pick your own idea, scope it, build it, ship it | 60 min |
 
-- Mac computer (macOS 10.15 or later)
+**Total: ~4.5 hours**
+
+## Prerequisites
+
+- Mac computer
 - Basic tech literacy (comfortable using apps and websites)
-- No coding experience required!
-- Weekend availability (8-12 hours)
+- No coding experience required
 
-## 💰 Cost Breakdown
+## Getting Started
 
-### Free Path
-- Course content: **Free**
-- Web hosting (Vercel): **Free tier**
-- iOS testing (TestFlight): **Free**
-- **Total: $0**
+### 1. Fork this repository
 
-### Optional Paid Features
-- Custom domain: ~$12/year
-- Apple Developer Account (App Store publishing): $99/year
-- **Total: ~$111/year**
+Click **Fork** at the top right to create your own copy.
 
-## 🚀 Getting Started
+### 2. Clone your fork
 
-### Step 1: Fork This Repository
-Click the "Fork" button at the top right to create your own copy. This will track your learning progress.
+```bash
+git clone https://github.com/YOUR-USERNAME/claude-code-course.git
+cd claude-code-course
+```
 
-### Step 2: Start Module 0
-Begin with [Module 0: Clean Slate Setup](./course-content/module-0/README.md)
+### 3. Install dependencies
 
-### Step 3: Follow Along
-The course is self-paced with automated validation. Complete modules sequentially.
+```bash
+npm install
+```
 
-## 📚 Course Structure
+### 4. Start the dev server
 
-**Phase 1: Browser-Based Learning (Modules 0-3)**
-- Safe, simulated environment
-- Learn fundamentals without fear of breaking things
-- Practice with Claude Code simulator
+```bash
+npm run dev
+```
 
-**Phase 2: Real Development (Modules 4-11)**
-- Build actual projects with real tools
-- Deploy live applications
-- Experience the full development workflow
+Open [http://localhost:3000](http://localhost:3000) and start with Module 1.
 
-**Phase 3: Capstone (Module 12)**
-- Polish your projects
-- Document your journey
-- Plan next steps
+## Tech Stack
 
-### Module Overview
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18 + Vite 5 |
+| Routing | React Router 6 |
+| Markdown | react-markdown + remark-gfm |
+| Styling | Plain CSS with CSS variables |
+| Hosting | Vercel |
 
-- **Module 0**: Clean Slate Setup (~30 min)
-- **Module 1**: Command Line Basics (~60 min)
-- **Module 2**: Git Fundamentals (~60 min)
-- **Module 3**: Security Fundamentals (~30 min)
-- **Module 4**: Web Dashboard - Layout & Setup (~60 min)
-- **Module 5**: API Integration (~45 min)
-- **Module 6**: Data Persistence (~45 min)
-- **Module 7**: Backend & Database (~60 min)
-- **Module 8**: Web Deployment (~30 min)
-- **Module 9**: Refactoring for Mobile API (~45 min)
-- **Module 10**: iOS App Development (~90 min)
-- **Module 11**: iOS Deployment (~45 min)
-- **Module 12**: Capstone & Showcase (~60 min)
+## Contributing
 
-**Total: ~11.5 hours**
+Found a bug or want to improve a lesson? Open an issue or submit a pull request.
 
-## 🛠️ Technology Stack
+## License
 
-- **Frontend**: React, HTML, CSS, JavaScript
-- **Backend**: Node.js, Express
-- **Mobile**: Swift, SwiftUI
-- **Database**: Local storage → Backend persistence
-- **Deployment**: Vercel (web), TestFlight/App Store (iOS)
-- **Tools**: Claude Code, VS Code, Git, GitHub
-
-## 🎓 Learning Approach
-
-This course uses a **tiered learning model**:
-
-- **Core Concepts**: Taught deeply with hands-on practice
-- **Advanced Topics**: Introduced with resources for further learning
-- **Just-in-Time Teaching**: Concepts taught when you need them
-
-You'll learn by:
-- ✅ Building real projects (not toy examples)
-- ✅ Making mistakes in safe environments
-- ✅ Automated validation with helpful feedback
-- ✅ Progressive complexity (simple → advanced)
-
-## 🔒 Privacy & Data
-
-- All course progress stored locally (localStorage + your GitHub repo)
-- No data collection or analytics
-- Your code and projects belong to you
-- Optional anonymous feedback export in Module 12
-
-## 📖 License
-
-MIT License - See [LICENSE](./LICENSE) for details.
-
-This course is free and open-source. Feel free to use, modify, and share!
-
-## 🆘 Support
-
-- **Issues**: Check [existing issues](../../issues) or create a new one
-- **Discussions**: Join the [community discussions](../../discussions)
-- **Documentation**: Each module has detailed README and troubleshooting guides
-
-## 🗺️ Roadmap (V2 and Beyond)
-
-Future enhancements planned:
-- Windows/Linux support
-- Android development
-- Design & UI principles module
-- Computer science fundamentals
-- Community features & project sharing
-- Multi-AI code review (Claude + Gemini + Codex)
-
-## 🙏 Acknowledgments
-
-Built with love using Claude Code (eating our own dog food!).
-
-Special thanks to:
-- Anthropic for Claude and Claude Code
-- The VS Code team for the excellent editor
-- The open-source community
+MIT — free to use, modify, and share.
 
 ---
 
-**Ready to start your development journey?** 
-
-👉 Begin with [Module 0: Clean Slate Setup](./course-content/module-0/README.md)
-
-**Questions?** Open an issue or start a discussion!
+**GitHub:** [kwtamayo/claude-code-course](https://github.com/kwtamayo/claude-code-course)
