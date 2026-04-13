@@ -596,8 +596,8 @@ Every Phase 2 "Got Stuck" entry was discovered by actually doing the lesson as a
 
 ---
 
-*Last Updated: March 1, 2026*
-*Status: Modules 0-5 complete, Module 6 next*
+*Last Updated: April 12, 2026*
+*Status: Course repositioned — new 5-module structure (AI collaboration focus), platform complete, lesson content not yet written*
 *Total Sessions: 7+ major sessions across Claude Chat and Claude Code*
 *Bugs Fixed: Too many to count*
 *Pushback Moments Catalogued: 5 (and counting)*

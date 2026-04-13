@@ -2,7 +2,9 @@
 
 ## Project Overview
 
-An interactive web-based course platform teaching software development using Claude Code and Cursor IDE. Weekend-intensive format (8-12 hours), macOS/iOS focused, designed for tech-savvy non-developers. Students build a personal web dashboard and an iOS companion app, deployed to Vercel and TestFlight.
+This course is for the tech-savvy professional who's always been curious about software development but too intimidated to go deep. It teaches the foundational technical skills, but more importantly, it teaches you how to work with AI as a collaborator — how to communicate with it, how to know when it's wrong, how to get unstuck when it loops, and how to maintain momentum across sessions. You'll ship a real project to the internet. And you'll walk away with the confidence and judgment to build the next one on your own.
+
+The course platform itself is a React web app — built by a non-developer using the same AI-assisted workflow it teaches. The app is the proof of concept.
 
 **GitHub:** https://github.com/kwtamayo/claude-code-course  
 **Dev server:** http://localhost:3000  
@@ -13,14 +15,24 @@ An interactive web-based course platform teaching software development using Cla
 
 You are a collaborative building partner, not a code typewriter. Follow these principles:
 
-- **Start with the end vision.** Define "done," work backward through dependencies, then implement. This prevents building the wrong thing efficiently.
+- **Start with the end vision.** Before jumping into implementation, clarify what success looks like. Then work backward to identify the steps needed. This prevents building the wrong thing efficiently.
 - **Always discuss approach before writing code.** Ask clarifying questions first.
 - **Break work into small, focused tasks** — one feature or fix per conversation.
 - **When something is vague, clarify before implementing.**
 - **When stuck, explain what you think is happening** before suggesting fixes.
 - **Propose alternatives when you see a better path.** Push back constructively.
-- **Use multiple perspectives.** When reviewing code or making decisions, consider asking different AI models to critique each other's work.
 - **Explain WHY, not just WHAT.** This student is learning, not just shipping.
+
+---
+
+## Vision-First Development
+
+Before implementing features:
+
+1. **Define the end state** - What does "done" look like for students?
+2. **Work backward** - What capabilities are needed to reach that state?
+3. **Identify dependencies** - What must exist before this can work?
+4. **Then implement** - Now the path forward is clear
 
 ---
 
@@ -32,9 +44,6 @@ npm run build      # Production build (not needed yet)
 npm run lint       # Run ESLint
 npm install        # Install dependencies after cloning
 ```
-
-**Project slash commands** (`.claude/commands/`):
-- `/review-lesson` — Check lesson content quality
 
 ---
 
@@ -57,23 +66,20 @@ Hosting:    Vercel (not yet deployed)
 claude-code-course/
 ├── public/
 │   └── course-content/          # Markdown lesson files (served as static assets)
-│       └── module-0/
-│           ├── lesson-1/lesson.md
-│           └── lesson-2/lesson.md
+│       └── module-1/            # One folder per module
+│           └── lesson-1/lesson.md
 ├── src/
 │   ├── components/
-│   │   └── ValidationTask.jsx   # Inline validation UI for paste-output tasks
+│   │   └── ValidationTask.jsx   # "Check My Work" task UI
 │   ├── pages/
 │   │   ├── HomePage.jsx         # Landing page
-│   │   ├── CoursePage.jsx       # All 13 modules overview
+│   │   ├── CoursePage.jsx       # All modules overview
 │   │   ├── ModulePage.jsx       # Lessons within a module
 │   │   ├── LessonPage.jsx       # Markdown content + validation
-│   │   ├── SimulatorPage.jsx    # Placeholder
 │   │   └── NotFoundPage.jsx
 │   ├── styles/                  # Component-scoped CSS files
 │   ├── utils/
-│   │   ├── courseLoader.js              # Course structure, data fetching
-│   │   └── remarkValidateDirective.js   # Remark plugin for ::validate directives
+│   │   └── courseLoader.js      # Course structure, data fetching
 │   ├── routes.js                # ⚠️ SINGLE SOURCE OF TRUTH for routes
 │   ├── App.jsx
 │   └── main.jsx
@@ -89,12 +95,11 @@ claude-code-course/
 Never hardcode route strings anywhere else.
 
 ```javascript
-// routes.js exports two things:
 import { ROUTES, ROUTE_PATTERNS } from './routes'
 
 // ROUTES — functions that generate URLs for <Link> components
-ROUTES.module(0)        // → "/course/module/0"
-ROUTES.lesson(0, 1)     // → "/course/module/0/lesson/1"
+ROUTES.module(1)        // → "/course/module/1"
+ROUTES.lesson(1, 1)     // → "/course/module/1/lesson/1"
 
 // ROUTE_PATTERNS — patterns for <Route> definitions in App.jsx
 ROUTE_PATTERNS.module   // → "/course/module/:moduleId"
@@ -109,39 +114,25 @@ ROUTE_PATTERNS.lesson   // → "/course/module/:moduleId/lesson/:lessonId"
 
 // ❌ WRONG — causes 404s
 <Route path="/course/module-:moduleId" />
-<Link to={`/course/module-${module.id}`} />
 ```
 
 **Markdown files must use route URLs, not file paths:**
 ```markdown
 <!-- ✅ CORRECT -->
-[Troubleshooting](/course/module/0/lesson/2)
+[Next Lesson](/course/module/1/lesson/2)
 
 <!-- ❌ WRONG — causes 404s -->
-[Troubleshooting](../lesson-2/lesson.md)
+[Next Lesson](../lesson-2/lesson.md)
 ```
 
 ### Course Content
 
 Lesson files live in `public/course-content/` and are fetched at runtime via `fetch()`.
 
-**The Student Prompt Test:** Every Claude Code prompt in a lesson must pass this test: *"Would a non-technical student type this?"* If not, either simplify the prompt or explain why the technical language is necessary. Claude Code brings its own expertise — tell it WHAT you want, not HOW to do it. Only include technical terms when the validation requires specific output.
-
-```
-✅ "Add a weather widget to my Daily Planner using the Open-Meteo API."
-✅ "Switch my weather widget from Open-Meteo to OpenWeatherMap."
-❌ "Use try/catch for error handling."
-❌ "Access it in the code with import.meta.env.VITE_OPENWEATHER_API_KEY."
-```
-
-**Plan mode progression:** Plan mode is introduced in **Module 4 Lesson 2** as the student's very first Claude Code interaction — they plan the dashboard before any code is written. It's reinforced in Module 6 Lesson 2 (settings panel). The teaching throughout: plan mode is the default for anything new or open-ended; execute mode is the fast path for specific, well-defined changes. Plan mode is not an advanced feature — it's the foundation.
-
-**Slash command progression:** No dedicated lesson — teach commands at the moment of need. See MEMORY.md for full table.
-
 **Lesson frontmatter structure (JSON between `---` delimiters):**
 ```json
 {
-  "moduleId": "module-0",
+  "moduleId": "module-1",
   "lessonId": "lesson-1",
   "title": "Lesson Title",
   "timeEstimate": "20 minutes",
@@ -150,16 +141,63 @@ Lesson files live in `public/course-content/` and are fetched at runtime via `fe
   "validation": {
     "tasks": [
       {
-        "id": "verify-homebrew",
-        "description": "Verify Homebrew is installed",
+        "id": "task-id",
+        "description": "What the student needs to do",
         "type": "paste-output",
-        "expectedPatterns": ["Homebrew \\d+"],
-        "hints": ["Run: brew --version"]
+        "expectedPatterns": ["regex pattern"],
+        "hints": ["Helpful hint"]
       }
     ]
   }
 }
 ```
+
+---
+
+## Current State
+
+### ✅ Platform Infrastructure (Complete)
+
+- React + Vite + React Router infrastructure
+- Routes system (`src/routes.js`) — bulletproof navigation
+- All pages built: Home, Course, Module, Lesson, 404
+- Markdown rendering with syntax highlighting
+- ValidationTask component (display, pattern matching, hints — working)
+- Professional CSS design system
+- Full navigation: Home → Course → Module → Lesson
+- ESLint configured
+
+### 🚧 Course Redesign (In Progress)
+
+The course has been repositioned from "learn to code in a weekend" to "learn to work with AI as a collaborator." All content is being rewritten. The platform infrastructure is solid and stays. The content and module structure is changing.
+
+**What needs to happen:**
+1. Update `courseLoader.js` — replace 13-module structure with new 5-module structure
+2. Update `CoursePage.jsx` — reflect new modules
+3. Update `HomePage.jsx` — new positioning copy
+4. Write new lesson content for all modules
+5. Revisit validation approach — less prescriptive copy/paste, more exploratory
+6. Add localStorage progress tracking (deferred until content is written)
+
+### 📋 New Module Structure
+
+| Module | Title | Focus | Status |
+|--------|-------|-------|--------|
+| 1 | You're Not Going to Break Anything | Terminal comfort, tools install, environment setup | ⏳ Content needed |
+| 2 | How to Talk to Your AI | Prompting, scoping, CLAUDE.md, context management | ⏳ Content needed |
+| 3 | Build Something Real | Git/GitHub intro → guided bio site build → judgment skills → debugging | ⏳ Content needed |
+| 4 | Put It on the Internet | Deploy to Vercel | ⏳ Content needed |
+| 5 | Now Do It Again | Independent project, no hand-holding | ⏳ Content needed |
+
+**Student project:** Link-in-bio site (built in Module 3, deployed in Module 4)
+
+### Key Design Principles for Content
+
+- **Tone is lightweight and light-hearted.** Not prescriptive. Not compliance-driven.
+- **Teach judgment, not just commands.** Every technical step is a vehicle for a collaboration skill.
+- **Name the feelings.** Intimidation, frustration, the blank terminal. Acknowledge them directly.
+- **Validation should feel exploratory, not like a test.** "Did it work? Great." over "Paste your output to prove it."
+- **The meta layer is the differentiator.** When to trust AI output, when to push back, when to change your approach entirely.
 
 ---
 
@@ -217,17 +255,44 @@ git pull origin main
 
 ## Debugging Escalation
 
-When stuck, escalate in order: **1. Rephrase** (exact error + expected vs. actual) → **2. Add Context** (ask "what do you think is happening?" before fixing) → **3. Step Back** (ask "walk me through what this code does") → **4. Revert and Retry** (`git stash`, try a different approach).
+When stuck, escalate through these steps **in order**:
 
-If all 4 steps completed twice with no progress, say so. Suggest simplifying or decomposing.
+### Step 1: Rephrase
+- Describe expected vs. actual behavior with specificity
+- Include **exact error message** and file/line location
+- Show what you tried
 
-**Know when to reset:** Thread circling after 2-3 attempts? `/clear` and start fresh. Avoid sunk-cost fallacy — a clean start is often faster. Each new feature deserves fresh context.
+### Step 2: Add Context
+- Paste error output + relevant code + attempts made
+- Ask: **"What do you think is happening?"** (diagnose before fix)
+
+### Step 3: Step Back
+- Stop trying to fix it
+- Ask: **"Walk me through what this code does step by step"**
+- Ask: **"What assumptions is this code making?"**
+- Often reveals the real issue
+
+### Step 4: Revert and Retry
+- If steps 1-3 fail twice, **the approach may be wrong**
+- `git stash` or checkout to known good state
+- Try fundamentally different approach
+- Consider decomposing feature further
+
+**CRITICAL:** If all 4 steps completed twice with no progress, say so.  
+Suggest simplifying the requirement or breaking into smaller pieces.
+
+**Know when to reset:**
+- Thread circling after 2-3 fix attempts? `/clear` and start fresh
+- Context getting muddled? Summarize key points and begin new session
+- Avoid sunk-cost fallacy — sometimes a clean start is faster than debugging a confused thread
+
+Use `/clear` liberally. Each new feature deserves fresh context.
 
 **For routing bugs:** Always check `src/routes.js` first, then verify links use `ROUTES.*` functions, not hardcoded strings.
 
 ---
 
-## Student Context
+## Builder Context
 
 - **Machine:** Apple Silicon Mac (M1/M2/M3) — Homebrew at `/opt/homebrew`
 - **Shell:** zsh
@@ -235,4 +300,37 @@ If all 4 steps completed twice with no progress, say so. Suggest simplifying or 
 - **IDE:** Cursor
 - **GitHub:** https://github.com/kwtamayo/claude-code-course
 - **Learning style:** Practical, wants to understand WHY, pushes back on unnecessary complexity
+- **Not a developer.** All technical explanations must be complete — no skipped steps, no assumed knowledge.
 
+---
+
+## When Compacting
+
+Always preserve:
+- List of modified files
+- Current feature in progress
+- Any unresolved routing issues
+- Which modules have content vs. need content
+- The new course positioning (judgment + collaboration, not "learn to code")
+
+---
+
+## Session Handoffs
+
+When switching between sessions or Claude instances, create a brief handoff to maintain momentum.
+
+**Include:**
+- What was just completed
+- Current state (working/blocked)
+- Files modified in this session
+- Next immediate task
+- Any unresolved questions
+
+**Example handoff:**
+```
+Completed: Rewrote courseLoader.js with new 5-module structure
+Status: Working — CoursePage renders new modules
+Files: courseLoader.js, CoursePage.jsx
+Next: Write Module 1 lesson content
+Question: How many lessons should Module 1 have?
+```
